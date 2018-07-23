@@ -1,0 +1,103 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../css/XNSDiagram.css" />
+    <script type="application/javascript" src="../js/html2canvas.js"></script>
+    <script type="application/javascript" src="../js/Enumeration.js"></script>
+    <script type="application/javascript" src="../js/ClassConstructor.js"></script>
+    <script type="application/javascript" src="../js/BaseDiagram.js"></script>
+    <script type="application/javascript" src="../js/DiagramObject.js"></script>
+    <script type="application/javascript" src="../js/XNSDiagram.js"></script>
+    <style>
+        #diagramContainer {
+            display: block;
+            padding: 10pt;
+        }
+    </style>
+    <script>
+        var declaration = {
+                "declaration": {
+                    "visibility": "public",
+                    "type": "int",
+                    "name": "cargarNumero",
+                    "arguments": [
+                        { "type": "String", "name": "mensaje" },
+                        { "type": "Scanner", "name": "input"},
+                        { "type": "int", "name": "minimo" },
+                        { "type": "int", "name": "maximo" }
+                        ]
+                },
+                "localVars": [
+                    { "type": "int", "name": "valor" }
+                ],
+                "statements": [
+                    {
+                        "type": "assignment",
+                        "data": {
+                            "variable": "valor",
+                            "value": "minimo - 1"
+                        }
+                    },
+                    {
+                        "type": "dowhile",
+                        "data": {
+                            "condition": "valor < minimo || valor > maximo",
+                            "statements": [
+                                {
+                                    "type": "output",
+                                    "data": {
+                                        "message": "mensaje"
+                                    }
+                                },
+                                {
+                                    "type": "try",
+                                    "data": {
+                                        "statements": [
+                                            {
+                                                "type": "assignment",
+                                                "data": {
+                                                    "variable": "valor",
+                                                    "value": "Integer.parseInt(input.nextLine())"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "catch",
+                                    "data": {
+                                        "exception": "NumberFormatException",
+                                        "variable": "nfe",
+                                        "statements": [
+                                            {
+                                                "type": "output",
+                                                "data": {
+                                                    "message": "Error en la carga de numeros"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "return",
+                        "data": {
+                            "value": "posiblesAmigos"
+                        }
+                    }
+                ]
+            };
+
+        var diagramBuilder, diagram;
+        window.onload = function() {
+            diagramBuilder = new XNSDiagram();
+            //diagramBuilder = new XNSDiagram({ "onrender": function(img) { document.body.appendChild(img); } });
+            diagram = diagramBuilder.render(document.getElementById("diagramContainer"), declaration);
+        }
+    </script>
+</head>
+<body>
+    <div id="diagramContainer"></div>
+</body>
+</html>

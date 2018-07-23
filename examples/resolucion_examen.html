@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+        <title>Resolucion Recuperatorio Algoritmos 1er cuatrimestre 2018</title>
+        <link rel="stylesheet" type="text/css" href="../css/XNSDiagram.css" />
+        <script type="application/javascript" src="../js/html2canvas.js"></script>
+        <script type="application/javascript" src="../js/Enumeration.js"></script>
+        <script type="application/javascript" src="../js/ClassConstructor.js"></script>
+        <script type="application/javascript" src="../js/BaseDiagram.js"></script>
+        <script type="application/javascript" src="../js/DiagramObject.js"></script>
+        <script type="application/javascript" src="../js/XNSDiagram.js"></script>
+        <style>
+        #diagramContainer {
+            display: block;
+            padding: 10pt;
+        }
+        </style>
+        <script>
+            var declaration = {
+                "declaration": {
+                    "modifiers": "private",
+                    "type": "ArrayList<Usuario>",
+                    "name": "obtenerPosiblesAmigos"
+                },
+                "localVars": [
+                    { "type": "ArrayList<Usuario>", "name": "posiblesAmigos" },
+                    { "type": "ArrayList<Usuario>", "name": "misAmigosDeFace" },
+                    { "type": "String", "name": "telefono" },
+                    { "type": "Usuario", "name": "usuario" }
+                ],
+                "statements": [
+                    {
+                        "type": "assignment",
+                        "data": {
+                            "variable": "posiblesAmigos",
+                            "value": "new ArrayList<>()"
+                        }
+                    },
+                    {
+                        "type": "assignment",
+                        "data": {
+                            "variable": "misAmigosDeFace",
+                            "value": "miUsuarioFacebOrt.obtenerAmigos()"
+                        }
+                    },
+                    {
+                        "type": "foreach",
+                        "data": {
+                            "control": {
+                                "class": "Contacto",
+                                "variable": "contacto",
+                                "collection": "misContactos"
+                            },
+                            "statements": [
+                                {
+                                    "type": "assignment",
+                                    "data": {
+                                        "variable": "telefono",
+                                        "value": "contacto.getTelefono()"
+                                    }
+                                },
+                                {
+                                    "type": "conditional",
+                                    "data": {
+                                        "condition": "!esAmigoMioEnFace(misAmigosDeFace, telefono)",
+                                        "then": [
+                                            {
+                                                "type": "assignment",
+                                                "data": {
+                                                    "variable": "usuario",
+                                                    "value": "miFacebOrt.obtenerDatosPublicosDeUsuario(telefono)"
+                                                }
+                                            },
+                                            {
+                                                "type": "conditional",
+                                                "data": {
+                                                    "condition": "usuario != null",
+                                                    "then": [
+                                                        {
+                                                            "type": "call",
+                                                            "data": {
+                                                                "statement": "posiblesAmigos.add(usuario)"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "return",
+                        "data": {
+                            "value": "posiblesAmigos"
+                        }
+                    }
+                ]
+            };
+            
+            var diagramBuilder, diagram;
+            window.onload = function() {
+                diagramBuilder = new XNSDiagram();
+                //diagramBuilder = new XNSDiagram({ "onrender": function(img) { document.body.appendChild(img); } });
+                diagram = diagramBuilder.render(document.getElementById("diagramContainer"), declaration);
+            }
+        </script>
+	</head>
+    <body>
+    <div id="diagramContainer"></div>
+	</body>
+</html>
