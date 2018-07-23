@@ -3,7 +3,7 @@ An extended implementation of Nassi-Shneiderman Diagrams (eXtended Nassi-Shneide
 
 I am a teacher, and I use Nassi-Shneiderman diagrams since 1992.
 These diagrams were designed to work with the paradigm of Structured Programming.
-Because of their "nestable" block design they are, even after so many years, a good tool to understand how a block of code works without the need to use pseudocode or a specific programming language.
+Because of their "nestable" block design, the Nassi-Shneiderman diagrams are, even after so many years, a good tool to understand how a block of code works without the need to use pseudocode or a specific programming language.
 But the Nassi-Shneiderman diagrams were not intended to show some "modern" instructions, such as exceptions (try-catch-finally).
 Therefore, I decided to implement this version to use it in order to teach the first steps of programming, whether it is designed using Structured Programming or, as in my case, using Object Oriented Programming.
 
