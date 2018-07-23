@@ -1,0 +1,346 @@
+.Nassi-Shneiderman {
+    font-family: helvetica, arial, sans-serif;
+}
+
+    .Nassi-Shneiderman * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+
+    .Nassi-Shneiderman > * {
+        margin-left: 12pt;
+        font-size: 10pt;
+    }
+
+.method-declaration {
+    font-size: 13pt;
+    color: #000;
+    font-weight: 700;
+}
+
+.local-variable-declaration {
+    font-size: 11pt;
+    padding-top: 6pt;
+    padding-bottom: 6pt;
+}
+
+.statements {
+    border-top: solid 1px;
+    border-left: solid 1px;
+}
+
+    .statements > * {
+        border-right: solid 1px;
+        border-bottom: solid 1px;
+    }
+
+.statements-block > :last-child {
+        border-bottom: none;
+}
+
+.block-statement,
+.break-statement {
+    padding: 3pt;
+    text-align: center;
+    border-bottom: solid 1px;
+}
+
+.break-statement {
+    font-style: italic;
+}
+
+.conditional-statement .header,
+.conditional-statement .body {
+    display: table;
+    width: 100%;
+    border-right: none;
+    border-collapse: collapse;
+}
+
+.conditional-statement .header {
+    border-bottom: solid 1px;
+}
+
+    .conditional-statement .header .condition {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        border: none;
+        padding: 15pt;
+        padding-left: 20pt;
+        padding-right: 20pt;
+    }
+
+    .conditional-statement .header .option {
+        display: table-cell;
+        vertical-align: bottom;
+        position: relative;
+    }
+
+        .conditional-statement .header .option .option-block {
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            width: 35pt;
+            height: 100%;
+        }
+
+        .conditional-statement .header .option.false .option-block {
+            right: 0px;
+        }
+
+        .conditional-statement .header .option .option-block > canvas.corner {
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            bottom: 0px;
+            z-index: 0;
+        }
+
+        .conditional-statement .header .option.false .option-block > canvas.corner {
+            right: 0px;
+        }
+
+
+        .conditional-statement .header .option .caption {
+            position: absolute;
+            bottom: 0px;
+            width: 15pt;
+            line-height: 15pt;
+            text-align: center;
+            font-size: 9pt;
+            z-index: 1;
+        }
+
+        .conditional-statement .header .option.false .caption {
+            right: 0px;
+        }
+
+.conditional-statement > .body {
+    border-bottom: none;
+}
+
+    .conditional-statement > .body .side {
+        display: table-cell;
+        position: relative;
+        vertical-align: top;
+        min-width: 30pt;
+    }
+
+        .conditional-statement > .body .side.then {
+            border-right: solid 1px;
+        }
+
+    .conditional-statement > .body .case {
+        display: table-cell;
+        border-right: solid 1px;
+        position: relative;
+    }
+
+        .conditional-statement > .body .side:last-child,
+        .conditional-statement > .body .case:last-child {
+            border-right: none;
+        }
+
+        .conditional-statement > .body .side > :last-child,
+        .conditional-statement > .body .case .statements-block > :last-child,
+        .for-statement .container > .statements-block > :last-child {
+            border-bottom: none;
+        }
+
+.conditional-statement .body .case .test-value {
+    display: block;
+    text-align: center;
+    background-color: #F0F0F0;
+    border-bottom: solid 1px;
+    line-height: 20pt;
+}
+
+.conditional-statement .body .case .statements-block {
+    display: block;
+}
+
+.input-statement,
+.output-statement {
+    display: block;
+    position: relative;
+    width: 100%;
+    border-bottom: solid 1px;
+}
+
+    .input-statement .body,
+    .output-statement .body {
+        display: block;
+        position: relative;
+        text-align: center;
+        padding: 15pt;
+    }
+
+    .input-statement .symbol,
+    .output-statement .symbol {
+        position: absolute;
+        width: 15pt;
+        line-height: 15pt;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 9pt;
+        border-right: solid 1px;
+        border-bottom: solid 1px;
+    }
+
+.for-statement {
+    display: block;
+}
+
+    .for-statement .container {
+        display: table;
+        width: 100%;
+    }
+
+    .for-statement .controller {
+        display: table-cell;
+        border-right: solid 1px;
+        position: relative;
+        vertical-align: middle;
+    }
+
+        .for-statement .controller * {
+            display: block;
+        }
+
+        .for-statement .controller .top {
+            position: absolute;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+            top: 0px;
+            width: 15pt;
+            border-right: solid 1px;
+            border-bottom: solid 1px;
+        }
+
+        .for-statement .controller .bottom {
+            width: 15pt;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+            border-right: solid 1px;
+            border-top: solid 1px;
+            position: absolute;
+            bottom: 0px;
+        }
+
+        .for-statement .controller .content-block {
+            padding-left: 5pt;
+            padding-right: 5pt;
+        }
+
+        .for-statement .controller .content {
+            text-align: center;
+            padding: 15pt;
+        }
+
+    .for-statement .statements-block {
+        display: table-cell;
+        min-width: 50%;
+    }
+
+.call-statement {
+    display: block;
+    position: relative;
+    text-align: center;
+    border-bottom: solid 1px;
+}
+
+    .call-statement .margin {
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 15pt;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAEElEQVQYV2NgYGBoYEABDQAIlAEB8MHMtAAAAABJRU5ErkJggg==);
+    }
+
+        .call-statement .margin.left {
+            border-right: solid 1px;
+        }
+
+        .call-statement .margin.right {
+            right: 0px;
+            top: 0px;
+            border-left: solid 1px;
+        }
+
+    .call-statement .call {
+        position: relative;
+        padding: 5pt;
+        margin-left: 15pt;
+        margin-right: 15pt;
+        text-align: center;
+        border: none;
+    }
+
+.while-statement .condition,
+.dowhile-statement .condition {
+    text-align: center;
+    padding: 2pt;
+}
+
+.while-statement > .container > .statements-block,
+.dowhile-statement > .container > .statements-block {
+    margin-left: 15pt;
+    border-left: solid 1px;
+}
+
+.while-statement > .container > .statements-block {
+    border-top: solid 1px;
+}
+
+    .dowhile-statement > .container > .statements-block {
+        border-bottom: solid 1px;
+    }
+
+.empty {
+    position: absolute;
+    display: block;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+}
+
+/** -- Exception extensions -- **/
+.try-statement, .catch-statement, .finally-statement {
+    display: inline-table;
+    width: 100%;
+    border-bottom: solid 1px;
+}
+.try-statement > .margin.left, .catch-statement > .margin.left, .finally-statement > .margin.left {
+    display: table-cell;
+    border-right: solid 1px;
+    text-align: center;
+    width: 50pt;
+    font-style: italic;
+    background-color: #f0f0f0;
+}
+
+.throw-statement,
+.exception {
+    display: block;
+    padding: 2pt;
+    border-bottom: solid 1px;
+}
+
+.throw-statement {
+    text-align: center;
+}
+
+.exception {
+        background-color: #f0f0f0;
+}
+
+        .exception .variable,
+        .exception .identifier {
+            display: inline-block;
+        }
+
+        .exception .identifier {
+            font-style: italic;
+            padding-right: 5pt;
+        }

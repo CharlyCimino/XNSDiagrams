@@ -1,0 +1,402 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
+    <script type="application/javascript" src="js/html2canvas.js"></script>
+    <script type="application/javascript" src="js/Enumeration.js"></script>
+    <script type="application/javascript" src="js/ClassConstructor.js"></script>
+    <script type="application/javascript" src="js/BaseDiagram.js"></script>
+    <script type="application/javascript" src="js/DiagramObject.js"></script>
+    <script type="application/javascript" src="js/XNSDiagram.js"></script>
+    <style>
+        body {
+            font-family: helvetica, arial, sans-serif;
+        }
+        h1 {
+            padding: 10pt;
+            font-size: 24pt;
+        }
+        
+        h2 {
+            padding: 10;
+        }
+        
+        h1.external, h2.external, h3.external, p.external {
+            padding-top: 15pt;
+            padding-bottom: 5pt;
+        }
+        
+        h2.external {
+            font-size: 20pt;
+        }
+        
+        h3.external {
+            font-size: 14pt;
+        }
+        
+        p.external {
+            padding: 10pt;
+            font-size: 12pt;
+        }
+        
+        #diagramContainer {
+            display: block;
+            padding: 10pt;
+            max-width: 640pt;
+        }
+
+        hr.external {
+            height: 1pt;
+            background-color: #CCC;
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+            border: none;
+        }
+        
+        pre.external {
+            border: solid 1px #CCC;
+            padding: 10pt;
+            box-sizing: border-box;
+            background-color: #FFA;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            var mainbox = document.getElementById("diagramContainer");
+            var xnsd = new XNSDiagram();
+            var declaration;
+
+            function insertHeader(elem, description) {
+                var title = document.createElement("h2");
+                title.className = "external";
+                title.innerHTML = description + "<br/>&nbsp";
+                elem.appendChild(title);
+            }
+            
+            function insertStructureExample(elem, declaration) {
+                var title = document.createElement("h3");
+                title.className = "external";
+                title.innerHTML = "Estructura de definición (JSON)";
+                elem.appendChild(title);
+                var block = document.createElement("pre");
+                block.className = "external";
+                block.innerHTML = JSON.stringify(declaration, null, 4);
+                elem.appendChild(block);
+                var hr = document.createElement("hr");
+                hr.className = "external";
+                elem.appendChild(hr);
+            }
+
+            function insertExample(title, obj) {
+                insertHeader( mainbox, title);
+                xnsd.render(mainbox, (obj.statements) ? obj : { "statements": [ obj ] });
+                insertStructureExample(mainbox, obj);
+            }
+            // general structure, including method declaration
+            insertExample(
+                "Estructura general, incluyendo la declaración del método y sus variables",
+                {
+                "declaration": {
+                    "visibility": "[visibility] [static]",
+                    "type": "returnType / void",
+                    "name": "methodName",
+                    "arguments": [
+                        { "type": "type", "name": "arg1" },
+                        { "type": "type", "name": "arg2" },
+                        { "type": "", "name": "..." },
+                        { "type": "datatype", "name": "argN" },
+                    ],
+                    "throws": ["ExceptionName1", "..."]
+                },
+                "localVars": [
+                    { "type": "type", "name": "var1" },
+                    { "type": "type", "name": "var2" },
+                    { "type": "", "name": "..." },
+                    { "type": "type", "name": "varN" }
+                ],
+                "statements": [ {
+                    "type": "block",
+                    "data": { "content": "bloque de instrucciones" }
+                }
+            ]});
+            
+            // assignament example
+            insertExample(
+                "Asignación (type = 'assignment')",
+                { "type": "assignment", "data": { "variable": "variable", "value": "valor o expresión" } });
+            
+            // output example
+            insertExample(
+                "Output (type = 'output')",
+                { "type": "output", "data": { "message": "valor o expresión" } });
+            
+            // input example
+            insertExample(
+                "Input (type = 'input')",
+                { "type": "input", "data": { "variable": "variable" } });
+            
+            // call example
+            insertExample(
+                "Llamada a método o subrutina (type = 'call')",
+                { "type": "call", "data": { "statement": "[objeto.]metodo([argumentos...])" } });
+            
+            // return example
+            insertExample(
+                "Return (type = 'return')",
+                { "type": "return", "data": { "value": "valor o expresión" } });
+            
+            // if example
+            insertExample(
+                "If (type = 'conditional')",
+                { "type": "conditional",
+                  "data": { "condition": "variable o expresión lógica",
+                            "then": [ { "type": "output", "data": { "message": "\"es verdad\"" } } ],
+                            "else": [ { "type": "output", "data": { "message": "\"es falso\"" } } ]
+
+                          }    
+                });
+            
+            // switch example
+            insertExample(
+                "Switch (type = 'switch')",
+                {
+                        "type": "switch",
+                        "data": {
+                            "expression": "variable o expresión enumerable",
+                            "options": [
+                                {
+                                    "value": "A",
+                                    "statements": [
+                                        {
+                                            "type": "output",
+                                            "data": {
+                                                "message": '"lo que hago si vale A"'
+                                            }
+                                        },
+                                        {
+                                            "type": "break"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "B",
+                                    "statements": [
+                                        {
+                                            "type": "output",
+                                            "data": {
+                                                "message": '"lo que hago si vale B"'
+                                            }
+                                        },
+                                        {
+                                            "type": "break"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "value": "default",
+                                    "statements": [
+                                        {
+                                            "type": "output",
+                                            "data": {
+                                                "message": '"lo que hago si vale por default"'
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+            });
+            
+            // while loop example
+            insertExample(
+                "While (type = 'while') (con inicialización previa)",
+                { "statements": [
+                    {
+                        "type": "assignment",
+                        "data": {
+                            "variable": "variableDeControl",
+                            "value": "valor inicial"
+                        }
+                    },
+                    {
+                        "type": "while",
+                        "data": {
+                            "condition": "condición de permanencia",
+                            "statements": [
+                                {
+                                    "type": "call",
+                                    "data": {
+                                        "statement": "proceso(...)"
+                                    }
+                                },
+                                {
+                                    "type": "assignment",
+                                    "data": {
+                                        "variable": "variableDeControl",
+                                        "value": "valor de actualización"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ] });
+            
+            // while loop example
+            insertExample(
+                "Do-while (type = 'dowhile') (con inicialización previa)",
+                {
+                "statements": [
+                    {
+                        "type": "dowhile",
+                        "data": {
+                            "condition": "condición de permanencia",
+                            "statements": [
+                                {
+                                    "type": "assignment",
+                                    "data": {
+                                        "variable": "variableDeControl",
+                                        "value": "actualizacion"
+                                    }
+                                },
+                                {
+                                    "type": "call",
+                                    "data": {
+                                        "statement": "proceso(...)"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            });
+            
+            // for example
+            insertExample(
+                "For (type = 'for')",
+                {
+                "type": "for",
+                "data": {
+                    "control": {
+                        "variable": "variable",
+                        "start": "valorInicio",
+                        "stop": "valorFinal",
+                        "step": "paso"
+                    },
+                    "statements": [
+                        {
+                            "type": "output",
+                            "data": {
+                                "message": '"variable vale " + variable'
+                            }
+                        }
+                    ]
+                }
+            });
+            
+            // for-each example
+            insertExample(
+                "For-each (type = 'foreach')",
+                {
+                "type": "foreach",
+                "data": {
+                    "control": {
+                        "class": "Clase",
+                        "variable": "objeto",
+                        "collection": "coleccion"
+                    },
+                    "statements": [
+                        {
+                            "type": "output",
+                            "data": {
+                                "message": "objeto"
+                            }
+                        }
+                    ]
+                }
+            });
+            
+            // Try-catch-finally and throw example
+            insertExample(
+                "Try-catch-finally +  throw (types = 'try', 'catch', 'finally, 'throw')",
+                {
+                "statements": [
+                    {
+                        "type": "try",
+                        "data": {
+                            "statements": [
+                                {
+                                    "type": "input",
+                                    "data": {
+                                        "variable": "numero"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "catch",
+                        "data": {
+                            "exception": "SomeException",
+                            "variable": "se",
+                            "statements": [
+                                {
+                                    "type": "output",
+                                    "data": {
+                                        "message": "'Hubo una excepcion: ' + se.getMessage()"
+                                    }
+                                },
+                                {
+                                    "type": "throw",
+                                    "data": {
+                                        "value": "new RuntimeException(se.getMessage())"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "catch",
+                        "data": {
+                            "exception": "SomeOtherException",
+                            "variable": "soe",
+                            "statements": [
+                                {
+                                    "type": "output",
+                                    "data": {
+                                        "message": "'Hubo otra excepcion: ' + soe.getMessage()"
+                                    }
+                                },
+                                {
+                                    "type": "throw",
+                                    "data": {
+                                        "value": "new RuntimeException(soe.getMessage())"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "type": "finally",
+                        "data": {
+                            "statements": [
+                                {
+                                    "type": "block",
+                                    "data": {
+                                        "content": "bloque de instrucciones, solo si es necesario"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1 class="external">eXtendend Nassi-Shneiderman Diagrams (XNSD)</h1>
+    <h2 class="external">Ejemplos de diagramas</h2>
+    <p class="external">A continuación, cada uno de los bloques componentes de XNSD:</p>
+    <div id="diagramContainer"></div>
+</body>
+</html>
