@@ -8,6 +8,7 @@ function ClassConstructor() {
     var _properties = {};
     var _enums = {}
     var _methods = {};
+    var _observers = [];
     
     var _visibility = new Enumeration("PRIVATE", "PUBLIC");
     
@@ -86,12 +87,32 @@ function ClassConstructor() {
     function _getValue(value, defaultValue) {
         return (typeof value != "undefined") ? value: defaultValue;
     }
+    
+    function _addObserver(observer) {
+        _observers.push(observer);
+    }
+
+    function _removeObserver(observer) {
+        var pos = _observers.indexOf(observer);
+        if (pos != -1) {
+            _observers.splice(pos, 1);
+        }
+    }
+        
+    function _notify(message) {
+        for (var i=0; i<_observers.length; i++) {
+            _observers[i].update();
+        }
+    }
 
     Object.defineProperty(_self, "addProperty", { "configurable": false, "writable": false, "enumerable": false, "value": _addProperty });
     Object.defineProperty(_self, "addEnumProperty", { "configurable": false, "writable": false, "enumerable": false, "value": _addEnumProperty });
     Object.defineProperty(_self, "addMethod", { "configurable": false, "writable": false, "enumerable": false, "value": _addMethod });
     Object.defineProperty(_self, "publish", { "configurable": false, "writable": false, "enumerable": false, "value": _publish });
     Object.defineProperty(_self, "getValue", { "configurable": false, "writable": false, "enumerable": false, "value": _getValue });
+    Object.defineProperty(_self, "addObserver", { "configurable": false, "writable": false, "enumerable": false, "value": _addObserver });
+    Object.defineProperty(_self, "removeObserver", { "configurable": false, "writable": false, "enumerable": false, "value": _removeObserver });
+    Object.defineProperty(_self, "notify", { "configurable": false, "writable": false, "enumerable": false, "value": _notify });
     Object.defineProperty(_self, "MEMBER_VISIBILITY", { "configurable": false, "enumerable" : "true", "get": _getVisibility } );
     return _self;
 }

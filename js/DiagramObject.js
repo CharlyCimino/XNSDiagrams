@@ -17,14 +17,16 @@ function DiagramObject(params) {
         return _self.DEFINITION;
     }
 
-    function _createCanvas() {
-        html2canvas(_self.HTML).then(
-            function(canvas) {
-                _self.canvas = canvas;
-                if (_self.onrender) {
-                    _self.onrender(_toImage());
-                }
-        });
+    function _createImage(onrender) {
+        if (typeof onrender != "undefined") {
+            html2canvas(_self.HTML).then(
+                function(canvas) {
+                    _self.canvas = canvas;
+                    if (onrender) {
+                        onrender(_toImage());
+                    }
+            });
+        }
     }
 
     function _toImage() {
@@ -42,13 +44,10 @@ function DiagramObject(params) {
         _self.addProperty("HTML", params["html"] || null, {"writable": false});
         _self.addProperty("image", null);
         _self.addProperty("canvas", null);
-        _self.addProperty("onrender", params["onrender"] || null);
         _self.addMethod("toHTML", _toHTML);
         _self.addMethod("toJSON", _toJSON);
-        _self.addMethod("toImage", _toImage);
-        _self.addMethod("refresh", _createCanvas);
+        _self.addMethod("createImage", _createImage);
         _self.publish(_self);
-        _createCanvas();
     }
     init();
     return _self;

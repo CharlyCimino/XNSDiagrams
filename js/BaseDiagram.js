@@ -18,8 +18,8 @@ function BaseDiagram(params) {
         // languages dictionaries
         _self.addEnumProperty("LANGUAGES", ["EN", "ES"]);
         _self.addProperty("SYMBOLS", [
-                { "INPUT": "I", "OUTPUT": "O", "TRUE": "T", "FALSE": "F" },
-                { "INPUT": "E", "OUTPUT": "S", "TRUE": "V", "FALSE": "F" }
+                { "INPUT": "I", "OUTPUT": "O", "TRUE": "T", "FALSE": "F", "ANONYMOUS_METHOD": "UNNAMED METHOD" },
+                { "INPUT": "E", "OUTPUT": "S", "TRUE": "V", "FALSE": "F", "ANONYMOUS_METHOD": "METODO ANONIMO" }
             ],
             { "writable": false, "configurable": false, "enumerable": true, "to_clone" : true });
         _self.addProperty("DEFAULT_LANGUAGE", _self["LANGUAGES"]["ES"], { "writable": false });

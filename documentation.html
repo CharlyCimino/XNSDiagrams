@@ -41,7 +41,7 @@
         #diagramContainer {
             display: block;
             padding: 10pt;
-            max-width: 640pt;
+            max-width: 640px;
         }
 
         hr.external {
@@ -57,6 +57,10 @@
             padding: 10pt;
             box-sizing: border-box;
             background-color: #FFA;
+        }
+        
+        .diabox, image.output {
+            border: solid 1px #F00;
         }
     </style>
     <script>
@@ -89,7 +93,14 @@
 
             function insertExample(title, obj) {
                 insertHeader( mainbox, title);
-                xnsd.render(mainbox, (obj.statements) ? obj : { "statements": [ obj ] });
+                var diabox = document.createElement("div");
+                diabox.className = "diabox";
+                mainbox.appendChild(diabox);
+                var diagram = xnsd.render(diabox, (obj.statements) ? obj : { "statements": [ obj ] });
+                diagram.createImage(function(img) {
+                    img.className = "output";
+                    mainbox.appendChild(img);
+                } );
                 insertStructureExample(mainbox, obj);
             }
             // general structure, including method declaration
@@ -97,22 +108,23 @@
                 "Estructura general, incluyendo la declaración del método y sus variables",
                 {
                 "declaration": {
-                    "visibility": "[visibility] [static]",
-                    "type": "returnType / void",
-                    "name": "methodName",
+                    "modifiers": "[visibilidad] [static]",
+                    "type": "tipoDeDato / void",
+                    "class": "Class",
+                    "name": "nombreMetodo",
                     "arguments": [
-                        { "type": "type", "name": "arg1" },
-                        { "type": "type", "name": "arg2" },
-                        { "type": "", "name": "..." },
-                        { "type": "datatype", "name": "argN" },
+                        { "type": "tipo", "name": "arg1" },
+                        { "type": "tipo", "name": "arg2" },
+                        { "type": "...", "name": "..." },
+                        { "type": "tipo", "name": "argN" },
                     ],
                     "throws": ["ExceptionName1", "..."]
                 },
                 "localVars": [
-                    { "type": "type", "name": "var1" },
-                    { "type": "type", "name": "var2" },
+                    { "type": "tipo", "name": "var1" },
+                    { "type": "tipo", "name": "var2" },
                     { "type": "", "name": "..." },
-                    { "type": "type", "name": "varN" }
+                    { "type": "tipo", "name": "varN" }
                 ],
                 "statements": [ {
                     "type": "block",
@@ -133,7 +145,14 @@
             // input example
             insertExample(
                 "Input (type = 'input')",
-                { "type": "input", "data": { "variable": "variable" } });
+				{
+					"localVars": [
+						{ "type": "[tipo de dato]", "name": "variable" }
+					],
+					"statements": [
+						{ "type": "input", "data": { "variable": "variable" } }
+					]
+				});
             
             // call example
             insertExample(
@@ -147,8 +166,8 @@
             
             // if example
             insertExample(
-                "If (type = 'conditional')",
-                { "type": "conditional",
+                "If (type = 'if' or 'conditional')",
+                { "type": "if",
                   "data": { "condition": "variable o expresión lógica",
                             "then": [ { "type": "output", "data": { "message": "\"es verdad\"" } } ],
                             "else": [ { "type": "output", "data": { "message": "\"es falso\"" } } ]
@@ -158,14 +177,14 @@
             
             // switch example
             insertExample(
-                "Switch (type = 'switch')",
+                "Switch (type = 'switch'), cada opcion puede ser 'value' o 'case', es indistinto",
                 {
                         "type": "switch",
                         "data": {
                             "expression": "variable o expresión enumerable",
                             "options": [
                                 {
-                                    "value": "A",
+                                    "case": "A",
                                     "statements": [
                                         {
                                             "type": "output",
@@ -179,7 +198,7 @@
                                     ]
                                 },
                                 {
-                                    "value": "B",
+                                    "case": "B",
                                     "statements": [
                                         {
                                             "type": "output",
@@ -193,7 +212,7 @@
                                     ]
                                 },
                                 {
-                                    "value": "default",
+                                    "case": "default",
                                     "statements": [
                                         {
                                             "type": "output",

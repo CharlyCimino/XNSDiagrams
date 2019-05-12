@@ -56,7 +56,12 @@ function eXtendendNassiShneiderman(params) {
     /* --- diagram blocks implementation --- */
     
     function _declarationBuilder(methodDec) {
-        function stringValue(field, defaultValue) {
+		function ifHas(value, handler, defaultValue) {
+			return (typeof value != "undefined") ?
+				handler(value) :
+				defaultValue;
+		}
+        function stringValue(field, defaultValue,) {
             if (!defaultValue) { defaultValue = ""; }
             return (!field) ? defaultValue : field + " ";
         }
@@ -74,11 +79,12 @@ function eXtendendNassiShneiderman(params) {
         function exceptionsToString(exceptionList) {
             return (!exceptionList) ? "" : " throws " + exceptionList.join(", ");
         }
-        return _self.newBlock("method-declaration", 
+		return _self.newBlock("method-declaration",
+                ifHas(methodDec["class"], function(val) { return "<p>class " + val + ":</p>" }, "") +
                 stringValue(methodDec["modifiers"]) +
-                stringValue(_self.htmlString(methodDec["type"])) +
-                stringValue(methodDec["name"], "[UNNAMED METHOD] ") + "(" +
-                argumentsToString(methodDec["arguments"]) + ")" +
+                _self.htmlString(stringValue(methodDec["type"])) +
+                stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
+                "(" + argumentsToString(methodDec["arguments"]) + ")" +
                 exceptionsToString(methodDec["throws"]) + ";");
     }
 
@@ -126,7 +132,7 @@ function eXtendendNassiShneiderman(params) {
     
     function _switchBuilder(obj) {
         function makeCaseOption(obj) {
-            var column = _self.newBlock("case", _self.newBlock("test-value", obj["value"]));
+            var column = _self.newBlock("case", _self.newBlock("test-value", (obj["value"] || obj["case"])));
             appendBlockOrEmpty(column, "statements-block", obj["statements"]);
             return column;
         }
@@ -144,7 +150,7 @@ function eXtendendNassiShneiderman(params) {
         return box;
     }
 
-    function _breakBuilder(obj) {
+    function _breakBuilder() {
         return _self.newBlock("break-statement", "break");
     }
 
@@ -237,6 +243,7 @@ function eXtendendNassiShneiderman(params) {
             "statements": _statementsBuilder,
             "block": _blockBuilder,
             "assignment": _assignmentBuilder,
+            "if": _conditionalBuilder,
             "conditional": _conditionalBuilder,
             "switch": _switchBuilder,
             "break": _breakBuilder,

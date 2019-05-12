@@ -9,20 +9,26 @@
     }
 
     .Nassi-Shneiderman > * {
-        margin-left: 12pt;
+        margin-left: 0pt;
         font-size: 10pt;
     }
 
 .method-declaration {
-    font-size: 13pt;
+    font-size: 12pt;
     color: #000;
     font-weight: 700;
+	font-family: "Courier New", Serif;
+	padding-bottom: 1em;
+	padding-left: 3em;
+	text-indent: -3em;
 }
 
-.local-variable-declaration {
+.local-variable-declaration,
+.local-const-declaration
+ {
     font-size: 11pt;
-    padding-top: 6pt;
-    padding-bottom: 6pt;
+    padding-bottom: .5em;
+	font-family: "Courier New", Serif;
 }
 
 .statements {
@@ -56,9 +62,6 @@
     width: 100%;
     border-right: none;
     border-collapse: collapse;
-}
-
-.conditional-statement .header {
     border-bottom: solid 1px;
 }
 
@@ -102,6 +105,10 @@
             right: 0px;
         }
 
+        .conditional-statement.switch .header .option .option-block > canvas.corner {
+			top: 0px;
+			transform: scaleX(-1);
+		}
 
         .conditional-statement .header .option .caption {
             position: absolute;
@@ -117,7 +124,7 @@
             right: 0px;
         }
 
-.conditional-statement > .body {
+.conditional-statement:last-child > .body {
     border-bottom: none;
 }
 
@@ -143,18 +150,17 @@
             border-right: none;
         }
 
-        .conditional-statement > .body .side > :last-child,
-        .conditional-statement > .body .case .statements-block > :last-child,
-        .for-statement .container > .statements-block > :last-child {
-            border-bottom: none;
-        }
-
 .conditional-statement .body .case .test-value {
     display: block;
     text-align: center;
     background-color: #F0F0F0;
     border-bottom: solid 1px;
+    border-right: solid 1px;
     line-height: 20pt;
+}
+
+.conditional-statement .body .case:last-child .test-value {
+    border-right: none;
 }
 
 .conditional-statement .body .case .statements-block {

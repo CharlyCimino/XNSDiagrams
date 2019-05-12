@@ -1,0 +1,64 @@
+        body {
+            font-family: helvetica, arial, sans-serif;
+        }
+        h1 {
+            padding: 10pt;
+            font-size: 24pt;
+        }
+        
+        h2 {
+            padding: 10;
+        }
+        
+        h1.external, h2.external, h3.external, p.external {
+            padding-top: 15pt;
+            padding-bottom: 5pt;
+        }
+        
+        h2.external {
+            font-size: 20pt;
+        }
+        
+        h3.external {
+            font-size: 14pt;
+        }
+        
+        p.external {
+            padding: 10pt;
+            font-size: 12pt;
+        }
+        
+        #diagramContainer {
+            display: block;
+            padding: 10pt;
+            max-width: 800px;
+        }
+		
+		#diagramContainer > .Nassi-Shneiderman {
+			left: -2000px;
+			position: absolute;
+			width: inherit;
+			max-width: inherit;
+		}
+		#dstructure.error {
+			border: solid 1px #F00;
+		}
+
+        hr.external {
+            height: 1pt;
+            background-color: #CCC;
+            margin-top: 20pt;
+            margin-bottom: 10pt;
+            border: none;
+        }
+        
+        pre.external {
+            border: solid 1px #CCC;
+            padding: 10pt;
+            box-sizing: border-box;
+            background-color: #FFA;
+        }
+        
+        .diabox, image.output {
+            border: solid 1px #F00;
+        }
