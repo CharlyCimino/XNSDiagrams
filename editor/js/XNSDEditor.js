@@ -1,6 +1,6 @@
 window.onload = function () {
 
-	var mainbox = document.getElementById("diagramContainer");
+	var renderbox = document.getElementById("diagramContainer");
 	var xnsd = new XNSDiagram();
 	var declaration;
 	var target = document.getElementById("dstructure");
@@ -25,7 +25,6 @@ window.onload = function () {
 		elem.value = elem.value.substring(0, position-1) + elem.value.substring(position, elem.value.length);
 	}
 
-
 	function insertHeader(elem, description) {
 		var title = document.createElement("h2");
 		title.className = "external";
@@ -47,17 +46,27 @@ window.onload = function () {
 		elem.appendChild(hr);
 	}
 
-	function insertExample(title, obj) {
-		mainbox.innerHTML = "";
-		insertHeader( mainbox, title);
-		var diabox = document.createElement("div");
-		diabox.className = "diabox";
-		mainbox.appendChild(diabox);
-		var diagram = xnsd.render(diabox, (obj.statements) ? obj : { "statements": [ obj ] });
-		diagram.createImage(function(img) {
-			img.className = "output";
-			mainbox.appendChild(img);
-		} );
+	function insertExample(obj) {
+		var diagram = xnsd.generate("diabox", obj);
+		if (diagram instanceof Array) {
+			for (var d=0; d < diagram.length; d++) {
+				window.setTimeout(function(dObj) {
+					renderbox.innerHTML += dObj.toHTML();
+					/*
+					dObj.createImage(function(img) {
+						img.className = "output";
+						renderBox.appendChild(img);
+					});
+					*/
+				}, d*1000, diagram[d]);
+			}
+		} else {
+			renderbox.innerHTML = diagram.toHTML();
+			diagram.createImage(function(img) {
+				img.className = "output";
+				renderBox.appendChild(img);
+			});
+		}
 	}
 	
 	function setEvent(domElement, eventName, handler) {
@@ -69,14 +78,13 @@ window.onload = function () {
 	}
 	
 	function render() {
-		var diagramTitle = document.getElementById("dtitle").value;
 		var diagramStructure = target.value;
 		try {
 			var diagramStructure = JSON.parse(diagramStructure);
 		} catch(e) {
 			alert(e);
 		}
-		insertExample(diagramTitle, diagramStructure);
+		insertExample(diagramStructure);
 	}
 
 	setEvent(document.getElementById("genButton"), "click", render);

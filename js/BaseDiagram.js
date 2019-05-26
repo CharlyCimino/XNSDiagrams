@@ -62,6 +62,29 @@ function BaseDiagram(params) {
         }
         return new DiagramObject({ "json": definition, "html": container, "onrender": _self.onrender });
     }
+	
+	function _generate(classbox, obj) {
+		var output = [];
+		if (Object.keys(obj)[0] == "artifact") {
+			var div = document.createElement("div");
+			div.className = classbox;
+			output.push(_render(div, obj));
+			if (obj.artifact.methods) {
+				
+				for (var m=0; m < obj.artifact.methods.length; m++) {
+					var me = obj.artifact.methods[m];
+					div = document.createElement("div");
+					div.className = classbox;
+					output.push(_render(div, (me.statements) ? me : { "statements": [ me ] }));
+				}
+			}
+		} else {
+			var div = document.createElement("div");
+			div.className = classbox;
+			output =  _render(div, (obj.statements) ? obj : { "statements": [ obj ] });
+		}
+		return output;
+	}
     
     /* --- object construction --- */
     function init() {
@@ -74,6 +97,7 @@ function BaseDiagram(params) {
         _self.addMethod("newBlock", _newBlock);
         _self.addMethod("process", _process);
         _self.addMethod("render", _render);
+        _self.addMethod("generate", _generate);
         _self.publish(_self);
     }
     init();

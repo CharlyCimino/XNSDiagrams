@@ -31,7 +31,7 @@
         #diagramContainer {
             display: block;
             padding: 10pt;
-            max-width: 800px;
+            max-width: 1024px;
         }
 		
 		#diagramContainer > .Nassi-Shneiderman {
