@@ -1,34 +1,33 @@
 .Nassi-Shneiderman {
-    font-family: helvetica, arial, sans-serif;
+    font-family: "Consolas", monospace;
 }
 
-    .Nassi-Shneiderman * {
-        margin: 0px;
-        padding: 0px;
-        box-sizing: border-box;
-    }
+.Nassi-Shneiderman * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
 
-    .Nassi-Shneiderman > * {
-        margin-left: 0pt;
-        font-size: 10pt;
-    }
+.Nassi-Shneiderman>* {
+    margin-left: 0pt;
+    font-size: 10pt;
+}
 
 .method-declaration {
     font-size: 12pt;
     color: #000;
     font-weight: 700;
-	font-family: "Courier New", Serif;
-	padding-bottom: 1em;
-	padding-left: 3em;
-	text-indent: -3em;
+    font-family: "Consolas", monospace;
+    padding-bottom: 1em;
+    padding-left: 3em;
+    text-indent: -3em;
 }
 
 .local-variable-declaration,
-.local-const-declaration
- {
+.local-const-declaration {
     font-size: 11pt;
     padding-bottom: .5em;
-	font-family: "Courier New", Serif;
+    font-family: "Courier New", Serif;
 }
 
 .statements {
@@ -36,13 +35,13 @@
     border-left: solid 1px;
 }
 
-    .statements > * {
-        border-right: solid 1px;
-        border-bottom: solid 1px;
-    }
+.statements>* {
+    border-right: solid 1px;
+    border-bottom: solid 1px;
+}
 
-.statements-block > :last-child {
-        border-bottom: none;
+.statements-block> :last-child {
+    border-bottom: none;
 }
 
 .block-statement,
@@ -65,90 +64,90 @@
     border-bottom: solid 1px;
 }
 
-    .conditional-statement .header .condition {
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-        border: none;
-        padding: 15pt;
-        padding-left: 20pt;
-        padding-right: 20pt;
-    }
+.conditional-statement .header .condition {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    padding: 15pt;
+    padding-left: 20pt;
+    padding-right: 20pt;
+}
 
-    .conditional-statement .header .option {
-        display: table-cell;
-        vertical-align: bottom;
-        position: relative;
-    }
+.conditional-statement .header .option {
+    display: table-cell;
+    vertical-align: bottom;
+    position: relative;
+}
 
-        .conditional-statement .header .option .option-block {
-            display: block;
-            position: absolute;
-            bottom: 0px;
-            width: 35pt;
-            height: 100%;
-        }
+.conditional-statement .header .option .option-block {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    width: 35pt;
+    height: 100%;
+}
 
-        .conditional-statement .header .option.false .option-block {
-            right: 0px;
-        }
+.conditional-statement .header .option.false .option-block {
+    right: 0px;
+}
 
-        .conditional-statement .header .option .option-block > canvas.corner {
-            width: 35px;
-            height: 35px;
-            position: absolute;
-            bottom: 0px;
-            z-index: 0;
-        }
+.conditional-statement .header .option .option-block>canvas.corner {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    bottom: 0px;
+    z-index: 0;
+}
 
-        .conditional-statement .header .option.false .option-block > canvas.corner {
-            right: 0px;
-        }
+.conditional-statement .header .option.false .option-block>canvas.corner {
+    right: 0px;
+}
 
-        .conditional-statement.switch .header .option .option-block > canvas.corner {
-			top: 0px;
-			transform: scaleX(-1);
-		}
+.conditional-statement.switch .header .option .option-block>canvas.corner {
+    top: 0px;
+    transform: scaleX(-1);
+}
 
-        .conditional-statement .header .option .caption {
-            position: absolute;
-            bottom: 0px;
-            width: 15pt;
-            line-height: 15pt;
-            text-align: center;
-            font-size: 9pt;
-            z-index: 1;
-        }
+.conditional-statement .header .option .caption {
+    position: absolute;
+    bottom: 0px;
+    width: 15pt;
+    line-height: 15pt;
+    text-align: center;
+    font-size: 9pt;
+    z-index: 1;
+}
 
-        .conditional-statement .header .option.false .caption {
-            right: 0px;
-        }
+.conditional-statement .header .option.false .caption {
+    right: 0px;
+}
 
-.conditional-statement:last-child > .body {
+.conditional-statement:last-child>.body {
     border-bottom: none;
 }
 
-    .conditional-statement > .body .side {
-        display: table-cell;
-        position: relative;
-        vertical-align: top;
-        min-width: 30pt;
-    }
+.conditional-statement>.body .side {
+    display: table-cell;
+    position: relative;
+    vertical-align: top;
+    min-width: 30pt;
+}
 
-        .conditional-statement > .body .side.then {
-            border-right: solid 1px;
-        }
+.conditional-statement>.body .side.then {
+    border-right: solid 1px;
+}
 
-    .conditional-statement > .body .case {
-        display: table-cell;
-        border-right: solid 1px;
-        position: relative;
-    }
+.conditional-statement>.body .case {
+    display: table-cell;
+    border-right: solid 1px;
+    position: relative;
+}
 
-        .conditional-statement > .body .side:last-child,
-        .conditional-statement > .body .case:last-child {
-            border-right: none;
-        }
+.conditional-statement>.body .side:last-child,
+.conditional-statement>.body .case:last-child {
+    border-right: none;
+}
 
 .conditional-statement .body .case .test-value {
     display: block;
@@ -175,78 +174,78 @@
     border-bottom: solid 1px;
 }
 
-    .input-statement .body,
-    .output-statement .body {
-        display: block;
-        position: relative;
-        text-align: center;
-        padding: 15pt;
-    }
+.input-statement .body,
+.output-statement .body {
+    display: block;
+    position: relative;
+    text-align: center;
+    padding: 15pt;
+}
 
-    .input-statement .symbol,
-    .output-statement .symbol {
-        position: absolute;
-        width: 15pt;
-        line-height: 15pt;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 9pt;
-        border-right: solid 1px;
-        border-bottom: solid 1px;
-    }
+.input-statement .symbol,
+.output-statement .symbol {
+    position: absolute;
+    width: 15pt;
+    line-height: 15pt;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 9pt;
+    border-right: solid 1px;
+    border-bottom: solid 1px;
+}
 
 .for-statement {
     display: block;
 }
 
-    .for-statement .container {
-        display: table;
-        width: 100%;
-    }
+.for-statement .container {
+    display: table;
+    width: 100%;
+}
 
-    .for-statement .controller {
-        display: table-cell;
-        border-right: solid 1px;
-        position: relative;
-        vertical-align: middle;
-    }
+.for-statement .controller {
+    display: table-cell;
+    border-right: solid 1px;
+    position: relative;
+    vertical-align: middle;
+}
 
-        .for-statement .controller * {
-            display: block;
-        }
+.for-statement .controller * {
+    display: block;
+}
 
-        .for-statement .controller .top {
-            position: absolute;
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
-            top: 0px;
-            width: 15pt;
-            border-right: solid 1px;
-            border-bottom: solid 1px;
-        }
+.for-statement .controller .top {
+    position: absolute;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+    top: 0px;
+    width: 15pt;
+    border-right: solid 1px;
+    border-bottom: solid 1px;
+}
 
-        .for-statement .controller .bottom {
-            width: 15pt;
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
-            border-right: solid 1px;
-            border-top: solid 1px;
-            position: absolute;
-            bottom: 0px;
-        }
+.for-statement .controller .bottom {
+    width: 15pt;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+    border-right: solid 1px;
+    border-top: solid 1px;
+    position: absolute;
+    bottom: 0px;
+}
 
-        .for-statement .controller .content-block {
-            padding-left: 5pt;
-            padding-right: 5pt;
-        }
+.for-statement .controller .content-block {
+    padding-left: 5pt;
+    padding-right: 5pt;
+}
 
-        .for-statement .controller .content {
-            text-align: center;
-            padding: 15pt;
-        }
+.for-statement .controller .content {
+    text-align: center;
+    padding: 15pt;
+}
 
-    .for-statement .statements-block {
-        display: table-cell;
-        min-width: 50%;
-    }
+.for-statement .statements-block {
+    display: table-cell;
+    min-width: 50%;
+}
 
 .call-statement {
     display: block;
@@ -255,32 +254,32 @@
     border-bottom: solid 1px;
 }
 
-    .call-statement .margin {
-        display: block;
-        position: absolute;
-        height: 100%;
-        width: 15pt;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAEElEQVQYV2NgYGBoYEABDQAIlAEB8MHMtAAAAABJRU5ErkJggg==);
-    }
+.call-statement .margin {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 15pt;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAEElEQVQYV2NgYGBoYEABDQAIlAEB8MHMtAAAAABJRU5ErkJggg==);
+}
 
-        .call-statement .margin.left {
-            border-right: solid 1px;
-        }
+.call-statement .margin.left {
+    border-right: solid 1px;
+}
 
-        .call-statement .margin.right {
-            right: 0px;
-            top: 0px;
-            border-left: solid 1px;
-        }
+.call-statement .margin.right {
+    right: 0px;
+    top: 0px;
+    border-left: solid 1px;
+}
 
-    .call-statement .call {
-        position: relative;
-        padding: 5pt;
-        margin-left: 15pt;
-        margin-right: 15pt;
-        text-align: center;
-        border: none;
-    }
+.call-statement .call {
+    position: relative;
+    padding: 5pt;
+    margin-left: 15pt;
+    margin-right: 15pt;
+    text-align: center;
+    border: none;
+}
 
 .while-statement .condition,
 .dowhile-statement .condition {
@@ -288,19 +287,19 @@
     padding: 2pt;
 }
 
-.while-statement > .container > .statements-block,
-.dowhile-statement > .container > .statements-block {
+.while-statement>.container>.statements-block,
+.dowhile-statement>.container>.statements-block {
     margin-left: 15pt;
     border-left: solid 1px;
 }
 
-.while-statement > .container > .statements-block {
+.while-statement>.container>.statements-block {
     border-top: solid 1px;
 }
 
-    .dowhile-statement > .container > .statements-block {
-        border-bottom: solid 1px;
-    }
+.dowhile-statement>.container>.statements-block {
+    border-bottom: solid 1px;
+}
 
 .empty {
     position: absolute;
@@ -311,13 +310,20 @@
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
 }
 
+
 /** -- Exception extensions -- **/
-.try-statement, .catch-statement, .finally-statement {
+
+.try-statement,
+.catch-statement,
+.finally-statement {
     display: inline-table;
     width: 100%;
     border-bottom: solid 1px;
 }
-.try-statement > .margin.left, .catch-statement > .margin.left, .finally-statement > .margin.left {
+
+.try-statement>.margin.left,
+.catch-statement>.margin.left,
+.finally-statement>.margin.left {
     display: table-cell;
     border-right: solid 1px;
     text-align: center;
@@ -338,15 +344,15 @@
 }
 
 .exception {
-        background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
-        .exception .variable,
-        .exception .identifier {
-            display: inline-block;
-        }
+.exception .variable,
+.exception .identifier {
+    display: inline-block;
+}
 
-        .exception .identifier {
-            font-style: italic;
-            padding-right: 5pt;
-        }
+.exception .identifier {
+    font-style: italic;
+    padding-right: 5pt;
+}
