@@ -3,9 +3,9 @@
 // -----------------------------------
 function eXtendendNassiShneiderman(params) {
 
-    if (!params) { params =  {}; }
+    if (!params) { params = {}; }
     var _self = Object.create(new BaseDiagram({ "graphicType": "Nassi-Shneiderman", "prefix": "xnsd", "onrender": params["onrender"] }));
-    
+
     /* --- private properties and methods --- */
 
     function makeCorner(side, caption) {
@@ -15,10 +15,10 @@ function eXtendendNassiShneiderman(params) {
         ctx.beginPath();
         if (side == "true") {
             ctx.moveTo(-1, -1);
-            ctx.lineTo(canvas.width+1, canvas.height+1);
+            ctx.lineTo(canvas.width + 1, canvas.height + 1);
         } else {
-            ctx.moveTo(canvas.width+1, -1);
-            ctx.lineTo(-1, canvas.height+1);
+            ctx.moveTo(canvas.width + 1, -1);
+            ctx.lineTo(-1, canvas.height + 1);
         }
         ctx.lineWidth = 3;
         ctx.strokeStyle = '#000000';
@@ -54,17 +54,19 @@ function eXtendendNassiShneiderman(params) {
     }
 
     /* --- diagram blocks implementation --- */
-    
+
     function _declarationBuilder(methodDec) {
-		function ifHas(value, handler, defaultValue) {
-			return (typeof value != "undefined") ?
-				handler(value) :
-				defaultValue;
-		}
-        function stringValue(field, defaultValue,) {
+        function ifHas(value, handler, defaultValue) {
+            return (typeof value != "undefined") ?
+                handler(value) :
+                defaultValue;
+        }
+
+        function stringValue(field, defaultValue, ) {
             if (!defaultValue) { defaultValue = ""; }
             return (!field) ? defaultValue : field + " ";
         }
+
         function argumentsToString(args) {
             var a;
             var output = "";
@@ -76,22 +78,23 @@ function eXtendendNassiShneiderman(params) {
             }
             return output;
         }
+
         function exceptionsToString(exceptionList) {
             return (!exceptionList) ? "" : " throws " + exceptionList.join(", ");
         }
-		return _self.newBlock("method-declaration",
-                ifHas(methodDec["class"], function(val) { return "<p>class " + val + ":</p>" }, "") +
-                stringValue(methodDec["modifiers"]) +
-                _self.htmlString(stringValue(methodDec["type"])) +
-                stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
-                "(" + argumentsToString(methodDec["arguments"]) + ")" +
-                exceptionsToString(methodDec["throws"]) + ";");
+        return _self.newBlock("method-declaration",
+            ifHas(methodDec["class"], function(val) { return "<p>class " + val + ":</p>" }, "") +
+            stringValue(methodDec["modifiers"]) +
+            _self.htmlString(stringValue(methodDec["type"])) +
+            stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
+            "(" + argumentsToString(methodDec["arguments"]) + ")" +
+            exceptionsToString(methodDec["throws"]));
     }
 
     function _localVarsBuilder(localVars) {
         var box = _self.newBlock("local-variable-declaration");
         for (var v in localVars) {
-            box.appendChild(_self.newBlock("", _self.htmlString(localVars[v]["type"]) + " " + localVars[v]["name"] + ";"));
+            box.appendChild(_self.newBlock("", _self.htmlString(localVars[v]["type"]) + " " + localVars[v]["name"]));
         }
         return box;
     }
@@ -120,7 +123,7 @@ function eXtendendNassiShneiderman(params) {
         var header = _self.newBlock("header")
         header.appendChild(makeCorner("true", _self.SYMBOLS[_self.currentLanguage].TRUE));
         header.appendChild(_self.newBlock("condition", _self.htmlString(obj["condition"])));
-        header.appendChild(makeCorner("false",  _self.SYMBOLS[_self.currentLanguage].FALSE));
+        header.appendChild(makeCorner("false", _self.SYMBOLS[_self.currentLanguage].FALSE));
         var body = _self.newBlock("body");
         appendBlockOrEmpty(body, "then side", obj["then"]);
         appendBlockOrEmpty(body, "else side", obj["else"]);
@@ -129,7 +132,7 @@ function eXtendendNassiShneiderman(params) {
         box.appendChild(body);
         return box;
     }
-    
+
     function _switchBuilder(obj) {
         function makeCaseOption(obj) {
             var column = _self.newBlock("case", _self.newBlock("test-value", (obj["value"] || obj["case"])));
@@ -181,14 +184,14 @@ function eXtendendNassiShneiderman(params) {
     }
 
     function _forBuilder(obj) {
-        return fixedLoopBuilder(obj, function (container, obj) {
+        return fixedLoopBuilder(obj, function(container, obj) {
             container.appendChild(_self.newBlock("content", obj["variable"] + " = " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"]));
             return container;
         });
     }
 
     function _foreachBuilder(obj) {
-        return fixedLoopBuilder(obj, function (container, obj) {
+        return fixedLoopBuilder(obj, function(container, obj) {
             container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + " : " + obj["collection"]));
             return container;
         });
@@ -200,11 +203,11 @@ function eXtendendNassiShneiderman(params) {
         box.appendChild(_self.newBlock("margin right", "&nbsp;"));
         return box;
     }
-    
+
     function _returnBuilder(obj) {
         return _self.newBlock("block-statement", ((_self.explicitReturn) ? "<i>return</i> " : " &larr; ") + _self.htmlString(obj["value"]));
     }
-    
+
     /* --- Nassi Shneiderman Extension: Exception blocks implementation --- */
 
     function _throwBuilder(obj) {
@@ -266,7 +269,7 @@ function eXtendendNassiShneiderman(params) {
             _self.register(builder, _builders[builder]);
         }
     }
-    
+
     /* -- instance construction -- */
     init();
     return _self;
