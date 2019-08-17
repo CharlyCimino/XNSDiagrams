@@ -1,6 +1,4 @@
 window.onload = function () {
-
-
 	var JSONPrueba = {
 		"declaration": {
 			"class": "Club",
@@ -46,47 +44,7 @@ window.onload = function () {
 	var declaration;
 	var target = document.getElementById("editor");
 
-	function insertAtCursor(elem, value, position) {
-		if (position) {
-			elem.value = elem.value.substring(0, position) +
-				value + elem.value.substring(position, elem.value.length);
-		} else if (document.selection) {
-			elem.focus();
-			sel = document.selection.createRange();
-			sel.text = value;
-		} else if (elem.selectionStart || elem.selectionStart == '0') {
-			elem.value = elem.value.substring(0, elem.selectionStart) +
-				value + elem.value.substring(elem.selectionEnd, elem.value.length);
-		} else {
-			elem.value += value;
-		}
-	}
 
-	function removeCharAtCursor(elem, position) {
-		elem.value = elem.value.substring(0, position - 1) + elem.value.substring(position, elem.value.length);
-	}
-
-
-	function insertHeader(elem, description) {
-		var title = document.createElement("h2");
-		title.className = "external";
-		title.innerHTML = description + "<br/>&nbsp";
-		elem.appendChild(title);
-	}
-
-	function insertStructureExample(elem, declaration) {
-		var title = document.createElement("h3");
-		title.className = "external";
-		title.innerHTML = "Estructura de definición (JSON)";
-		elem.appendChild(title);
-		var block = document.createElement("pre");
-		block.className = "external";
-		block.innerHTML = JSON.stringify(declaration, null, 4);
-		elem.appendChild(block);
-		var hr = document.createElement("hr");
-		hr.className = "external";
-		elem.appendChild(hr);
-	}
 
 	function insertExample(title, obj) {
 		mainbox.innerHTML = "";
@@ -122,33 +80,22 @@ window.onload = function () {
 		insertExample(diagramTitle, diagramStructure);
 	}
 
-
-	// get JSON
-	function getJson() {
-		try {
-			return JSON.parse($('#json-display').val());
-		} catch (ex) {
-			alert('Wrong JSON Format: ' + ex);
-		}
-	}
-	// initialize
-
 	/* Tablero de generación de plantillas */
 	var templates = {
-		"base": "\"declaration\": {\n\"class\": \"[classname]\",\n" +
-			"\"modifiers\": \"[public||private] [abstract] [static] [final]\",\n" +
-			"\"type\": \"[void or type]\",\n\"name\": \"functionName\"\n}\n",
-		"localConsts": "\"localConsts\": [\n" +
-			"{ \"name\": \"[constant name]\", \"value\": \"[value]\" },\n" +
-			"{ \"name\": \"[constant name]\", \"value\": \"[value]\" }\n" +
-			"]\n",
-		"localVars": "\"localVars\": [\n" +
-			"{ \"type\": \"[datatype]\", \"name\": \"[variableName]\" },\n" +
-			"{ \"type\": \"[datatype]\", \"name\": \"[variableName]\" }\n" +
-			"]\n",
-		"statements": "\"statements\": [\n]",
+		"base": "\"declaration\": {\"class\": \"[classname]\"," +
+			"\"modifiers\": \"[public||private] [abstract] [static] [final]\"," +
+			"\"type\": \"[void or type]\",\"name\": \"functionName\"}",
+		"localConsts": "\"localConsts\": [" +
+			"{ \"name\": \"[constant name]\", \"value\": \"[value]\" }," +
+			"{ \"name\": \"[constant name]\", \"value\": \"[value]\" }" +
+			"]",
+		"localVars": "\"localVars\": [" +
+			"{ \"type\": \"[datatype]\", \"name\": \"[variableName]\" }," +
+			"{ \"type\": \"[datatype]\", \"name\": \"[variableName]\" }" +
+			"]",
+		"statements": "\"statements\": []",
 		"assignment": "{\"type\": \"assignment\", \"data\": {\"variable\": \"[variableName]\",\"value\": \"[value, variable or expression]\" }}",
-		"if": "{ \"type\": \"if\", \"data\": { \"condition\": \"[boolean expression]\",\n\"then\": [],\n\"else\": []\n}}"
+		"if": "{ \"type\": \"if\", \"data\": { \"condition\": \"[boolean expression]\",\"then\": [],\"else\": []}}"
 	};
 
 	function targetEmpty() {
