@@ -44,7 +44,42 @@ window.onload = function () {
 	var declaration;
 	var target = document.getElementById("editor");
 
+	var editor = ace.edit("editor");
+	editor.setOptions({
+		theme: "ace/theme/monokai",
+		autoScrollEditorIntoView: false,
+		maxLines: 100,
+		setShowPrintMargin: false
+	});
+	//editor.renderer.setScrollMargin(10, 10, 10, 10);
+	editor.session.setMode("ace/mode/json");
+	editor.session.on('change', function (delta) {
+		// delta.start, delta.end, delta.lines, delta.action
+	});
 
+	function insertAtCursor(elem, value, position) {
+		if (position) {
+			elem.value = elem.value.substring(0, position) +
+				value + elem.value.substring(position, elem.value.length);
+		} else if (document.selection) {
+			elem.focus();
+			sel = document.selection.createRange();
+			sel.text = value;
+		} else if (elem.selectionStart || elem.selectionStart == '0') {
+			elem.value = elem.value.substring(0, elem.selectionStart) +
+				value + elem.value.substring(elem.selectionEnd, elem.value.length);
+		} else {
+			elem.value += value;
+		}
+	}
+
+
+	function insertHeader(elem, description) {
+		var title = document.createElement("h2");
+		title.className = "external";
+		title.innerHTML = description + "<br/>&nbsp";
+		elem.appendChild(title);
+	}
 
 	function insertExample(title, obj) {
 		mainbox.innerHTML = "";
@@ -80,23 +115,18 @@ window.onload = function () {
 		insertExample(diagramTitle, diagramStructure);
 	}
 
-	/* Tablero de generación de plantillas */
-	var templates = {
-		"base": "\"declaration\": {\"class\": \"[classname]\"," +
-			"\"modifiers\": \"[public||private] [abstract] [static] [final]\"," +
-			"\"type\": \"[void or type]\",\"name\": \"functionName\"}",
-		"localConsts": "\"localConsts\": [" +
-			"{ \"name\": \"[constant name]\", \"value\": \"[value]\" }," +
-			"{ \"name\": \"[constant name]\", \"value\": \"[value]\" }" +
-			"]",
-		"localVars": "\"localVars\": [" +
-			"{ \"type\": \"[datatype]\", \"name\": \"[variableName]\" }," +
-			"{ \"type\": \"[datatype]\", \"name\": \"[variableName]\" }" +
-			"]",
-		"statements": "\"statements\": []",
-		"assignment": "{\"type\": \"assignment\", \"data\": {\"variable\": \"[variableName]\",\"value\": \"[value, variable or expression]\" }}",
-		"if": "{ \"type\": \"if\", \"data\": { \"condition\": \"[boolean expression]\",\"then\": [],\"else\": []}}"
-	};
+
+	// get JSON
+	function getJson() {
+		try {
+			return JSON.parse($('#json-display').val());
+		} catch (ex) {
+			alert('Wrong JSON Format: ' + ex);
+		}
+	}
+	// initialize
+
+
 
 	function targetEmpty() {
 		return editor.getValue() == "";
@@ -113,8 +143,9 @@ window.onload = function () {
 				if (targetEmpty()) {
 					value = "{\n" + value + "}"
 				};
+				value = JSON.stringify(value, null, 4);
 				editor.insert(value);
-				insertAtCursor(target, value);
+				//insertAtCursor(target, value);
 				//checkAndCompile();
 			};
 			setEvent(button, "click", handler);
@@ -126,43 +157,20 @@ window.onload = function () {
 	//target.onblur = checkAndCompile();
 	//var compileRule = /Unexpected (token ([{,:])|string) in JSON at position ([0-9]+)/g
 
-	function checkAndCompile() {
-		var diagramStructure = editor.getValue();
-		try {
-			target.className = "";
-			var diagramStructure = JSON.parse(diagramStructure);
-		} catch (e) {
-			var r = (/Unexpected (token ([{,:])|string) in JSON at position ([0-9]+)/g).exec(e.message);
-			if (r) {
-				switch (r[1]) {
-					case "{":
-					case "string":
-						insertAtCursor(target, ",", parseInt(r[2] || r[3]));
-						break;
-					case ",":
-						removeCharAtCursor(target, parseInt(r[2]));
-						break;
-					default:
-						target.className = "error"
-						break;
-				}
-			}
-		} finally {
-			//reparse();
-		}
-	}
+
 
 	function reparse() {
 		var text = target.value;
 		if (text) {
 			var obj = JSON.parse(text);
-			target.value = JSON.stringify(obj, null, "");
+			target.value = JSON.stringify(obj, null, 4);
 			render();
 		}
 	}
 
 	setEvent(document.getElementById("genButton"), "click", render);
+	setEvent(target, "change", render);
 
 	fillTemplates();
-	editor.insert(JSON.stringify(JSONPrueba, null, 4));
+	editor.insert(JSON.stringify(templates.base, null, 4));
 }
