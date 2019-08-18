@@ -115,32 +115,28 @@ var templates = {
 		}
 	},
 	"while": {
-		"statements": [{
-			"type": "while",
-			"data": {
-				"condition": "[condicion]",
-				"statements": [{
-					"type": "block",
-					"data": {
-						"content": "[instruccion]"
-					}
-				}]
-			}
-		}]
+		"type": "while",
+		"data": {
+			"condition": "[condicion]",
+			"statements": [{
+				"type": "block",
+				"data": {
+					"content": "[instruccion]"
+				}
+			}]
+		}
 	},
 	"do-while": {
-		"statements": [{
-			"type": "do-while",
-			"data": {
-				"condition": "[condicion]",
-				"statements": [{
-					"type": "block",
-					"data": {
-						"content": "[instruccion]"
-					}
-				}]
-			}
-		}]
+		"type": "do-while",
+		"data": {
+			"condition": "[condicion]",
+			"statements": [{
+				"type": "block",
+				"data": {
+					"content": "[instruccion]"
+				}
+			}]
+		}
 	},
 	"for": {
 		"type": "for",
@@ -174,70 +170,5 @@ var templates = {
 				}
 			}]
 		}
-	},
-	"try-catch-finally": {
-		"statements": [{
-				"type": "try",
-				"data": {
-					"statements": [{
-						"type": "input",
-						"data": {
-							"variable": "numero"
-						}
-					}]
-				}
-			},
-			{
-				"type": "catch",
-				"data": {
-					"exception": "SomeException",
-					"variable": "se",
-					"statements": [{
-							"type": "output",
-							"data": {
-								"message": "'Hubo una excepcion: ' + se.getMessage()"
-							}
-						},
-						{
-							"type": "throw",
-							"data": {
-								"value": "new RuntimeException(se.getMessage())"
-							}
-						}
-					]
-				}
-			},
-			{
-				"type": "catch",
-				"data": {
-					"exception": "SomeOtherException",
-					"variable": "soe",
-					"statements": [{
-							"type": "output",
-							"data": {
-								"message": "'Hubo otra excepcion: ' + soe.getMessage()"
-							}
-						},
-						{
-							"type": "throw",
-							"data": {
-								"value": "new RuntimeException(soe.getMessage())"
-							}
-						}
-					]
-				}
-			},
-			{
-				"type": "finally",
-				"data": {
-					"statements": [{
-						"type": "block",
-						"data": {
-							"content": "bloque de instrucciones, solo si es necesario"
-						}
-					}]
-				}
-			}
-		]
 	}
 }

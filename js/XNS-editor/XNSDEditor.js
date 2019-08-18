@@ -2,7 +2,12 @@ var mainbox = document.getElementById("diagramContainer");
 var xnsd = new XNSDiagram();
 var target = document.getElementById("editor");
 
-
+function formatCode() {
+	aceEditor.session.off('change', nuevoCambio);
+	var code = aceEditor.getValue();
+	aceEditor.setValue(js_beautify(code));
+	aceEditor.session.on('change', nuevoCambio);
+}
 
 function insertAtCursor(elem, value, position) {
 	if (position) {
@@ -18,6 +23,16 @@ function insertAtCursor(elem, value, position) {
 	} else {
 		elem.value += value;
 	}
+}
+
+function toJSON(codeStr) {
+	var codeJson = {};
+	try {
+		codeJson = JSON.parse(codeStr);
+	} catch (e) {
+		console.log(e);
+	}
+	return codeJson;
 }
 
 
@@ -57,23 +72,10 @@ function render() {
 	try {
 		var diagramStructure = JSON.parse(diagramStructure);
 	} catch (e) {
-		alert(e);
+		console.log(e);
 	}
 	insertExample(diagramTitle, diagramStructure);
 }
-
-
-// get JSON
-function getJson() {
-	try {
-		return JSON.parse($('#json-display').val());
-	} catch (ex) {
-		alert('Wrong JSON Format: ' + ex);
-	}
-}
-// initialize
-
-
 
 function targetEmpty() {
 	return aceEditor.getValue() == "";
@@ -90,7 +92,7 @@ function fillTemplates() {
 			if (targetEmpty()) {
 				value = "{\n" + value + "}"
 			};
-			value = JSON.stringify(value, null, 4);
+			value = JSON.stringify(value, null, 2);
 			aceEditor.insert(value);
 			//insertAtCursor(target, value);
 			//checkAndCompile();
@@ -110,12 +112,22 @@ function reparse() {
 	var text = target.value;
 	if (text) {
 		var obj = JSON.parse(text);
-		target.value = JSON.stringify(obj, null, 4);
+		target.value = JSON.stringify(obj, null, 2);
 		render();
 	}
 }
 
-setEvent(document.getElementById("genButton"), "click", render);
-aceEditor.session.on('change', render);
+function nuevoCambio() {
+	var cursor = aceEditor.getCursorPosition();
+	render();
+	aceEditor.moveCursorToPosition(cursor);
+	setTimeout(formatCode, 100);
+}
+
+setEvent(document.getElementById("genButton"), "click", formatCode);
+//setEvent(target, "change", nuevoCambio);
 
 fillTemplates();
+aceEditor.insert(JSON.stringify(templates.base, null, 2));
+nuevoCambio();
+aceEditor.session.on('change', nuevoCambio);
