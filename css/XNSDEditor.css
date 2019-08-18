@@ -82,9 +82,13 @@
         }
 
         .diagrama {
-            background: mediumvioletred;
+            background: mistyrose;
         }
 
         .editor {
             background: mediumseagreen;
+        }
+
+        .btn {
+            margin: 3px;
         }

@@ -7,35 +7,33 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                 <div>
-                    <p>
-                        Title: <input type="text" id="dtitle" value="" /> &nbsp; <input type="button" value="generate"
-                            id="genButton" />
-                        <br />
-                    </p>
+                    <input type="text" id="dtitle">
+                    <input type="button" value="generate" id="genButton" />
                 </div>
                 <div>
-                    <p id="buttons">
-                        <br />
-                    </p>
+                    <div id="buttons"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="panel panel-default col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="panel-heading">Editor</div>
+                <div class="panel-body">
+                    <pre id="editor" class="ace_editor"></pre>
+                </div>
+            </div>
+            <div class="panel panel-default col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+                <div class="panel-heading">Render</div>
+                <div class="panel-body diagrama">
+                    <div id="diagramContainer"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 editor">
-                <pre id="editor" class="ace_editor"></pre>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 diagrama">
-                <div id="diagramContainer"></div>
-            </div>
-        </div>
-    </div>
-
 
 
 

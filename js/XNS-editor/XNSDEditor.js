@@ -4,8 +4,11 @@ var target = document.getElementById("editor");
 
 function formatCode() {
 	aceEditor.session.off('change', nuevoCambio);
+	var cursor = aceEditor.getCursorPosition();
 	var code = aceEditor.getValue();
 	aceEditor.setValue(js_beautify(code));
+	aceEditor.moveCursorToPosition(cursor);
+	aceEditor.clearSelection();
 	aceEditor.session.on('change', nuevoCambio);
 }
 
@@ -87,6 +90,8 @@ function fillTemplates() {
 		var button = document.createElement("button");
 		button.innerHTML = t;
 		button.content = templates[t];
+		button.classList.add("btn");
+		button.classList.add("btn-primary");
 		var handler = function (e) {
 			var value = (e.target || e.srcElement).content;
 			if (targetEmpty()) {
@@ -118,9 +123,7 @@ function reparse() {
 }
 
 function nuevoCambio() {
-	var cursor = aceEditor.getCursorPosition();
 	render();
-	aceEditor.moveCursorToPosition(cursor);
 	setTimeout(formatCode, 100);
 }
 
