@@ -1,54 +1,91 @@
 <html>
-
-<head>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="css/bootstrap/bootstrap.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
     <link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div>
-                    <input type="text" id="dtitle">
-                    <input type="button" value="generate" id="genButton" />
-                </div>
-                <div>
-                    <div id="buttons"></div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div id="buttons"></div>
         </div>
-        <div class="row">
-            <div class="panel panel-default col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                <div class="panel-heading">Editor</div>
-                <div class="panel-body">
-                    <pre id="editor" class="ace_editor"></pre>
-                </div>
-            </div>
-            <div class="panel panel-default col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
-                <div class="panel-heading">Render</div>
-                <div class="panel-body diagrama">
-                    <div id="diagramContainer"></div>
-                </div>
-            </div>
+      </div>
+      <div class="row">
+        <div class="alert alert-danger col-lg-12" id="alert"></div>
+      </div>
+      <div class="row">
+        <div class="card card-primary col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="card-header">Editor</div>
+          <div class="card-body">
+            <pre id="editor" class="ace_editor"></pre>
+          </div>
         </div>
+        <div class="card card-primary col-xl-6 col-lg-6 col-md-6 col-sm-12 ">
+          <div class="card-header">Render</div>
+          <div class="card-body diagrama">
+            <div id="diagramContainer"></div>
+          </div>
+        </div>
+      </div>
     </div>
-
-
-
-
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.2/beautify.min.js"></script>
-<script type="application/javascript" src="js/ace-src-min/ace.js"></script>
-<script type="application/javascript" src="js/XNS-core/html2canvas.js"></script>
-<script type="application/javascript" src="js/XNS-core/Enumeration.js"></script>
-<script type="application/javascript" src="js/XNS-core/ClassConstructor.js"></script>
-<script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script>
-<script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
-<script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>
-<script type="application/javascript" src="js/XNS-editor/templates.js"></script>
-<script type="application/javascript" src="js/XNS-editor/ace-config.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
-
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.2/beautify.min.js"></script>
+  <script type="application/javascript" src="js/ace-src-min/ace.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-core/html2canvas.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-core/Enumeration.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-core/ClassConstructor.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-core/BaseDiagram.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-core/DiagramObject.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-core/XNSDiagram.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-editor/templates.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-editor/ace-config.js"
+  ></script>
+  <script
+    type="application/javascript"
+    src="js/XNS-editor/XNSDEditor.js"
+  ></script>
 </html>

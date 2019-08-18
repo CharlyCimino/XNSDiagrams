@@ -1,115 +1,83 @@
 var templates = {
 	"base": {
 		"declaration": {
-			"modifiers": "[visibilidad] [static]",
-			"type": "tipoDeDato / void",
 			"class": "Class",
-			"name": "nombreMetodo",
+			"modifiers": "modifiers",
+			"type": "type",
+			"name": "methodName",
 			"arguments": []
 		},
 		"localVars": [],
-		"statements": [{
-			"type": "block",
-			"data": {
-				"content": "[instruccion]"
-			}
-		}]
+		"statements": []
 	},
 	"parametro": {
-		"type": "[tipo]",
-		"name": "[nombre]"
+		"type": "type",
+		"name": "name"
 	},
 	"variable": {
-		"type": "[tipo]",
-		"name": "[nombre]"
+		"type": "type",
+		"name": "name"
 	},
 	"asignacion": {
 		"type": "assignment",
 		"data": {
-			"variable": "[variable]",
-			"value": "[valor]"
+			"variable": "variable",
+			"value": "value"
 		}
 	},
 	"salida": {
 		"type": "output",
 		"data": {
-			"message": "[valor]"
+			"message": "value"
 		}
 	},
 	"entrada": {
 		"type": "input",
 		"data": {
-			"variable": "[variable]"
+			"variable": "variable"
+		}
+	},
+	"bloque": {
+		"type": "block",
+		"data": {
+			"content": "instruction"
 		}
 	},
 	"invocacion": {
 		"type": "call",
 		"data": {
-			"statement": "[objeto.]metodo([argumentos...])"
+			"statement": "object.method()"
 		}
 	},
 	"return": {
 		"type": "return",
 		"data": {
-			"value": "[valor]"
+			"value": "value"
 		}
 	},
 	"if": {
 		"type": "if",
 		"data": {
-			"condition": "variable o expresión lógica",
-			"then": [{
-				"type": "block",
-				"data": {
-					"content": "[caso_verdadero]"
-				}
-			}],
-			"else": [{
-				"type": "block",
-				"data": {
-					"content": "[caso_falso]"
-				}
-			}]
+			"condition": "condition",
+			"then": [],
+			"else": []
 		}
 	},
 	"switch": {
 		"type": "switch",
 		"data": {
-			"expression": "variable o expresión enumerable",
+			"expression": "variable",
 			"options": [{
 					"case": "A",
-					"statements": [{
-							"type": "output",
-							"data": {
-								"message": "\"lo que hago si vale A\""
-							}
-						},
-						{
-							"type": "break"
-						}
-					]
+					"statements": []
 				},
 				{
 					"case": "B",
-					"statements": [{
-							"type": "output",
-							"data": {
-								"message": "\"lo que hago si vale B\""
-							}
-						},
-						{
-							"type": "break"
-						}
-					]
+					"statements": []
 				},
 				{
 					"case": "default",
-					"statements": [{
-						"type": "output",
-						"data": {
-							"message": "\"lo que hago si vale por default\""
-						}
-					}]
+					"statements": []
 				}
 			]
 		}
@@ -117,25 +85,15 @@ var templates = {
 	"while": {
 		"type": "while",
 		"data": {
-			"condition": "[condicion]",
-			"statements": [{
-				"type": "block",
-				"data": {
-					"content": "[instruccion]"
-				}
-			}]
+			"condition": "condition",
+			"statements": []
 		}
 	},
 	"do-while": {
-		"type": "do-while",
+		"type": "dowhile",
 		"data": {
-			"condition": "[condicion]",
-			"statements": [{
-				"type": "block",
-				"data": {
-					"content": "[instruccion]"
-				}
-			}]
+			"condition": "condition",
+			"statements": []
 		}
 	},
 	"for": {
@@ -143,32 +101,22 @@ var templates = {
 		"data": {
 			"control": {
 				"variable": "variable",
-				"start": "valorInicio",
-				"stop": "valorFinal",
-				"step": "paso"
+				"start": "start",
+				"stop": "stop",
+				"step": "step"
 			},
-			"statements": [{
-				"type": "output",
-				"data": {
-					"message": "\"variable vale \" + variable"
-				}
-			}]
+			"statements": []
 		}
 	},
 	"for-each": {
 		"type": "foreach",
 		"data": {
 			"control": {
-				"class": "Clase",
-				"variable": "objeto",
-				"collection": "coleccion"
+				"class": "type",
+				"variable": "value",
+				"collection": "collection"
 			},
-			"statements": [{
-				"type": "output",
-				"data": {
-					"message": "objeto"
-				}
-			}]
+			"statements": []
 		}
 	}
 }

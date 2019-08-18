@@ -1,6 +1,8 @@
 var mainbox = document.getElementById("diagramContainer");
 var xnsd = new XNSDiagram();
 var target = document.getElementById("editor");
+var alert = document.getElementById("alert");
+var theJson = templates.base;
 
 function formatCode() {
 	aceEditor.session.off('change', nuevoCambio);
@@ -12,8 +14,10 @@ function formatCode() {
 	aceEditor.session.on('change', nuevoCambio);
 }
 
-function insertAtCursor(elem, value, position) {
-	if (position) {
+function insertAtCursor(name, value) {
+	//var pos = JSON.parse(aceEditor.getValue());
+	//console.log(value);
+	/*if () {
 		elem.value = elem.value.substring(0, position) +
 			value + elem.value.substring(position, elem.value.length);
 	} else if (document.selection) {
@@ -25,7 +29,8 @@ function insertAtCursor(elem, value, position) {
 			value + elem.value.substring(elem.selectionEnd, elem.value.length);
 	} else {
 		elem.value += value;
-	}
+	}*/
+	//aceEditor.insert(value);
 }
 
 function toJSON(codeStr) {
@@ -46,9 +51,9 @@ function insertHeader(elem, description) {
 	elem.appendChild(title);
 }
 
-function insertExample(title, obj) {
+function insertExample(obj) {
 	mainbox.innerHTML = "";
-	insertHeader(mainbox, title);
+	//insertHeader(mainbox, title);
 	var diabox = document.createElement("div");
 	diabox.className = "diabox";
 	mainbox.appendChild(diabox);
@@ -70,14 +75,16 @@ function setEvent(domElement, eventName, handler) {
 }
 
 function render() {
-	var diagramTitle = document.getElementById("dtitle").value;
+	//var diagramTitle = document.getElementById("dtitle").value;
 	var diagramStructure = aceEditor.getValue();
 	try {
 		var diagramStructure = JSON.parse(diagramStructure);
+		alert.classList.add("invisible");
 	} catch (e) {
-		console.log(e);
+		alert.innerText = e;
+		alert.classList.remove("invisible");
 	}
-	insertExample(diagramTitle, diagramStructure);
+	insertExample(diagramStructure);
 }
 
 function targetEmpty() {
@@ -94,9 +101,7 @@ function fillTemplates() {
 		button.classList.add("btn-primary");
 		var handler = function (e) {
 			var value = (e.target || e.srcElement).content;
-			if (targetEmpty()) {
-				value = "{\n" + value + "}"
-			};
+			var name = (e.target || e.srcElement).innerHTML;
 			value = JSON.stringify(value, null, 2);
 			aceEditor.insert(value);
 			//insertAtCursor(target, value);
@@ -127,7 +132,7 @@ function nuevoCambio() {
 	setTimeout(formatCode, 100);
 }
 
-setEvent(document.getElementById("genButton"), "click", formatCode);
+//setEvent(document.getElementById("genButton"), "click", formatCode);
 //setEvent(target, "change", nuevoCambio);
 
 fillTemplates();

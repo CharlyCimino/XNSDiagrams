@@ -81,14 +81,10 @@
             text-align: center;
         }
 
-        .diagrama {
-            background: mistyrose;
-        }
-
-        .editor {
-            background: mediumseagreen;
-        }
-
         .btn {
             margin: 3px;
+        }
+
+        .invisible {
+            opacity: 0;
         }
