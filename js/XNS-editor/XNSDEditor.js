@@ -9,7 +9,6 @@ var w;
 document.getElementById("botonNuevaVentana").onclick = function () {
 	w = window.open("render.html");
 	divRender = w.document.getElementById("divRender");
-	console.log(w);
 };
 
 function formatCode() {
@@ -58,21 +57,19 @@ function insertHeader(elem, description) {
 	elem.appendChild(title);
 }
 
-function insertExample(obj) {
-	divRender.innerHTML = "";
+function insertExample(obj, elDiv) {
+	elDiv.innerHTML = "";
 	//insertHeader(mainbox, title);
 	/*var diabox = document.createElement("div");
 	diabox.className = "diabox";
 	mainbox.appendChild(diabox);*/
 	var diagram = xnsd.render(
-		divRender,
+		elDiv,
 		obj.statements ?
 		obj : {
 			statements: [obj]
 		}
 	);
-	localStorage.clear();
-	localStorage.setItem("diagram", divRender);
 	/*diagram.createImage(function (img) {
 		img.className = "output";
 		mainbox.appendChild(img);
@@ -97,7 +94,10 @@ function render() {
 		alert.innerText = e;
 		alert.classList.remove("invisible");
 	}
-	insertExample(diagramStructure);
+	insertExample(diagramStructure, mainbox);
+	if (w) {
+		insertExample(diagramStructure, divRender);
+	}
 }
 
 function targetEmpty() {
