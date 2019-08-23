@@ -6,11 +6,11 @@ var theJson = templates.base;
 var divRender;
 var w;
 
-function abrirEnNuevaVentana() {
+document.getElementById("botonNuevaVentana").onclick = function () {
 	w = window.open("render.html");
 	divRender = w.document.getElementById("divRender");
 	console.log(w);
-}
+};
 
 function formatCode() {
 	aceEditor.session.off("change", nuevoCambio);
