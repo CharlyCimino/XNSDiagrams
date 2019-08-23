@@ -23,6 +23,24 @@
   <script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script>
   <script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
   <script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>
+  <script>
+    var elDiv = document.getElementById("divRender");
+    var xnsd = new XNSDiagram();
+
+    function renderizar() {
+      elDiv.innerHTML = "";
+      var obj = localStorage.diagramStructure;
+      obj = JSON.parse(obj);
+      var diagram = xnsd.render(
+        elDiv,
+        obj.statements ?
+        obj : {
+          statements: [obj]
+        }
+      );
+    }
+    window.addEventListener('storage', renderizar, false);
+  </script>
 </body>
 
 </html>

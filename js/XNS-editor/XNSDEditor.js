@@ -88,17 +88,14 @@ function render() {
 	//var diagramTitle = document.getElementById("dtitle").value;
 	var diagramStructure = aceEditor.getValue();
 	try {
-		var diagramStructure = JSON.parse(diagramStructure);
+		diagramStructure = JSON.parse(diagramStructure);
 		alert.classList.add("invisible");
 	} catch (e) {
 		alert.innerText = e;
 		alert.classList.remove("invisible");
 	}
 	insertExample(diagramStructure, mainbox);
-	if (w) {
-		console.log("Intenta renderizar");
-		insertExample(diagramStructure, divRender);
-	}
+	localStorage.diagramStructure = JSON.stringify(diagramStructure, null, 2);
 }
 
 function targetEmpty() {
@@ -146,6 +143,7 @@ function nuevoCambio() {
 //setEvent(document.getElementById("genButton"), "click", formatCode);
 //setEvent(target, "change", nuevoCambio);
 
+localStorage.clear();
 fillTemplates();
 aceEditor.insert(JSON.stringify(templates.base, null, 2));
 nuevoCambio();
