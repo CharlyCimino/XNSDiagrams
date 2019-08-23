@@ -120,3 +120,6 @@ var templates = {
 		}
 	}
 }
+
+var HTMLRenderHead = '<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" /><link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />';
+var HTMLRenderBody = '<script type="application/javascript" src="js/XNS-core/html2canvas.js"></script><script type="application/javascript" src="js/XNS-core/Enumeration.js"></script><script type="application/javascript" src="js/XNS-core/ClassConstructor.js"></script><script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script><script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script><script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>';

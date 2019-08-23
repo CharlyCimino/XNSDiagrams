@@ -3,15 +3,23 @@ var xnsd = new XNSDiagram();
 var target = document.getElementById("editor");
 var alert = document.getElementById("alert");
 var theJson = templates.base;
+var divRender;
+var w;
+
+function abrirEnNuevaVentana() {
+	w = window.open("render.html");
+	divRender = w.document.getElementById("divRender");
+	console.log(w);
+}
 
 function formatCode() {
-	aceEditor.session.off('change', nuevoCambio);
+	aceEditor.session.off("change", nuevoCambio);
 	var cursor = aceEditor.getCursorPosition();
 	var code = aceEditor.getValue();
 	aceEditor.setValue(js_beautify(code));
 	aceEditor.moveCursorToPosition(cursor);
 	aceEditor.clearSelection();
-	aceEditor.session.on('change', nuevoCambio);
+	aceEditor.session.on("change", nuevoCambio);
 }
 
 function insertAtCursor(name, value) {
@@ -43,7 +51,6 @@ function toJSON(codeStr) {
 	return codeJson;
 }
 
-
 function insertHeader(elem, description) {
 	var title = document.createElement("h2");
 	title.className = "external";
@@ -52,14 +59,20 @@ function insertHeader(elem, description) {
 }
 
 function insertExample(obj) {
-	mainbox.innerHTML = "";
+	divRender.innerHTML = "";
 	//insertHeader(mainbox, title);
-	var diabox = document.createElement("div");
+	/*var diabox = document.createElement("div");
 	diabox.className = "diabox";
-	mainbox.appendChild(diabox);
-	var diagram = xnsd.render(diabox, (obj.statements) ? obj : {
-		"statements": [obj]
-	});
+	mainbox.appendChild(diabox);*/
+	var diagram = xnsd.render(
+		divRender,
+		obj.statements ?
+		obj : {
+			statements: [obj]
+		}
+	);
+	localStorage.clear();
+	localStorage.setItem("diagram", divRender);
 	/*diagram.createImage(function (img) {
 		img.className = "output";
 		mainbox.appendChild(img);
@@ -112,11 +125,8 @@ function fillTemplates() {
 	}
 }
 
-
 //target.onblur = checkAndCompile();
 //var compileRule = /Unexpected (token ([{,:])|string) in JSON at position ([0-9]+)/g
-
-
 
 function reparse() {
 	var text = target.value;
@@ -138,4 +148,4 @@ function nuevoCambio() {
 fillTemplates();
 aceEditor.insert(JSON.stringify(templates.base, null, 2));
 nuevoCambio();
-aceEditor.session.on('change', nuevoCambio);
+aceEditor.session.on("change", nuevoCambio);
