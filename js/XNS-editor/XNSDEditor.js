@@ -96,6 +96,7 @@ function render() {
 	}
 	insertExample(diagramStructure, mainbox);
 	if (w) {
+		console.log("Intenta renderizar");
 		insertExample(diagramStructure, divRender);
 	}
 }
