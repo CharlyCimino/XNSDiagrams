@@ -1,34 +1,29 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
   <link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
 </head>
 
 <body>
-  <div class="container-fluid">
+
+  <div class="container-fluid" id="main">
+    <nav class="navbar navbar-expand-sm navbar-light">
+      <ul class="navbar-nav" id="theNavBar">
+      </ul>
+    </nav>
     <div class="row">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        <div id="buttons"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        <button id="botonNuevaVentana">Nueva Ventana</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="alert alert-danger col-lg-12" id="alert">a</div>
-    </div>
-    <div class="row">
-      <div class="card card-primary col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        <div class="card-header">Editor</div>
+      <div class="card card-primary col-xl-6 col-lg-6 col-md-6 col-sm-6" id="divEditor">
+        <div class="card-header">Editor
+        </div>
         <div class="card-body">
           <pre id="editor" class="ace_editor"></pre>
         </div>
+        <div class="alert alert-danger" id="alert"></div>
       </div>
-      <div class="card card-primary col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+      <div class="card card-primary col-xl-6 col-lg-6 col-md-6 col-sm-6" id="divRender">
         <div class="card-header">Render</div>
         <div class="card-body diagrama">
           <div id="diagramContainer"></div>

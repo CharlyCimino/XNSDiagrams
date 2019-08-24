@@ -1,125 +1,133 @@
-var templates = {
-	"base": {
-		"declaration": {
-			"class": "Class",
-			"modifiers": "modifiers",
-			"type": "type",
-			"name": "methodName",
-			"arguments": []
+var templateBase = {
+	"declaration": {
+		"class": "Clase",
+		"modifiers": "public",
+		"type": "void",
+		"name": "método",
+		"arguments": []
+	},
+	"localVars": [],
+	"statements": []
+};
+
+var categories = {
+	"Bloques y E/S": {
+		"Entrada": {
+			"type": "input",
+			"data": {
+				"variable": "variable"
+			}
 		},
-		"localVars": [],
-		"statements": []
-	},
-	"parametro": {
-		"type": "type",
-		"name": "name"
-	},
-	"variable": {
-		"type": "type",
-		"name": "name"
-	},
-	"asignacion": {
-		"type": "assignment",
-		"data": {
-			"variable": "variable",
-			"value": "value"
+		"Salida": {
+			"type": "output",
+			"data": {
+				"message": "valor"
+			}
+		},
+		"Bloque": {
+			"type": "block",
+			"data": {
+				"content": "instrucción"
+			}
 		}
 	},
-	"salida": {
-		"type": "output",
-		"data": {
-			"message": "value"
-		}
-	},
-	"entrada": {
-		"type": "input",
-		"data": {
-			"variable": "variable"
-		}
-	},
-	"bloque": {
-		"type": "block",
-		"data": {
-			"content": "instruction"
-		}
-	},
-	"invocacion": {
-		"type": "call",
-		"data": {
-			"statement": "object.method()"
-		}
-	},
-	"return": {
-		"type": "return",
-		"data": {
-			"value": "value"
-		}
-	},
-	"if": {
-		"type": "if",
-		"data": {
-			"condition": "condition",
-			"then": [],
-			"else": []
-		}
-	},
-	"switch": {
-		"type": "switch",
-		"data": {
-			"expression": "variable",
-			"options": [{
-					"case": "A",
-					"statements": []
-				},
-				{
-					"case": "B",
-					"statements": []
-				},
-				{
-					"case": "default",
-					"statements": []
-				}
-			]
-		}
-	},
-	"while": {
-		"type": "while",
-		"data": {
-			"condition": "condition",
-			"statements": []
-		}
-	},
-	"do-while": {
-		"type": "dowhile",
-		"data": {
-			"condition": "condition",
-			"statements": []
-		}
-	},
-	"for": {
-		"type": "for",
-		"data": {
-			"control": {
+	"Variables": {
+		"Declarar variable": {
+			"type": "tipo",
+			"name": "nombre"
+		},
+		"Asignar variable": {
+			"type": "assignment",
+			"data": {
 				"variable": "variable",
-				"start": "start",
-				"stop": "stop",
-				"step": "step"
-			},
-			"statements": []
+				"value": "valor"
+			}
 		}
 	},
-	"for-each": {
-		"type": "foreach",
-		"data": {
-			"control": {
-				"class": "type",
-				"variable": "value",
-				"collection": "collection"
-			},
-			"statements": []
+	"Selección": {
+		"if": {
+			"type": "if",
+			"data": {
+				"condition": "condicion",
+				"then": [],
+				"else": []
+			}
+		},
+		"switch": {
+			"type": "switch",
+			"data": {
+				"expression": "variable",
+				"options": [{
+						"case": "1",
+						"statements": []
+					},
+					{
+						"case": "2",
+						"statements": []
+					},
+					{
+						"case": "default",
+						"statements": []
+					}
+				]
+			}
+		}
+	},
+	"Repetición": {
+		"while": {
+			"type": "while",
+			"data": {
+				"condition": "condicion",
+				"statements": []
+			}
+		},
+		"do-while": {
+			"type": "dowhile",
+			"data": {
+				"condition": "condicion",
+				"statements": []
+			}
+		},
+		"for": {
+			"type": "for",
+			"data": {
+				"control": {
+					"variable": "variable",
+					"start": "inicio",
+					"stop": "hasta",
+					"step": "paso"
+				},
+				"statements": []
+			}
+		},
+		"for-each": {
+			"type": "foreach",
+			"data": {
+				"control": {
+					"class": "tipo",
+					"variable": "valor",
+					"collection": "coleccion"
+				},
+				"statements": []
+			}
+		}
+	},
+	"Métodos": {
+		"Nuevo parámetro": {
+			"type": "tipo",
+			"name": "nombre"
+		},
+		"Invocar método": {
+			"type": "call",
+			"data": {
+				"statement": "objeto.metodo(params)"
+			}
+		},
+		"Retornar": {
+			"type": "return",
+			"data": {
+				"value": "valor"
+			}
 		}
 	}
-}
-
-var HTMLRenderHead = '<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" /><link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />';
-var HTMLRenderBody = '<script type="application/javascript" src="js/XNS-core/html2canvas.js"></script><script type="application/javascript" src="js/XNS-core/Enumeration.js"></script><script type="application/javascript" src="js/XNS-core/ClassConstructor.js"></script><script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script><script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script><script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>';
+};

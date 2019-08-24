@@ -8,5 +8,5 @@ aceEditor.setOptions({
 aceEditor.session.setMode("ace/mode/json");
 aceEditor.session.setTabSize(2);
 aceEditor.session.setUseWrapMode(true);
-aceEditor.setFontSize(12);
+aceEditor.setFontSize(14);
 aceEditor.setShowPrintMargin(false);
