@@ -60,9 +60,9 @@ function insertExample(obj, elDiv) {
 	var diagram = xnsd.render(
 		elDiv,
 		obj.statements ?
-		obj : {
-			statements: [obj]
-		}
+			obj : {
+				statements: [obj]
+			}
 	);
 	/*diagram.createImage(function (img) {
 		img.className = "output";
@@ -152,7 +152,7 @@ function reparse() {
 
 function codeEdited() {
 	render();
-	setTimeout(formatCode, 100);
+	setTimeout(formatCode, 1);
 }
 
 function renderInNewWindow() {
@@ -165,9 +165,22 @@ function renderInNewWindow() {
 	document.getElementById("main").classList.add("container");
 }
 
+function undoEditor() {
+	for (var index = 0; index < 3; index++) {
+		aceEditor.undo();
+	}
+}
+
+function redoEditor() {
+	aceEditor.redo();
+	aceEditor.redo();
+}
+
 function setEvents() {
 	aceEditor.session.onchange = codeEdited;
 	document.getElementById("buttonRenderNewWindow").onclick = renderInNewWindow;
+	document.getElementById("buttonUndo").onclick = undoEditor;
+	aceEditor.commands.commands.undo.exec = undoEditor;
 }
 
 function init() {

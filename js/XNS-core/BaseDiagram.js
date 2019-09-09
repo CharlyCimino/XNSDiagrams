@@ -3,7 +3,9 @@
 // -----------------------
 function BaseDiagram(params) {
 
-    if (!params) { params =  {}; }
+    if (!params) {
+        params = {};
+    }
     var _self = Object.create(new ClassConstructor());
     var _graphicType = "base-diagram";
     var _prefix = "ns";
@@ -13,22 +15,44 @@ function BaseDiagram(params) {
     function nextInternalId() {
         return _internalID++;
     }
-    
+
     function addLanguages() {
         // languages dictionaries
         _self.addEnumProperty("LANGUAGES", ["EN", "ES"]);
-        _self.addProperty("SYMBOLS", [
-                { "INPUT": "I", "OUTPUT": "O", "TRUE": "T", "FALSE": "F", "ANONYMOUS_METHOD": "UNNAMED METHOD" },
-                { "INPUT": "E", "OUTPUT": "S", "TRUE": "V", "FALSE": "F", "ANONYMOUS_METHOD": "METODO ANONIMO" }
-            ],
-            { "writable": false, "configurable": false, "enumerable": true, "to_clone" : true });
-        _self.addProperty("DEFAULT_LANGUAGE", _self["LANGUAGES"]["ES"], { "writable": false });
+        _self.addProperty("SYMBOLS", [{
+                "INPUT": "I",
+                "OUTPUT": "O",
+                "TRUE": "T",
+                "FALSE": "F",
+                "ANONYMOUS_METHOD": "UNNAMED METHOD"
+            },
+            {
+                "INPUT": "E",
+                "OUTPUT": "S",
+                "TRUE": "V",
+                "FALSE": "F",
+                "ANONYMOUS_METHOD": "METODO ANONIMO"
+            }
+        ], {
+            "writable": false,
+            "configurable": false,
+            "enumerable": true,
+            "to_clone": true
+        });
+        _self.addProperty("DEFAULT_LANGUAGE", _self["LANGUAGES"]["ES"], {
+            "writable": false
+        });
     }
 
     /* --- published properties and methods --- */
     function _register(name, method) {
         _self.addMethod(name, method);
-        Object.defineProperty(_self, name, { "configurable": false, "writable": false, "enumerable": false, "value": method });
+        Object.defineProperty(_self, name, {
+            "configurable": false,
+            "writable": false,
+            "enumerable": false,
+            "value": method
+        });
     }
 
     function _htmlString(value) {
@@ -60,9 +84,13 @@ function BaseDiagram(params) {
         for (var field in definition) {
             _process(container, field, definition[field]);
         }
-        return new DiagramObject({ "json": definition, "html": container, "onrender": _self.onrender });
+        return new DiagramObject({
+            "json": definition,
+            "html": container,
+            "onrender": _self.onrender
+        });
     }
-    
+
     /* --- object construction --- */
     function init() {
         addLanguages();
