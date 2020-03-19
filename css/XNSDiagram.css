@@ -10,11 +10,11 @@
 
 .Nassi-Shneiderman>* {
     margin-left: 0pt;
-    font-size: 10pt;
+    font-size: 12pt;
 }
 
 .method-declaration {
-    font-size: 12pt;
+    font-size: 13pt;
     color: #000;
     font-weight: 700;
     font-family: "Consolas", monospace;
@@ -25,9 +25,9 @@
 
 .local-variable-declaration,
 .local-const-declaration {
-    font-size: 11pt;
+    font-size: 12pt;
     padding-bottom: .5em;
-    font-family: "Courier New", Serif;
+    font-family: "Consolas", Serif;
 }
 
 .statements {
@@ -115,7 +115,7 @@
     width: 15pt;
     line-height: 15pt;
     text-align: center;
-    font-size: 9pt;
+    font-size: 10pt;
     z-index: 1;
 }
 
@@ -189,7 +189,7 @@
     line-height: 15pt;
     vertical-align: middle;
     text-align: center;
-    font-size: 9pt;
+    font-size: 10pt;
     border-right: solid 1px;
     border-bottom: solid 1px;
 }
