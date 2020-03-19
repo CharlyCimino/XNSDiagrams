@@ -130,13 +130,30 @@ function fillTemplates() {
 				//insertAtCursor(target, value);
 				//checkAndCompile();
 			};
-			setEvent(button, "click", handler);
+			setEvent(button, "click", manejarClickEnBoton);
 			divDropDownMenu.appendChild(button);
 		}
 		navbar.appendChild(liNavItem);
 	}
 	navbar.appendChild(buttonRenderNewWindow);
 }
+
+function manejarClickEnBoton(e) {
+	var value = (e.target || e.srcElement).content;
+	var name = (e.target || e.srcElement).innerHTML;
+	if (aceEditor.selection.isEmpty()) {
+		aceEditor.selection.selectLeft();
+		var c = aceEditor.session.getTextRange(aceEditor.getSelectionRange());
+		aceEditor.selection.selectRight();
+		if (c == "}" || c == "]") {
+			aceEditor.insert(",");
+		}
+	}
+	value = JSON.stringify(value, null, 2);
+	aceEditor.insert(value);
+	//insertAtCursor(target, value);
+	//checkAndCompile();
+};
 
 //target.onblur = checkAndCompile();
 //var compileRule = /Unexpected (token ([{,:])|string) in JSON at position ([0-9]+)/g
