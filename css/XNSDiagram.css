@@ -1,16 +1,12 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
 .Nassi-Shneiderman {
     font-family: "Consolas", monospace;
-}
-
-.Nassi-Shneiderman * {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-.Nassi-Shneiderman>* {
-    margin-left: 0pt;
-    font-size: 12pt;
+	font-size: 11pt;
 }
 
 .method-declaration {
@@ -27,41 +23,53 @@
 .local-const-declaration {
     font-size: 12pt;
     padding-bottom: .5em;
-    font-family: "Consolas", Serif;
+	font-family: "Consolas", Serif;
+	background-color: aquamarine;
 }
 
 .statements {
-    border-top: solid 1px;
-    border-left: solid 1px;
+	border: solid 1px;
+	padding-bottom: .5em;
+	background-color: lightblue;
 }
 
 .statements>* {
-    border-right: solid 1px;
-    border-bottom: solid 1px;
+    border: solid 1px;
 }
 
 .statements-block> :last-child {
     border-bottom: none;
 }
 
+.statements-block> :first-child {
+    border-top: none;
+}
+
 .block-statement,
 .break-statement {
-    padding: 3pt;
+    padding: 5pt;
     text-align: center;
-    border-bottom: solid 1px;
+    border: solid 1px;
 }
 
 .break-statement {
-    font-style: italic;
+    font-weight: bolder;
+}
+
+.conditional-statement {
+	border: solid 1px;
+	border-bottom: none;
 }
 
 .conditional-statement .header,
 .conditional-statement .body {
     display: table;
     width: 100%;
-    border-right: none;
     border-collapse: collapse;
-    border-bottom: solid 1px;
+}
+
+.conditional-statement .header {
+	border-bottom: solid 1px;
 }
 
 .conditional-statement .header .condition {
@@ -69,9 +77,9 @@
     text-align: center;
     vertical-align: middle;
     border: none;
-    padding: 15pt;
-    padding-left: 20pt;
-    padding-right: 20pt;
+    padding: 8pt;
+    padding-left: 15pt;
+    padding-right: 15pt;
 }
 
 .conditional-statement .header .option {
@@ -104,7 +112,7 @@
     right: 0px;
 }
 
-.conditional-statement.switch .header .option .option-block>canvas.corner {
+.conditional-statement.switch>.header>.option>.option-block>canvas.corner {
     top: 0px;
     transform: scaleX(-1);
 }
@@ -115,16 +123,11 @@
     width: 15pt;
     line-height: 15pt;
     text-align: center;
-    font-size: 10pt;
     z-index: 1;
 }
 
 .conditional-statement .header .option.false .caption {
     right: 0px;
-}
-
-.conditional-statement:last-child>.body {
-    border-bottom: none;
 }
 
 .conditional-statement>.body .side {
@@ -134,8 +137,18 @@
     min-width: 30pt;
 }
 
-.conditional-statement>.body .side.then {
-    border-right: solid 1px;
+.conditional-statement>.body>.then {
+	border-right: solid 0.5px;
+}
+
+.conditional-statement>.body>.else {
+	border-left: solid 0.5px;
+}
+
+.conditional-statement>.body>.case>.statements-block>div,
+.conditional-statement>.body>.side>div {
+	border: none;
+    border-bottom: solid 1px;
 }
 
 .conditional-statement>.body .case {
@@ -154,7 +167,6 @@
     text-align: center;
     background-color: #F0F0F0;
     border-bottom: solid 1px;
-    border-right: solid 1px;
     line-height: 20pt;
 }
 
@@ -169,9 +181,8 @@
 .input-statement,
 .output-statement {
     display: block;
-    position: relative;
-    width: 100%;
-    border-bottom: solid 1px;
+    position: relative;    
+    border: solid 1px;
 }
 
 .input-statement .body,
@@ -179,7 +190,7 @@
     display: block;
     position: relative;
     text-align: center;
-    padding: 15pt;
+    padding: 5pt;
 }
 
 .input-statement .symbol,
@@ -189,13 +200,13 @@
     line-height: 15pt;
     vertical-align: middle;
     text-align: center;
-    font-size: 10pt;
     border-right: solid 1px;
     border-bottom: solid 1px;
 }
 
 .for-statement {
-    display: block;
+	display: block;
+	border: solid 1px;
 }
 
 .for-statement .container {
@@ -207,7 +218,8 @@
     display: table-cell;
     border-right: solid 1px;
     position: relative;
-    vertical-align: middle;
+	vertical-align: middle;
+	max-width: 100pt;
 }
 
 .for-statement .controller * {
@@ -216,16 +228,16 @@
 
 .for-statement .controller .top {
     position: absolute;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
     top: 0px;
-    width: 15pt;
+    width: 20pt;
     border-right: solid 1px;
     border-bottom: solid 1px;
 }
 
 .for-statement .controller .bottom {
-    width: 15pt;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+    width: 20pt;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
     border-right: solid 1px;
     border-top: solid 1px;
     position: absolute;
@@ -239,37 +251,42 @@
 
 .for-statement .controller .content {
     text-align: center;
-    padding: 15pt;
+    padding: 5pt;
 }
 
 .for-statement .statements-block {
+	vertical-align: middle;
     display: table-cell;
-    min-width: 50%;
+	min-width: 50pt;
+}
+
+.for-statement .statements-block>div {
+	border: none;
+    border-bottom: solid 1px;
+}
+
+.for-statement .statements-block>div:last-child {
+	border: none;
 }
 
 .call-statement {
     display: block;
     position: relative;
     text-align: center;
-    border-bottom: solid 1px;
+    border: solid 1px;
 }
 
 .call-statement .margin {
     display: block;
     position: absolute;
     height: 100%;
-    width: 15pt;
+    width: 20pt;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAEElEQVQYV2NgYGBoYEABDQAIlAEB8MHMtAAAAABJRU5ErkJggg==);
-}
-
-.call-statement .margin.left {
-    border-right: solid 1px;
 }
 
 .call-statement .margin.right {
     right: 0px;
-    top: 0px;
-    border-left: solid 1px;
+    top: 0px; 
 }
 
 .call-statement .call {
@@ -284,13 +301,17 @@
 .while-statement .condition,
 .dowhile-statement .condition {
     text-align: center;
-    padding: 2pt;
+    padding: 5pt;
+}
+
+.while-statement,
+.dowhile-statement {
+	border: solid 1px;
 }
 
 .while-statement>.container>.statements-block,
 .dowhile-statement>.container>.statements-block {
-    margin-left: 15pt;
-    border-left: solid 1px;
+    margin-left: 20pt;
 }
 
 .while-statement>.container>.statements-block {
@@ -301,15 +322,22 @@
     border-bottom: solid 1px;
 }
 
-.empty {
-    position: absolute;
-    display: block;
-    width: 100%;
-    top: 0px;
-    bottom: 0px;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+.while-statement>.container>.statements-block>div,
+.dowhile-statement>.container>.statements-block>div {
+    border-right: none;
 }
 
+.empty {
+    /*position: absolute;*/
+	display: block;
+	width: 100%;
+	height: 1pt;
+    top: 0px;
+	bottom: 0px;
+	background: #f2faff;
+	/*border: 1px dashed #2c637f;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+}
 
 /** -- Exception extensions -- **/
 

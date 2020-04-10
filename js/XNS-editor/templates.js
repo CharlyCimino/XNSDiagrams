@@ -1,133 +1,127 @@
-var templateBase = {
-	"declaration": {
-		"class": "Clase",
-		"modifiers": "public",
-		"type": "void",
-		"name": "método",
-		"arguments": []
-	},
-	"localVars": [],
-	"statements": []
-};
-
-var categories = {
-	"Bloques y E/S": {
-		"Entrada": {
-			"type": "input",
-			"data": {
-				"variable": "variable"
-			}
-		},
-		"Salida": {
-			"type": "output",
-			"data": {
-				"message": "valor"
-			}
-		},
-		"Bloque": {
-			"type": "block",
-			"data": {
-				"content": "instrucción"
-			}
+var templates = [
+	/*{
+		"type": "base",
+		"data": {
+			"declaration": {
+				"class": "Clase",
+				"modifiers": "public",
+				"type": "void",
+				"name": "método",
+				"arguments": []
+			},
+			"localVars": [],
+			"statements": []
+		}
+	},*/
+	{
+		"type": "block",
+		"data": {
+			"content": "instrucción"
 		}
 	},
-	"Variables": {
-		"Declarar variable": {
-			"type": "tipo",
-			"name": "nombre"
-		},
-		"Asignar variable": {
-			"type": "assignment",
-			"data": {
+	{
+		"type": "assignment",
+		"data": {
+			"variable": "variable",
+			"value": "expresión"
+		}
+	},
+	{
+		"type": "output",
+		"data": {
+			"message": "expresión"
+		}
+	},
+	{
+		"type": "input",
+		"data": {
+			"variable": "variable"
+		}
+	},
+	{
+		"type": "if",
+		"data": {
+			"condition": "condicion",
+			"then": [],
+			"else": []
+		}
+	},
+	{
+		"type": "switch",
+		"data": {
+			"expression": "variable",
+			"options": [{
+				"case": "1",
+				"statements": []
+			},
+			{
+				"case": "2",
+				"statements": []
+			},
+			{
+				"case": "default",
+				"statements": []
+			}]
+		}
+	},
+	{
+		"type": "while",
+		"data": {
+			"condition": "condicion",
+			"statements": []
+		}
+	},
+	{
+		"type": "dowhile",
+		"data": {
+			"condition": "condicion",
+			"statements": []
+		}
+	},
+	{
+		"type": "for",
+		"data": {
+			"control": {
 				"variable": "variable",
-				"value": "valor"
-			}
+				"start": "desde",
+				"stop": "hasta",
+				"step": "paso"
+			},
+			"statements": []
 		}
 	},
-	"Selección": {
-		"if": {
-			"type": "if",
-			"data": {
-				"condition": "condicion",
-				"then": [],
-				"else": []
-			}
-		},
-		"switch": {
-			"type": "switch",
-			"data": {
-				"expression": "variable",
-				"options": [{
-						"case": "1",
-						"statements": []
-					},
-					{
-						"case": "2",
-						"statements": []
-					},
-					{
-						"case": "default",
-						"statements": []
-					}
-				]
-			}
+	{
+		"type": "foreach",
+		"data": {
+			"control": {
+				"class": "Tipo",
+				"variable": "variable",
+				"collection": "colección"
+			},
+			"statements": []
 		}
 	},
-	"Repetición": {
-		"while": {
-			"type": "while",
-			"data": {
-				"condition": "condicion",
-				"statements": []
-			}
-		},
-		"do-while": {
-			"type": "dowhile",
-			"data": {
-				"condition": "condicion",
-				"statements": []
-			}
-		},
-		"for": {
-			"type": "for",
-			"data": {
-				"control": {
-					"variable": "variable",
-					"start": "inicio",
-					"stop": "hasta",
-					"step": "paso"
-				},
-				"statements": []
-			}
-		},
-		"for-each": {
-			"type": "foreach",
-			"data": {
-				"control": {
-					"class": "tipo",
-					"variable": "valor",
-					"collection": "coleccion"
-				},
-				"statements": []
-			}
+	{
+		"type": "call",
+		"data": {
+			"statement": "objeto.metodo(params)"
 		}
 	},
-	"Métodos": {
-		"Nuevo parámetro": {
-			"type": "tipo",
-			"name": "nombre"
-		},
-		"Invocar método": {
-			"type": "call",
-			"data": {
-				"statement": "objeto.metodo(params)"
-			}
-		},
-		"Retornar": {
-			"type": "return",
-			"data": {
-				"value": "valor"
-			}
+	{
+		"type": "return",
+		"data": {
+			"value": "expresión"
 		}
 	}
-};
+	/*,{
+		"name": "Nuevo parámetro",
+		"data": {
+			"type": "tipo",
+			"name": "nombre"
+		}
+	},
+	{
+		"type": "break",
+		"data": ""
+	}*/
+];

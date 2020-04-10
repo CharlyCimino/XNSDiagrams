@@ -1,90 +1,48 @@
-        /*body {
-            font-family: helvetica, arial, sans-serif;
-        }
+.left {
+	float: left;
+	width: 30%;
+}
 
-        h1 {
-            padding: 10pt;
-            font-size: 24pt;
-        }
+.right {
+	float: right;
+	width: 70%;
+}
 
-        h2 {
-            padding: 10;
-        }
+.right,.left {
+	box-sizing: border-box;
+	padding: 10pt;
+}
 
-        h1.external,
-        h2.external,
-        h3.external,
-        p.external {
-            padding-top: 15pt;
-            padding-bottom: 5pt;
-        }
+.scrollmargin {
+	height: 80px;
+	text-align: center;
+}
 
-        h2.external {
-            font-size: 20pt;
-        }
+.invisible {
+	display: none;
+}
 
-        h3.external {
-            font-size: 14pt;
-        }
+.diagramContainer {
+	height: 95%;
+	border: 2px solid #2c637f;
+	background: #f2faff;
+}
 
-        p.external {
-            padding: 10pt;
-            font-size: 12pt;
-        }
+.menuItem {
+	cursor: copy;
+	opacity: 0.7;
+	margin: 2% 0;
+}
 
-        #diagramContainer {
-            display: block;
-            padding: 10pt;
-            max-width: 800px;
-        }
+.menuItem:hover {
+	opacity: 1;
+	background-color: #f2faff;
+}
 
-        #diagramContainer>.Nassi-Shneiderman {
-            left: -2000px;
-            position: absolute;
-            width: inherit;
-            max-width: inherit;
-        }
+.menuItem:first-child {
+	margin-top: 0;
+}
 
-        #dstructure.error {
-            border: solid 1px #F00;
-        }
-
-        hr.external {
-            height: 1pt;
-            background-color: #CCC;
-            margin-top: 20pt;
-            margin-bottom: 10pt;
-            border: none;
-        }
-
-        pre.external {
-            border: solid 1px #CCC;
-            padding: 10pt;
-            box-sizing: border-box;
-            background-color: #FFA;
-        }
-
-        .diabox,
-        image.output {
-            border: solid 1px #F00;
-        }
-
-        */
-
-        .ace_editor {
-            border: 1px solid blue;
-            margin: auto;
-        }
-
-        .scrollmargin {
-            height: 80px;
-            text-align: center;
-        }
-
-        .btn {
-            margin: 3px;
-        }
-
-        .invisible {
-            display: none;
-        }
+.menuItem:last-child {
+	margin-bottom: 0;
+}
