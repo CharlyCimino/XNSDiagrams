@@ -25,7 +25,6 @@
 .diagramContainer {
 	height: 95%;
 	border: 2px solid #2c637f;
-	background: #f2faff;
 }
 
 .menuItem {
@@ -45,4 +44,19 @@
 
 .menuItem:last-child {
 	margin-bottom: 0;
+}
+
+.checkContainer {
+	font-size: 14px;
+	margin: 5pt 10pt;
+}
+
+.checkContainer * {
+	vertical-align: middle;
+}
+
+#checkColors {
+	display: inline-block;
+	position: relative;
+	transform : scale(1.3);
 }

@@ -24,13 +24,11 @@
     font-size: 12pt;
     padding-bottom: .5em;
 	font-family: "Consolas", Serif;
-	background-color: aquamarine;
 }
 
 .statements {
 	border: solid 1px;
 	padding-bottom: .5em;
-	background-color: lightblue;
 }
 
 .statements>* {

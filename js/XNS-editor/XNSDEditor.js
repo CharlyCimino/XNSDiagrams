@@ -1,5 +1,6 @@
 var diagramCont = document.getElementById("diagramContainer");
 var menuCont = document.getElementById("menuContainer");
+var checkColors = document.getElementById("checkColors");
 var xnsd = new XNSDiagram();
 
 function drag(e) {
@@ -125,6 +126,11 @@ function handleOpen() {
 	generateMenuItems();
 }
 
+function handleCheckbox(e) {
+	var link = document.getElementById("css/XNSColors.css");
+	link.setAttribute("href", (e.target.checked ? link.id : ""));
+}
+
 function generateCanvasIn(target, statement) {
 	return html2canvas(statement).then(canvas => {
 		target.appendChild(canvas);
@@ -136,6 +142,7 @@ function init() {
 	setEvent(diagramCont, "dragleave", handleDragLeave);
 	setEvent(diagramCont, "drop", drop);
 	setEvent(diagramCont, "dragover", allowDrop);
+	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
 }
 
