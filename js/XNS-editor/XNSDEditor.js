@@ -193,10 +193,22 @@ function redoEditor() {
 	aceEditor.redo();
 }
 
+function handleCheckbox(e) {
+	var link = document.getElementById("css/XNSColors.css");
+	var value;
+	if (e.target.checked) {
+		value = link.id;
+	} else {
+		value = "";
+	}
+	link.setAttribute("href", value);
+}
+
 function setEvents() {
 	aceEditor.session.onchange = codeEdited;
 	document.getElementById("buttonRenderNewWindow").onclick = renderInNewWindow;
 	document.getElementById("buttonUndo").onclick = undoEditor;
+	document.getElementById("checkColors").onclick = handleCheckbox;
 	aceEditor.commands.commands.undo.exec = undoEditor;
 }
 
