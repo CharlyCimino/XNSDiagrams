@@ -185,14 +185,14 @@ function eXtendendNassiShneiderman(params) {
 
 	function _forBuilder(obj) {
 		return fixedLoopBuilder(obj, function (container, obj) {
-			container.appendChild(_self.newBlock("content", obj["variable"] + " = " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"], undefined, "true"));
+			container.appendChild(_self.newBlock("content", obj["variable"] + " &larr; " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"], undefined, "true"));
 			return container;
 		});
 	}
 
 	function _foreachBuilder(obj) {
 		return fixedLoopBuilder(obj, function (container, obj) {
-			container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + " : " + obj["collection"], undefined, "true"));
+			container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + ": " + obj["collection"], undefined, "true"));
 			return container;
 		});
 	}

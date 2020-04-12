@@ -82,9 +82,9 @@ var templates = [
 		"type": "for",
 		"data": {
 			"control": {
-				"variable": "variable",
-				"start": "desde",
-				"stop": "hasta",
+				"variable": "var",
+				"start": "inicio",
+				"stop": "fin",
 				"step": "paso"
 			},
 			"statements": []

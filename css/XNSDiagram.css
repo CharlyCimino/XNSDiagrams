@@ -218,6 +218,7 @@
     position: relative;
 	vertical-align: middle;
 	max-width: 100pt;
+	height: 25pt;
 }
 
 .for-statement .controller * {
@@ -226,16 +227,16 @@
 
 .for-statement .controller .top {
     position: absolute;
-    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
     top: 0px;
-    width: 20pt;
+    width: 12pt;
     border-right: solid 1px;
     border-bottom: solid 1px;
 }
 
 .for-statement .controller .bottom {
-    width: 20pt;
-    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+    width: 12pt;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
     border-right: solid 1px;
     border-top: solid 1px;
     position: absolute;
@@ -250,12 +251,13 @@
 .for-statement .controller .content {
     text-align: center;
     padding: 5pt;
+    padding-left: 10pt;
 }
 
 .for-statement .statements-block {
 	vertical-align: middle;
     display: table-cell;
-	min-width: 50pt;
+	min-width: 30pt;
 }
 
 .for-statement .statements-block>div {
