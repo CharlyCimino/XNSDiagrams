@@ -5,8 +5,6 @@ var xnsd = new XNSDiagram();
 
 function drag(e) {
 	//e.dataTransfer.effectAllowed = "copy";
-	console.log(this);
-
 	e.dataTransfer.setData("data", this.getAttribute("type"));
 }
 
@@ -25,6 +23,7 @@ function drop(ev) {
 		parent.insertBefore(obj, target);
 		parent.insertBefore(empty, obj);
 	}
+	resizeInputs();
 	handleDragLeave(ev);
 }
 
@@ -124,6 +123,32 @@ function newMenuItem(obj) {
 
 function handleOpen() {
 	generateMenuItems();
+	resizeInputs();
+	handleInputs();
+}
+
+function handleInputs() {
+	var inputs = document.querySelectorAll("input");
+	for (let i = 0; i < inputs.length; i++) {
+		setEvent(inputs[i], "keyup", handleKeyDown);
+	}
+}
+
+function resizeInputs() {
+	var inputs = document.querySelectorAll("input");
+	for (let i = 0; i < inputs.length; i++) {
+		resizeInput(inputs[i]);
+		setEvent(inputs[i], "keyup", handleKeyDown);
+	}
+}
+
+function resizeInput(inputObj) {
+	var adjust = 0.5;
+	inputObj.style.width = (inputObj.value.length + adjust) + "ch";
+}
+
+function handleKeyDown(e) {
+	resizeInput(this);
 }
 
 function handleCheckbox(e) {
@@ -144,6 +169,7 @@ function init() {
 	setEvent(diagramCont, "dragover", allowDrop);
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
+
 }
 
 

@@ -26,6 +26,8 @@
 
 .call-statement,
 .block-statement,
+.assignment-statement,
+.return-statement,
 .break-statement {
 	background-color: #ffedb2;
 }

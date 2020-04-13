@@ -44,11 +44,14 @@
 }
 
 .block-statement,
+.assignment-statement,
+.return-statement,
 .break-statement {
     padding: 5pt;
     text-align: center;
     border: solid 1px;
 }
+
 
 .break-statement {
     font-weight: bolder;
@@ -337,6 +340,25 @@
 	background: #f2faff;
 	/*border: 1px dashed #2c637f;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+}
+
+.input-for-statement {
+	text-align: center;
+	background-color: inherit;
+	font-size: inherit;
+	font-family: "Consolas";
+	display: inline;
+	border: none;
+}
+
+.fixed-value-in-statement {
+	display: inline;
+	text-align: center;
+	font-weight: bold;
+}
+
+.assignment-statement>.fixed-value-in-statement {
+	font-size: 14pt;
 }
 
 /** -- Exception extensions -- **/
