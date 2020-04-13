@@ -24,6 +24,7 @@ function drop(ev) {
 		parent.insertBefore(empty, obj);
 	}
 	resizeInputs();
+	handleInputs();
 	handleDragLeave(ev);
 }
 
@@ -130,7 +131,7 @@ function handleOpen() {
 function handleInputs() {
 	var inputs = document.getElementsByClassName("input-for-statement");
 	for (let i = 0; i < inputs.length; i++) {
-		setEvent(inputs[i], "keyup", handleKeyDown);
+		handleInput(inputs[i]);
 	}
 }
 
@@ -139,6 +140,10 @@ function resizeInputs() {
 	for (let i = 0; i < inputs.length; i++) {
 		resizeInput(inputs[i]);
 	}
+}
+
+function handleInput(inputObj) {
+	setEvent(inputObj, "keyup", handleKeyDown);
 }
 
 function resizeInput(inputObj) {
