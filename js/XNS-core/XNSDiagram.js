@@ -192,12 +192,17 @@ function eXtendendNassiShneiderman(params) {
 
 	function _whileBuilder(obj) {
 		var box = _self.newBlock("while-statement", _self.newBlock("condition", newInput(obj["condition"])));
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
+		var container = _self.newBlock("container");
+		appendBlockOrEmpty(container, "side-while", "side-while");
+		box.appendChild(appendBlockOrEmpty(container, "statements-block", obj["statements"]));
 		return box;
 	}
 
 	function _doWhileBuilder(obj) {
-		var box = _self.newBlock("dowhile-statement", appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
+		var container = _self.newBlock("container");
+		appendBlockOrEmpty(container, "side-dowhile", "side-dowhile");
+		appendBlockOrEmpty(container, "statements-block", obj["statements"]);
+		var box = _self.newBlock("dowhile-statement", container);
 		box.appendChild(_self.newBlock("condition", newInput(obj["condition"])));
 		return box;
 	}

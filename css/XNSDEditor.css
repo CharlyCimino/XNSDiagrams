@@ -42,12 +42,11 @@
 .menuItem .while-statement .empty,
 .menuItem .dowhile-statement .empty {
 	height: 8pt;
-	border: solid 1px white;
-	border-left: solid 1px black;
+	background-color: white;
 }
 
 .menuItem .for-statement .empty {
-	height: 28pt;
+	height: 20pt;
 }
 
 .menuItem .while-statement {

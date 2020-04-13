@@ -304,7 +304,8 @@
 .while-statement .condition,
 .dowhile-statement .condition {
     text-align: center;
-    padding: 5pt;
+	padding: 5pt;
+	margin-left: 20pt;
 }
 
 .while-statement,
@@ -312,9 +313,33 @@
 	border: solid 1px;
 }
 
+.while-statement>.container>.side-while,
+.dowhile-statement>.container>.side-dowhile {
+	display: table-cell;
+    min-width: 20pt;
+	border: none;
+	border-right: solid 1px;
+}
+
+.while-statement>.container>.side-while {
+	border-bottom: solid 1px;
+}
+.dowhile-statement>.container>.side-dowhile {
+	border-top: solid 1px;
+}
+
 .while-statement>.container>.statements-block,
 .dowhile-statement>.container>.statements-block {
-    margin-left: 20pt;
+	display: table-cell;
+    position: relative;
+    vertical-align: top;
+	margin-left: 20pt;
+	width: 100%;	
+}
+
+.while-statement>.container>.statements-block>div,
+.dowhile-statement>.container>.statements-block>div {
+	display: block;
 }
 
 .while-statement>.container>.statements-block {
