@@ -128,17 +128,16 @@ function handleOpen() {
 }
 
 function handleInputs() {
-	var inputs = document.querySelectorAll("input");
+	var inputs = document.getElementsByClassName("input-for-statement");
 	for (let i = 0; i < inputs.length; i++) {
 		setEvent(inputs[i], "keyup", handleKeyDown);
 	}
 }
 
 function resizeInputs() {
-	var inputs = document.querySelectorAll("input");
+	var inputs = document.getElementsByClassName("input-for-statement");
 	for (let i = 0; i < inputs.length; i++) {
 		resizeInput(inputs[i]);
-		setEvent(inputs[i], "keyup", handleKeyDown);
 	}
 }
 
