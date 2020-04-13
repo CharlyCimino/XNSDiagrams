@@ -39,11 +39,28 @@
 }
 
 .menuItem .conditional-statement .empty,
-.menuItem .for-statement .empty,
 .menuItem .while-statement .empty,
 .menuItem .dowhile-statement .empty {
-	height: 3pt;
-	border-left: solid 1px;
+	height: 8pt;
+	border: solid 1px white;
+	border-left: solid 1px black;
+}
+
+.menuItem .for-statement .empty {
+	height: 28pt;
+}
+
+.menuItem .while-statement {
+	border-width: 1px 0px 0px 1px;
+}
+
+.menuItem .dowhile-statement {
+	border-width: 0px 0px 1px 1px;
+}
+
+.menuItem .while-statement .condition,
+.menuItem .dowhile-statement .condition {
+	border-right: solid 1px;
 }
 
 .menuItem:hover {
