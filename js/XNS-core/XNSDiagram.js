@@ -228,8 +228,6 @@ function eXtendendNassiShneiderman(params) {
 		appendFixedValue(box, "return ");
 		box.appendChild(newInput(obj["value"]));
 		return box;
-
-		return _self.newBlock("block-statement", ((_self.explicitReturn) ? "<b>return</b> " : " &larr; ") + _self.htmlString(obj["value"]));
 	}
 
 	/* --- Nassi Shneiderman Extension: Exception blocks implementation --- */
