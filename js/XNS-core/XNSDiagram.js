@@ -171,7 +171,9 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function _breakBuilder() {
-		return _self.newBlock("break-statement", "break");
+		var box = _self.newBlock("break-statement");
+		appendFixedValue(box, "break");
+		return box;
 	}
 
 	function _inputBuilder(obj) {

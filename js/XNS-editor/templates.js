@@ -112,6 +112,10 @@ var templates = [
 		"data": {
 			"value": "expresión"
 		}
+	},
+	{
+		"type": "break",
+		"data": ""
 	}
 	/*,{
 		"name": "Nuevo parámetro",
@@ -119,9 +123,5 @@ var templates = [
 			"type": "tipo",
 			"name": "nombre"
 		}
-	},
-	{
-		"type": "break",
-		"data": ""
 	}*/
 ];
