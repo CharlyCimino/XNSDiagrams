@@ -152,13 +152,13 @@ function eXtendendNassiShneiderman(params) {
 
 	function _switchBuilder(obj) {
 		function makeCaseOption(obj) {
-			var column = _self.newBlock("case", _self.newBlock("test-value", (obj["value"] || obj["case"])));
+			var column = _self.newBlock("case", _self.newBlock("test-value", newInput(obj["case"])));
 			appendBlockOrEmpty(column, "statements-block", obj["statements"]);
 			return column;
 		}
 		var header = _self.newBlock("header");
 		header.appendChild(makeCorner("true", "&nbsp;"));
-		header.appendChild(_self.newBlock("condition", _self.htmlString(obj["expression"])));
+		header.appendChild(_self.newBlock("condition", newInput(obj["expression"])));
 		header.appendChild(makeCorner("false", "&nbsp;"));
 		var body = _self.newBlock("body");
 		for (var c = 0; c < obj["options"].length; c++) {
