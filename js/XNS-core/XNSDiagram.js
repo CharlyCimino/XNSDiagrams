@@ -131,7 +131,7 @@ function eXtendendNassiShneiderman(params) {
 	function _assignmentBuilder(obj) {
 		var box = _self.newBlock("assignment-statement");
 		box.appendChild(newInput(obj["variable"]));
-		appendFixedValue(box, " &larr; ");
+		appendFixedValue(box, " <span class=\"arrow\">&larr;</span> ");
 		box.appendChild(newInput(obj["value"]));
 		return box;
 	}
@@ -209,14 +209,29 @@ function eXtendendNassiShneiderman(params) {
 
 	function _forBuilder(obj) {
 		return fixedLoopBuilder(obj, function (container, obj) {
-			container.appendChild(_self.newBlock("content", obj["variable"] + " &larr; " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"], undefined, "true"));
+			var box = _self.newBlock("content");
+			box.appendChild(newInput(obj["variable"]));
+			appendFixedValue(box, "<span class=\"arrow\">&larr;</span>");
+			box.appendChild(newInput(obj["start"]));
+			appendFixedValue(box, ",");
+			box.appendChild(newInput(obj["stop"]));
+			appendFixedValue(box, ",");
+			box.appendChild(newInput(obj["step"]));
+			container.appendChild(box);
+			//container.appendChild(_self.newBlock("content", obj["variable"] + " &larr; " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"], undefined, "true"));
 			return container;
 		});
 	}
 
 	function _foreachBuilder(obj) {
 		return fixedLoopBuilder(obj, function (container, obj) {
-			container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + ": " + obj["collection"], undefined, "true"));
+			var box = _self.newBlock("content");
+			box.appendChild(newInput(obj["class"]));
+			box.appendChild(newInput(obj["variable"]));
+			appendFixedValue(box, ":");
+			box.appendChild(newInput(obj["collection"]));
+			container.appendChild(box);
+			//container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + ": " + obj["collection"], undefined, "true"));
 			return container;
 		});
 	}

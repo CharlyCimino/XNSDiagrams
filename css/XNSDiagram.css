@@ -224,10 +224,6 @@
 	height: 25pt;
 }
 
-.for-statement .controller * {
-    display: block;
-}
-
 .for-statement .controller .top {
     position: absolute;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
@@ -270,6 +266,10 @@
 
 .for-statement .statements-block>div:last-child {
 	border: none;
+}
+
+.for-statement>.container>.controller>.content-block>.content>* {
+	margin: 0 1.5pt;
 }
 
 .call-statement {
@@ -388,8 +388,8 @@
 	font-weight: bold;
 }
 
-.assignment-statement>.fixed-value-in-statement {
-	font-size: 14pt;
+.arrow {
+	font-size: 13.5pt;
 }
 
 /** -- Exception extensions -- **/
