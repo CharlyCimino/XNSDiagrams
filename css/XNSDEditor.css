@@ -1,6 +1,6 @@
 header {
 	background-color: #2c637f;
-	padding: 10pt;
+	padding: 8pt;
 	font-family: Arial;
 }
 
@@ -42,33 +42,28 @@ header>* {
 	float: right;
 }
 
-.left {
+main {
+	padding: 10pt;
+}
+
+#menuContainer {
 	float: left;
 	width: 20%;
 }
 
-.right {
+#diagramContainer {
+	height: 80%;
+	border: 2px solid #2c637f;
+}
+
+.diagramContainer {
 	float: right;
 	width: 80%;
 }
 
-.right,.left {
+#menuContainer, .diagramContainer {
 	box-sizing: border-box;
-	padding: 10pt;
-}
-
-.scrollmargin {
-	height: 80px;
-	text-align: center;
-}
-
-.invisible {
-	display: none;
-}
-
-.diagramContainer {
-	height: 95%;
-	border: 2px solid #2c637f;
+	padding: 1%;
 }
 
 .menuItem {
