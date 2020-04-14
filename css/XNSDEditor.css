@@ -1,3 +1,47 @@
+header {
+	background-color: #2c637f;
+	padding: 10pt;
+	font-family: Arial;
+}
+
+header * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+header>* {
+	margin: 0 10pt;
+}
+
+.buttons button {
+	box-shadow:inset 0px 2px 5px 1px #5091b2;
+	background:linear-gradient(to bottom, #6cb4d8 5%, #5091b2 100%);
+	background-color:#6cb4d8;
+	border-radius:5px;
+	border: 1px solid #5091b2;
+	display:inline-block;
+	cursor:pointer;
+	color:#f2faff;
+	font-weight:bolder;
+	padding: 10px 30px;
+	font-size: 13pt;
+	text-decoration:none;
+}
+
+.buttons button:hover {
+	background:linear-gradient(to bottom, #5091b2 5%, #6cb4d8 100%);
+	background-color:#5091b2;
+}
+
+.logo {
+	width: 70pt;
+}
+
+.trash {
+	width: 40pt;
+	float: right;
+}
+
 .left {
 	float: left;
 	width: 20%;

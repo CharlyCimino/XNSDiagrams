@@ -8,7 +8,6 @@ function drag(e) {
 		e.dataTransfer.setData("mode", "copy");
 	} else {
 		e.dataTransfer.setData("mode", "move");
-
 	}
 	e.dataTransfer.setData("data", this.getAttribute("type"));
 	e.dataTransfer.setData("id", this.id);
