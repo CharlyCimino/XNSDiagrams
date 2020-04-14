@@ -220,6 +220,7 @@
     border-right: solid 1px;
     position: relative;
 	vertical-align: middle;
+	min-width: 50pt;
 	max-width: 100pt;
 	height: 25pt;
 }
@@ -256,7 +257,7 @@
 .for-statement .statements-block {
 	vertical-align: middle;
     display: table-cell;
-	min-width: 30pt;
+	min-width: 20pt;
 }
 
 .for-statement .statements-block>div {
