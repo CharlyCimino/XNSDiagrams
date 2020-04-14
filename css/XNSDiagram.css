@@ -376,6 +376,13 @@
 	border: none;
 }
 
+.input-for-statement:focus,
+.input-for-statement:hover {
+	font-weight: bolder;
+	cursor: text;
+	outline: none;
+}
+
 .fixed-value-in-statement {
 	display: inline;
 	text-align: center;

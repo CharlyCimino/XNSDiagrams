@@ -143,7 +143,7 @@ function resizeInputs() {
 }
 
 function handleInput(inputObj) {
-	setEvent(inputObj, "keyup", handleKeyDown);
+	setEvent(inputObj, "input", handleKeyDown);
 }
 
 function resizeInput(inputObj) {
@@ -173,7 +173,6 @@ function init() {
 	setEvent(diagramCont, "dragover", allowDrop);
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
-
 }
 
 
