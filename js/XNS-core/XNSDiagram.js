@@ -139,7 +139,7 @@ function eXtendendNassiShneiderman(params) {
 	function _conditionalBuilder(obj) {
 		var header = _self.newBlock("header")
 		header.appendChild(makeCorner("true", _self.SYMBOLS[_self.currentLanguage].TRUE));
-		header.appendChild(_self.newBlock("condition", _self.htmlString(obj["condition"])));
+		header.appendChild(_self.newBlock("condition", newInput(obj["condition"])));
 		header.appendChild(makeCorner("false", _self.SYMBOLS[_self.currentLanguage].FALSE));
 		var body = _self.newBlock("body");
 		appendBlockOrEmpty(body, "then side", obj["then"]);
