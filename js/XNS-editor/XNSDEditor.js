@@ -10,18 +10,19 @@ function drag(e) {
 		e.dataTransfer.setData("mode", "move");
 	}
 	e.dataTransfer.setData("data", this.getAttribute("type"));
+	e.dataTransfer.setData("template-index", this.getAttribute("template-index"));
 	e.dataTransfer.setData("id", this.id);
 }
 
 function drop(ev) {
 	ev.preventDefault();
-
 	var type = ev.dataTransfer.getData("data");
 	var mode = ev.dataTransfer.getData("mode");
+	var templateIndex = ev.dataTransfer.getData("template-index");
 	var id = ev.dataTransfer.getData("id");
 	var obj;
 	if (mode == "copy") {
-		obj = renderStatement(searchTemplate(type));
+		obj = renderStatement(templates[templateIndex]);
 	} else {
 		obj = document.getElementById(id);
 	}
@@ -54,13 +55,6 @@ function handleDragLeave(ev) {
 		ev.target.style.height = "1px";
 	}
 	ev.target.classList.remove("over");
-}
-
-function searchTemplate(type) {
-	// templates in 'templates.js'
-	return templates.find(function (element) {
-		return element.type == type;
-	});
 }
 
 function renderStatement(statement) {
@@ -116,6 +110,7 @@ function generateMenuItems() {
 		const template = templates[index];
 		var obj = renderStatement(template);
 		obj.id = "menu-item-" + template.type;
+		obj.setAttribute("template-index", index);
 		menuCont.appendChild(newMenuItem(obj));
 	}
 }
@@ -133,20 +128,21 @@ function newMenuItem(obj) {
 	return div;
 }
 
+function appendDiagram(json) {
+	var diagram = xnsd.render(
+		diagramCont,
+		json.statements ?
+			json : {
+				statements: [json]
+			}
+	);
+}
+
 function handleOpen() {
+	appendDiagram(base);
 	generateMenuItems();
 	resizeInputs();
 	handleInputs();
-
-	var diagram = xnsd.render(
-		diagramCont,
-		base.statements ?
-			base : {
-				statements: [base]
-			}
-	);
-
-
 }
 
 function handleInputs() {
@@ -198,3 +194,4 @@ function init() {
 
 
 init();
+

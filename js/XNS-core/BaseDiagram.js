@@ -59,13 +59,17 @@ function BaseDiagram(params) {
 		return value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 
-	function _newBlock(classname, content, droppable) {
+	function _newBlock(classname, content, droppable, editable) {
 		var elem = document.createElement("div");
 		elem.id = _self.prefix + "-" + nextInternalId();
 		if (!droppable) {
 			droppable = "false";
 		}
+		if (!editable) {
+			editable = "false";
+		}
 		elem.setAttribute("droppable", droppable);
+		elem.setAttribute("contenteditable", editable);
 		elem.className = classname;
 		if (typeof content != "undefined") {
 			if (content instanceof HTMLElement) {

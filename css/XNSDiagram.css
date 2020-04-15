@@ -52,7 +52,6 @@
     border: solid 1px;
 }
 
-
 .break-statement {
     font-weight: bolder;
 }
@@ -383,7 +382,7 @@
 	outline: none;
 }
 
-.fixed-value-in-statement {
+.field-editable, .fixed-value-in-statement {
 	display: inline;
 	text-align: center;
 	font-weight: bold;

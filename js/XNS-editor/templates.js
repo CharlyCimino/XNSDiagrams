@@ -15,10 +15,6 @@ var base = {
 
 var templates = [
 	{
-		"type": "empty",
-		"data": ""
-	},
-	{
 		"type": "block",
 		"data": {
 			"content": "instrucción"
