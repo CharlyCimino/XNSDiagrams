@@ -5,8 +5,31 @@ function eXtendendNassiShneiderman(params) {
 
     if (!params) { params =  {}; }
     var _self = Object.create(new BaseDiagram({ "graphicType": "Nassi-Shneiderman", "prefix": "xnsd", "onrender": params["onrender"] }));
-    
+
     /* --- private properties and methods --- */
+
+	function ifHas(value, handler, defaultValue) {
+		return (typeof value != "undefined") ?
+			handler(value) :
+			defaultValue;
+	}
+	
+	function stringValue(field, defaultValue,) {
+		if (!defaultValue) { defaultValue = ""; }
+		return (!field) ? defaultValue : field + " ";
+	}
+	
+	function argumentsToString(args) {
+		var a;
+		var output = "";
+		if (args) {
+			for (a in args) {
+				if (output) { output += ", "; }
+				output += _self.htmlString(args[a]["type"]) + " " + args[a]["name"];
+			}
+		}
+		return output;
+	}
 
     function makeCorner(side, caption) {
         var canvas = document.createElement("canvas");
@@ -56,26 +79,6 @@ function eXtendendNassiShneiderman(params) {
     /* --- diagram blocks implementation --- */
     
     function _declarationBuilder(methodDec) {
-		function ifHas(value, handler, defaultValue) {
-			return (typeof value != "undefined") ?
-				handler(value) :
-				defaultValue;
-		}
-        function stringValue(field, defaultValue,) {
-            if (!defaultValue) { defaultValue = ""; }
-            return (!field) ? defaultValue : field + " ";
-        }
-        function argumentsToString(args) {
-            var a;
-            var output = "";
-            if (args) {
-                for (a in args) {
-                    if (output) { output += ", "; }
-                    output += _self.htmlString(args[a]["type"]) + " " + args[a]["name"];
-                }
-            }
-            return output;
-        }
         function exceptionsToString(exceptionList) {
             return (!exceptionList) ? "" : " throws " + exceptionList.join(", ");
         }
@@ -86,6 +89,20 @@ function eXtendendNassiShneiderman(params) {
                 stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
                 "(" + argumentsToString(methodDec["arguments"]) + ")" +
                 exceptionsToString(methodDec["throws"]) + ";");
+    }
+
+    function _attributesBuilder(attributes) {
+        var box = _self.newBlock("local-variable-declaration");
+        for (var a in attributes) {
+            box.appendChild(_self.newBlock("",
+				_self.htmlString("&nbsp;&nbsp;"
+					+ ((attributes[a]["visibility"] ? (attributes[a]["visibility"] + " ") : ""))
+					+ ifHas(attributes[a]["modifiers"], function(val) { return ((val instanceof Array) ? val.join(" ") : val) + " "}, "")
+					+ attributes[a]["type"]) + " " + attributes[a]["name"]
+					+ ((attributes[a]["defaultValue"] ? (" = " + attributes[a]["defaultValue"]) : ""))
+					+ ";"));
+        }
+        return box;
     }
 
     function _localVarsBuilder(localVars) {
@@ -231,6 +248,20 @@ function eXtendendNassiShneiderman(params) {
         box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
         return box;
     }
+	
+	//** Class / Interface declaration *///
+	
+	function _artifactBuilder(obj) {
+		var content = "<p>"
+		content += ifHas(obj["modifiers"], function(val) { return ((val instanceof Array) ? val.join(" ") : val) + " "}, "");
+        content += obj["type"] + " " + obj["name"];
+		content += ifHas(obj["baseClass"], function(val) { return " extends " + val }, "");
+		content += ifHas(obj["interfaces"], function(val) { return " implements " + ((val instanceof Array) ? val.join(", ") : val) + " "}, "");
+		content += " {</p>";
+		content += ifHas(obj["attributes"], function(val) { return _attributesBuilder(val).outerHTML }, "");
+		content += "}"; 
+		return _self.newBlock("local-variable-declaration", content, "");
+	}
 
     /* --- object construction --- */
     function init() {
@@ -238,6 +269,8 @@ function eXtendendNassiShneiderman(params) {
         _self.addProperty("explicitReturn", _self.getValue(params["explicitReturn"], true));
         _self.addProperty("includeExceptions", _self.getValue(params["includeExceptions"], true));
         var _builders = {
+			"artifact": _artifactBuilder,
+			"attributes": _attributesBuilder,
             "declaration": _declarationBuilder,
             "localVars": _localVarsBuilder,
             "statements": _statementsBuilder,

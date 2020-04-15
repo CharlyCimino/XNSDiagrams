@@ -1,0 +1,291 @@
+{
+	"artifact": {
+		"modifiers": ["public"],
+		"type": "class",
+		"name": "TheClass",
+		"baseClass": "BaseClass",
+		"interfaces": ["Alfa", "Beta"],
+		"attributes": [
+			{ "visibility": "private", "modifiers": ["static"], "type" : "Datatype", "name": "attributeName", "defaultValue" : "'value'" },
+			{ "visibility": "private", "type" : "Datatype", "name": "attributeName", "defaultValue" : "value" },
+			{ "visibility": "private", "type" : "Datatype", "name": "attributeName" },
+			{ "type" : "Datatype", "name": "attributeName" }
+		],
+		"methods": [
+			{
+	"declaration": {
+		"type": "void",
+		"name": "main"
+	},
+	"localConsts": [{
+			"name": "PARTICULAR",
+			"value": "\"P\""
+		},
+		{
+			"name": "OBRASOCIAL",
+			"value": "\"O\""
+		},
+		{
+			"name": "COSTO_PARTICULAR",
+			"value": "5000"
+		},
+		{
+			"name": "COSTO_OBRASOCIAL",
+			"value": "500"
+		},
+		{
+			"name": "PORC_PARTICULAR",
+			"value": "30"
+		},
+		{
+			"name": "PORC_OBRASOCIAL",
+			"value": "20"
+		},
+		{
+			"name": "RESONADOR_NO_DISPONIBLE",
+			"value": "-1"
+		}
+	],
+	"localVars": [
+		{
+			"type": "String",
+			"name": "tipoCobertura"
+		},
+		{
+			"type": "String",
+			"name": "fecha"
+		},
+		{
+			"type": "String",
+			"name": "hora"
+		},
+		{
+			"type": "String",
+			"name": "tipoResonancia"
+		},
+		{
+			"type": "int",
+			"name": "resonador"
+		},
+		{
+			"type": "double",
+			"name": "acumParticulares"
+		},
+		{
+			"type": "double",
+			"name": "acumObraSocial"
+		},
+		{
+			"type": "int",
+			"name": "cantParticulares"
+		},
+		{
+			"type": "int",
+			"name": "cantObraSocial"
+		}
+	],
+	"statements": [
+		{
+			"type": "assignment",
+			"data": {
+				"variable": "acumParticulares",
+				"value": "0"
+			}
+		},
+		{
+			"type": "assignment",
+			"data": {
+				"variable": "acumObraSocial",
+				"value": "0"
+			}
+		},
+		{
+			"type": "assignment",
+			"data": {
+				"variable": "cantParticulares",
+				"value": "0"
+			}
+		},
+		{
+			"type": "assignment",
+			"data": {
+				"variable": "cantObraSocial",
+				"value": "0"
+			}
+		},
+		{
+			"type": "dowhile",
+			"data": {
+				"condition": "preguntarSiNo(\"Desea cargar otra reserva?\")",
+				"statements": [{
+						"type": "assignment",
+						"data": {
+							"variable": "tipoCobertura",
+							"value": "pedirTipoDeCobertura()"
+						}
+					},
+					{
+						"type": "assignment",
+						"data": {
+							"variable": "fecha",
+							"value": "pedirFecha()"
+						}
+					},
+					{
+						"type": "assignment",
+						"data": {
+							"variable": "hora",
+							"value": "pedirHora()"
+						}
+					},
+					{
+						"type": "assignment",
+						"data": {
+							"variable": "tipoResonancia",
+							"value": "pedirTipoDeResonancia()"
+						}
+					},
+					{
+						"type": "assignment",
+						"data": {
+							"variable": "resonador",
+							"value": "obtenerResonador(tipoCobertura, fecha, hora, tipoResonancia)"
+						}
+					},
+					{
+						"type": "if",
+						"data": {
+							"condition": "resonador <> RESONADOR_NO_DISPONIBLE",
+							"else": [{
+								"type": "output",
+								"data": {
+									"message": "\"No hay resonador disponible.\""
+								}
+							}],
+							"then": [{
+									"type": "if",
+									"data": {
+										"condition": "tipoCobertura = OBRASOCIAL",
+										"then": [{
+												"type": "assignment",
+												"data": {
+													"variable": "deposito",
+													"value": "calcularSenia(COSTO_PARTICULAR, PORC_PARTICULAR)"
+												}
+											},
+											{
+												"type": "assignment",
+												"data": {
+													"variable": "acumParticulares",
+													"value": "acumParticulares + deposito"
+												}
+											},
+											{
+												"type": "assignment",
+												"data": {
+													"variable": "cantParticulares",
+													"value": "cantParticulares + 1"
+												}
+											}
+										],
+										"else": [{
+												"type": "assignment",
+												"data": {
+													"variable": "deposito",
+													"value": "calcularSenia(COSTO_OBRASOCIAL, PORC_OBRASOCIAL)"
+												}
+											},
+											{
+												"type": "assignment",
+												"data": {
+													"variable": "acumObraSocial",
+													"value": "acumObraSocial + deposito"
+												}
+											},
+											{
+												"type": "assignment",
+												"data": {
+													"variable": "cantObraSocial",
+													"value": "cantObraSocial + 1"
+												}
+											}
+										]
+									}
+								},
+								{
+									"type": "output",
+									"data": {
+										"message": "\"Debe abonar $\" + deposito"
+									}
+								},
+								{
+									"type": "call",
+									"data": {
+										"statement": "registrarReserva(tipoCobertura, fecha, hora, tipoResonancia)"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "call",
+			"data": {
+				"statement": "generarEstadisticas(acumObraSocial, acumParticulares, cantObraSocial, cantParticulares)"
+			}
+		}
+	]
+},
+{
+	"declaration": {
+		"type": "String",
+		"name": "pedirFecha"
+	},
+	"localVars": [
+		{
+			"type": "String",
+			"name": "valor"
+		}
+	],
+	"statements": [
+		{
+			"type": "assignment",
+			"data": {
+				"variable": "valor",
+				"value": "pedirTexto(\"Fecha?\")"
+			}
+		},
+		{
+			"type": "while",
+			"data": {
+				"condition": "!esFechaValida(valor)",
+				"statements": [
+					{
+						"type": "output",
+						"data": {
+							"message": "\"Fecha invalida\""
+						}
+					},
+					{
+						"type": "assignment",
+						"data": {
+							"variable": "valor",
+							"value": "pedirTexto(\"Fecha?\")"
+						}
+					}
+				]
+			}
+		},
+		{
+			"type": "return",
+			"data": {
+				"value": "valor"
+			}
+		}
+	]
+}
+		]
+	}
+}
