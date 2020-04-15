@@ -1,0 +1,75 @@
+.left {
+	float: left;
+	width: 20%;
+}
+
+.right {
+	float: right;
+	width: 80%;
+}
+
+.right,.left {
+	box-sizing: border-box;
+	padding: 10pt;
+}
+
+.scrollmargin {
+	height: 80px;
+	text-align: center;
+}
+
+.invisible {
+	display: none;
+}
+
+.diagramContainer {
+	height: 95%;
+	border: 2px solid #2c637f;
+}
+
+.menuItem {
+	cursor: copy;
+	opacity: 0.7;
+	margin: 2% 0;
+	transition: opacity 0.5s;
+}
+
+.menuItem .for-statement {
+	font-size: 10pt;
+}
+
+.menuItem .conditional-statement .empty,
+.menuItem .for-statement .empty,
+.menuItem .while-statement .empty,
+.menuItem .dowhile-statement .empty {
+	height: 3pt;
+	border-left: solid 1px;
+}
+
+.menuItem:hover {
+	opacity: 1;
+	background-color: #f2faff;
+}
+
+.menuItem:first-child {
+	margin-top: 0;
+}
+
+.menuItem:last-child {
+	margin-bottom: 0;
+}
+
+.checkContainer {
+	font-size: 14px;
+	margin: 5pt 10pt;
+}
+
+.checkContainer * {
+	vertical-align: middle;
+}
+
+#checkColors {
+	display: inline-block;
+	position: relative;
+	transform : scale(1.3);
+}
