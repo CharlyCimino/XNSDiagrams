@@ -61,7 +61,7 @@ function BaseDiagram(params) {
 
 	function _newBlock(classname, content, droppable, editable) {
 		var elem = document.createElement("div");
-		elem.id = _self.prefix + "-" + nextInternalId();
+		elem.id = _self.prefix + "-" + classname + "-" + nextInternalId();
 		if (!droppable) {
 			droppable = "false";
 		}

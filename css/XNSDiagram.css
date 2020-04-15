@@ -366,23 +366,26 @@
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
 }
 
-.input-for-statement {
+[contenteditable=true] {
 	text-align: center;
-	background-color: inherit;
-	font-size: inherit;
 	font-family: "Consolas";
-	display: inline;
+	display: inline-block;
 	border: none;
 }
 
-.input-for-statement:focus,
-.input-for-statement:hover {
+[contenteditable=true]:focus,
+[contenteditable=true]:hover {
 	font-weight: bolder;
 	cursor: text;
 	outline: none;
 }
 
-.field-editable, .fixed-value-in-statement {
+.while-statement>.condition,
+.dowhile-statement>.condition {
+	display: block;
+}
+
+.fixed-value-in-statement {
 	display: inline;
 	text-align: center;
 	font-weight: bold;
