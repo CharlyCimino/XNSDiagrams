@@ -59,9 +59,9 @@ function BaseDiagram(params) {
 		return value.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
 
-	function _newBlock(classname, content, droppable, editable) {
+	function _newBlock(classname, content, droppable) {
 		var elem = document.createElement("div");
-		elem.setAttribute("data-" + _self.prefix + "-id", nextInternalId());
+		elem.id = _self.prefix + "-" + nextInternalId();
 		if (!droppable) {
 			droppable = "false";
 		}

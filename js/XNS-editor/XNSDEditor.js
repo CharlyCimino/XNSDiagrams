@@ -1,18 +1,30 @@
-var diagramCont = document.getElementById("diagramContainer");
+var diagramCont = document.getElementById("diagram");
 var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
 var xnsd = new XNSDiagram();
 
 function drag(e) {
-	//e.dataTransfer.effectAllowed = "copy";
+	if (this.id.includes("menu-item")) {
+		e.dataTransfer.setData("mode", "copy");
+	} else {
+		e.dataTransfer.setData("mode", "move");
+	}
 	e.dataTransfer.setData("data", this.getAttribute("type"));
+	e.dataTransfer.setData("id", this.id);
 }
 
 function drop(ev) {
 	ev.preventDefault();
 
 	var type = ev.dataTransfer.getData("data");
-	var obj = renderStatement(searchTemplate(type));
+	var mode = ev.dataTransfer.getData("mode");
+	var id = ev.dataTransfer.getData("id");
+	var obj;
+	if (mode == "copy") {
+		obj = renderStatement(searchTemplate(type));
+	} else {
+		obj = document.getElementById(id);
+	}
 	var target = ev.target;
 	var empty = newEmptyBlock();
 	if (target == diagramCont) {
@@ -24,6 +36,7 @@ function drop(ev) {
 		parent.insertBefore(empty, obj);
 	}
 	resizeInputs();
+	handleInputs();
 	handleDragLeave(ev);
 }
 
@@ -37,7 +50,6 @@ function handleDragOver(ev) {
 }
 
 function handleDragLeave(ev) {
-	console.log(ev.target.className);
 	if (ev.target.classList.contains("empty")) {
 		ev.target.style.height = "1px";
 	}
@@ -54,6 +66,9 @@ function searchTemplate(type) {
 function renderStatement(statement) {
 	var obj = xnsd[statement.type](statement.data);
 	obj.classList.add("Nassi-Shneiderman");
+	obj.setAttribute("type", statement.type);
+	obj.setAttribute("draggable", "true");
+	setEvent(obj, "dragstart", drag);
 	return obj;
 }
 
@@ -101,9 +116,6 @@ function generateMenuItems() {
 		const template = templates[index];
 		var obj = renderStatement(template);
 		obj.id = "menu-item-" + template.type;
-		obj.setAttribute("type", template.type);
-		obj.setAttribute("draggable", "true");
-		setEvent(obj, "dragstart", drag);
 		menuCont.appendChild(newMenuItem(obj));
 	}
 }
@@ -125,12 +137,18 @@ function handleOpen() {
 	generateMenuItems();
 	resizeInputs();
 	handleInputs();
+	handleSizes();
+}
+
+function handleSizes() {
+
+
 }
 
 function handleInputs() {
 	var inputs = document.getElementsByClassName("input-for-statement");
 	for (let i = 0; i < inputs.length; i++) {
-		setEvent(inputs[i], "keyup", handleKeyDown);
+		handleInput(inputs[i]);
 	}
 }
 
@@ -139,6 +157,10 @@ function resizeInputs() {
 	for (let i = 0; i < inputs.length; i++) {
 		resizeInput(inputs[i]);
 	}
+}
+
+function handleInput(inputObj) {
+	setEvent(inputObj, "input", handleKeyDown);
 }
 
 function resizeInput(inputObj) {
@@ -168,7 +190,7 @@ function init() {
 	setEvent(diagramCont, "dragover", allowDrop);
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
-
+	setEvent(window, "resize", handleSizes);
 }
 
 

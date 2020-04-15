@@ -32,6 +32,10 @@
 	background-color: #ffedb2;
 }
 
-.diagramContainer {
+#diagramContainer {
+	background: #f2faff;
+}
+
+.empty {
 	background: #f2faff;
 }

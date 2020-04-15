@@ -2,22 +2,47 @@
 
 <head>
 	<meta charset="utf-8" />
+	<link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Lato&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
 	<link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
+	<link rel="stylesheet" type="text/css" href="css/switch-button.css" />
 	<link rel="stylesheet" type="text/css" href="css/XNSColors.css" id="css/XNSColors.css" />
 </head>
 
 <body>
-	<div class="checkContainer">
-		<input class="form-check-input" type="checkbox" value="" id="checkColors" checked>
-		<label class="form-check-label" for="checkColors">Colorear diagrama</label>
+	<header id="header">
+		<img src="img/ort-logo-blanco.png" class="logo" alt="Logo" />
+		<div class="buttons">
+			<button type="button">Boton 1</button>
+			<button type="button">Boton 2</button>
+			<button type="button">Boton 3</button>
+		</div>
+		<div class="switcher-block">
+			<label class="switcher-button">
+				<input type="checkbox" id="checkColors" checked>
+				<span class="slider"></span>
+			</label>
+			<span class="switcher-text"> Colorear</span>
+		</div>
+		<img src="img/icons8-basura-96.png" id="trash" class="trash" alt="Logo" />
+	</header>
+	<div id="menuContainer" class="menu"></div>
+	<div class="diagramContainer">
+		<div id="diagram" droppable="true"></div>
 	</div>
-	<div class="left">
-		<div id="menuContainer" class="menu"></div>
-	</div>
-	<div class="right">
-		<div id="diagramContainer" class="diagramContainer" droppable="true"></div>
-	</div>
+	<footer id="footer">
+		<div class="professor">
+			<img src="img/GitHub-Mark-32px.png" alt="github">
+			<a href="http://www.github.com/axxonita">Prof. C. Daniel Vázquez</a>
+		</div>
+		<span class="message">Con 💗 para toda la comunidad de ORT</span>
+		<div class="professor">
+			<img src="img/GitHub-Mark-32px.png" alt="github">
+			<a href="http://www.github.com/caemci">Prof. Carlos E. Cimino</a>
+		</div>
+	</footer>
+
+
 </body>
 <script type="application/javascript" src="js/XNS-core/html2canvas.js"></script>
 <script type="application/javascript" src="js/XNS-core/Enumeration.js"></script>
