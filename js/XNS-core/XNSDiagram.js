@@ -122,6 +122,10 @@ function eXtendendNassiShneiderman(params) {
 		return box;
 	}
 
+	function _emptyBuilder() {
+		return _self.newBlock("empty", undefined, "true");
+	}
+
 	function _blockBuilder(obj) {
 		var box = _self.newBlock("block-statement");
 		box.appendChild(newInput(obj["content"]));
@@ -299,7 +303,8 @@ function eXtendendNassiShneiderman(params) {
 			"for": _forBuilder,
 			"foreach": _foreachBuilder,
 			"call": _callBuilder,
-			"return": _returnBuilder
+			"return": _returnBuilder,
+			"empty": _emptyBuilder
 		}
 		if (_self["includeExceptions"]) {
 			_builders["throw"] = _throwBuilder;

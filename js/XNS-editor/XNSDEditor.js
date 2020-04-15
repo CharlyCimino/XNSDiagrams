@@ -137,6 +137,16 @@ function handleOpen() {
 	generateMenuItems();
 	resizeInputs();
 	handleInputs();
+
+	var diagram = xnsd.render(
+		diagramCont,
+		base.statements ?
+			base : {
+				statements: [base]
+			}
+	);
+
+
 }
 
 function handleInputs() {
