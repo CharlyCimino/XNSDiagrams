@@ -1,18 +1,19 @@
+var base = {
+	"type": "base",
+	"data": {
+		"declaration": {
+			"class": "Clase",
+			"modifiers": "public",
+			"type": "void",
+			"name": "método",
+			"arguments": []
+		},
+		"localVars": [],
+		"statements": []
+	}
+};
+
 var templates = [
-	/*{
-		"type": "base",
-		"data": {
-			"declaration": {
-				"class": "Clase",
-				"modifiers": "public",
-				"type": "void",
-				"name": "método",
-				"arguments": []
-			},
-			"localVars": [],
-			"statements": []
-		}
-	},*/
 	{
 		"type": "block",
 		"data": {

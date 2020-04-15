@@ -137,12 +137,6 @@ function handleOpen() {
 	generateMenuItems();
 	resizeInputs();
 	handleInputs();
-	handleSizes();
-}
-
-function handleSizes() {
-
-
 }
 
 function handleInputs() {
@@ -190,7 +184,6 @@ function init() {
 	setEvent(diagramCont, "dragover", allowDrop);
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
-	setEvent(window, "resize", handleSizes);
 }
 
 
