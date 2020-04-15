@@ -2,6 +2,7 @@
 
 <head>
 	<meta charset="utf-8" />
+	<link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Lato&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
 	<link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
 	<link rel="stylesheet" type="text/css" href="css/switch-button.css" />
@@ -9,7 +10,7 @@
 </head>
 
 <body>
-	<header>
+	<header id="header">
 		<img src="img/ort-logo-blanco.png" class="logo" alt="Logo" />
 		<div class="buttons">
 			<button type="button">Boton 1</button>
@@ -21,16 +22,25 @@
 				<input type="checkbox" id="checkColors" checked>
 				<span class="slider"></span>
 			</label>
-			<span class="switcher-text">Colorear</span>
+			<span class="switcher-text"> Colorear</span>
 		</div>
 		<img src="img/icons8-basura-96.png" id="trash" class="trash" alt="Logo" />
 	</header>
-	<main>
-		<div id="menuContainer" class="menu"></div>
-		<div class="diagramContainer">
-			<div id="diagramContainer" droppable="true"></div>
+	<div id="menuContainer" class="menu"></div>
+	<div class="diagramContainer">
+		<div id="diagram" droppable="true"></div>
+	</div>
+	<footer id="footer">
+		<div class="professor">
+			<img src="img/GitHub-Mark-32px.png" alt="github">
+			<a href="http://www.github.com/axxonita">Prof. C. Daniel Vázquez</a>
 		</div>
-	</main>
+		<span class="message">Con 💗 para toda la comunidad de ORT</span>
+		<div class="professor">
+			<img src="img/GitHub-Mark-32px.png" alt="github">
+			<a href="http://www.github.com/caemci">Prof. Carlos E. Cimino</a>
+		</div>
+	</footer>
 
 
 </body>

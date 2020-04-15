@@ -1,4 +1,4 @@
-var diagramCont = document.getElementById("diagramContainer");
+var diagramCont = document.getElementById("diagram");
 var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
 var xnsd = new XNSDiagram();
@@ -137,6 +137,12 @@ function handleOpen() {
 	generateMenuItems();
 	resizeInputs();
 	handleInputs();
+	handleSizes();
+}
+
+function handleSizes() {
+
+
 }
 
 function handleInputs() {
@@ -184,6 +190,7 @@ function init() {
 	setEvent(diagramCont, "dragover", allowDrop);
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
+	setEvent(window, "resize", handleSizes);
 }
 
 
