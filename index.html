@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
+	<link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
+	<link rel="stylesheet" type="text/css" href="css/XNSColors.css" id="css/XNSColors.css" />
+</head>
+
+<body>
+	<div class="container-fluid" id="main">
+		<nav class="navbar navbar-expand-sm navbar-light">
+			<a class="navbar-brand" href="#">
+				<img src="img/logo.PNG" alt="Logo" width="150px" />
+			</a>
+			<ul class="navbar-nav" id="theNavBar"></ul>
+			<div class="checkContainer">
+				<input class="form-check-input" type="checkbox" value="" id="checkColors" checked>
+				<label class="form-check-label" for="checkColors">Colorear diagrama</label>
+			</div>
+		</nav>
+		<div class="row">
+			<div class="card card-primary col-xl-6 col-lg-6 col-md-6 col-sm-6" id="divEditor">
+				<div class="card-header">Editor</div>
+				<div class="card-body">
+					<pre id="editor" class="ace_editor"></pre>
+				</div>
+				<div id="undoRedo">
+					<button class="btn btn-primary" id="buttonUndo">Deshacer</button>
+					<button class="btn btn-primary" id="buttonRedo">Rehacer</button>
+				</div>
+				<div class="alert alert-danger" id="alert"></div>
+			</div>
+			<div class="card card-primary col-xl-6 col-lg-6 col-md-6 col-sm-6" id="divRender">
+				<div class="card-header">Render</div>
+				<div class="card-body diagrama">
+					<div id="diagramContainer"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.10.2/beautify.min.js"></script>
+<script type="application/javascript" src="js/ace-src-min/ace.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<script type="application/javascript" src="js/XNS-core/html2canvas.js"></script>
+<script type="application/javascript" src="js/XNS-core/Enumeration.js"></script>
+<script type="application/javascript" src="js/XNS-core/ClassConstructor.js"></script>
+<script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script>
+<script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
+<script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>
+<script type="application/javascript" src="js/XNS-editor/templates.js"></script>
+<script type="application/javascript" src="js/XNS-editor/ace-config.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
+
+</html>

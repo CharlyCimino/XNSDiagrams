@@ -1,0 +1,67 @@
+.scrollmargin {
+	height: 80px;
+	text-align: center;
+}
+
+.invisible {
+	display: none;
+}
+
+.diagramContainer {
+	height: 95%;
+	border: 2px solid #2c637f;
+	background: #f2faff;
+}
+
+.menuItem {
+	cursor: copy;
+	opacity: 0.7;
+	margin: 2% 0;
+}
+
+.menuItem:hover {
+	opacity: 1;
+	background-color: #f2faff;
+}
+
+.menuItem:first-child {
+	margin-top: 0;
+}
+
+.menuItem:last-child {
+	margin-bottom: 0;
+}
+
+.ace_editor {
+	border: 1px solid blue;
+	margin: auto;
+}
+
+.scrollmargin {
+	height: 80px;
+	text-align: center;
+}
+
+.checkContainer {
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.btn {
+	margin: 3px;
+}
+
+.invisible {
+	display: none;
+}
+
+.checkContainer * {
+	vertical-align: middle;
+}
+
+#checkColors {
+	display: inline-block;
+	position: relative;
+	margin: 0;
+	transform : scale(1.3);
+}

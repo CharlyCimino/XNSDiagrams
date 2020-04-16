@@ -1,161 +1,173 @@
-.Nassi-Shneiderman {
-    font-family: helvetica, arial, sans-serif;
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-    .Nassi-Shneiderman * {
-        margin: 0px;
-        padding: 0px;
-        box-sizing: border-box;
-    }
-
-    .Nassi-Shneiderman > * {
-        margin-left: 0pt;
-        font-size: 10pt;
-    }
+.Nassi-Shneiderman {
+    font-family: "Consolas", monospace;
+	font-size: 11pt;
+}
 
 .method-declaration {
-    font-size: 12pt;
+    font-size: 13pt;
     color: #000;
     font-weight: 700;
-	font-family: "Courier New", Serif;
-	padding-bottom: 1em;
-	padding-left: 3em;
-	text-indent: -3em;
+    font-family: "Consolas", monospace;
+    padding-bottom: 1em;
+    padding-left: 3em;
+    text-indent: -3em;
 }
 
 .local-variable-declaration,
-.local-const-declaration
- {
-    font-size: 11pt;
+.local-const-declaration {
+    font-size: 12pt;
     padding-bottom: .5em;
-	font-family: "Courier New", Serif;
+	font-family: "Consolas", Serif;
+}
+
+.clase {
+	margin: 0;
 }
 
 .statements {
-    border-top: solid 1px;
-    border-left: solid 1px;
+	padding-bottom: .5em;
 }
 
-    .statements > * {
-        border-right: solid 1px;
-        border-bottom: solid 1px;
-    }
+.statements>* {
+    border: solid 1px;
+}
 
-.statements-block > :last-child {
-        border-bottom: none;
+.statements-block> :last-child {
+    border-bottom: none;
+}
+
+.statements-block> :first-child {
+    border-top: none;
 }
 
 .block-statement,
 .break-statement {
-    padding: 3pt;
+    padding: 5pt;
     text-align: center;
-    border-bottom: solid 1px;
+    border: solid 1px;
 }
 
 .break-statement {
-    font-style: italic;
+    font-weight: bolder;
+}
+
+.conditional-statement {
+	border: solid 1px;
+	border-bottom: none;
 }
 
 .conditional-statement .header,
 .conditional-statement .body {
     display: table;
     width: 100%;
-    border-right: none;
     border-collapse: collapse;
+}
+
+.conditional-statement .header {
+	border-bottom: solid 1px;
+}
+
+.conditional-statement .header .condition {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+    padding: 8pt;
+    padding-left: 15pt;
+    padding-right: 15pt;
+}
+
+.conditional-statement .header .option {
+    display: table-cell;
+    vertical-align: bottom;
+    position: relative;
+}
+
+.conditional-statement .header .option .option-block {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    width: 35pt;
+    height: 100%;
+}
+
+.conditional-statement .header .option.false .option-block {
+    right: 0px;
+}
+
+.conditional-statement .header .option .option-block>canvas.corner {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    bottom: 0px;
+    z-index: 0;
+}
+
+.conditional-statement .header .option.false .option-block>canvas.corner {
+    right: 0px;
+}
+
+.conditional-statement.switch>.header>.option>.option-block>canvas.corner {
+    top: 0px;
+    transform: scaleX(-1);
+}
+
+.conditional-statement .header .option .caption {
+    position: absolute;
+    bottom: 0px;
+    width: 15pt;
+    line-height: 15pt;
+    text-align: center;
+    z-index: 1;
+}
+
+.conditional-statement .header .option.false .caption {
+    right: 0px;
+}
+
+.conditional-statement>.body .side {
+    display: table-cell;
+    position: relative;
+    vertical-align: top;
+    min-width: 30pt;
+}
+
+.conditional-statement>.body>.then {
+	border-right: solid 0.5px;
+}
+
+.conditional-statement>.body>.else {
+	border-left: solid 0.5px;
+}
+
+.conditional-statement>.body>.case>.statements-block>div,
+.conditional-statement>.body>.side>div {
+	border: none;
     border-bottom: solid 1px;
 }
 
-    .conditional-statement .header .condition {
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-        border: none;
-        padding: 15pt;
-        padding-left: 20pt;
-        padding-right: 20pt;
-    }
-
-    .conditional-statement .header .option {
-        display: table-cell;
-        vertical-align: bottom;
-        position: relative;
-    }
-
-        .conditional-statement .header .option .option-block {
-            display: block;
-            position: absolute;
-            bottom: 0px;
-            width: 35pt;
-            height: 100%;
-        }
-
-        .conditional-statement .header .option.false .option-block {
-            right: 0px;
-        }
-
-        .conditional-statement .header .option .option-block > canvas.corner {
-            width: 35px;
-            height: 35px;
-            position: absolute;
-            bottom: 0px;
-            z-index: 0;
-        }
-
-        .conditional-statement .header .option.false .option-block > canvas.corner {
-            right: 0px;
-        }
-
-        .conditional-statement.switch .header .option .option-block > canvas.corner {
-			top: 0px;
-			transform: scaleX(-1);
-		}
-
-        .conditional-statement .header .option .caption {
-            position: absolute;
-            bottom: 0px;
-            width: 15pt;
-            line-height: 15pt;
-            text-align: center;
-            font-size: 9pt;
-            z-index: 1;
-        }
-
-        .conditional-statement .header .option.false .caption {
-            right: 0px;
-        }
-
-.conditional-statement:last-child > .body {
-    border-bottom: none;
+.conditional-statement>.body .case {
+    display: table-cell;
+    border-right: solid 1px;
+    position: relative;
 }
 
-    .conditional-statement > .body .side {
-        display: table-cell;
-        position: relative;
-        vertical-align: top;
-        min-width: 30pt;
-    }
-
-        .conditional-statement > .body .side.then {
-            border-right: solid 1px;
-        }
-
-    .conditional-statement > .body .case {
-        display: table-cell;
-        border-right: solid 1px;
-        position: relative;
-    }
-
-        .conditional-statement > .body .side:last-child,
-        .conditional-statement > .body .case:last-child {
-            border-right: none;
-        }
+.conditional-statement>.body .side:last-child,
+.conditional-statement>.body .case:last-child {
+    border-right: none;
+}
 
 .conditional-statement .body .case .test-value {
     display: block;
     text-align: center;
     background-color: #F0F0F0;
     border-bottom: solid 1px;
-    border-right: solid 1px;
     line-height: 20pt;
 }
 
@@ -170,154 +182,177 @@
 .input-statement,
 .output-statement {
     display: block;
+    position: relative;    
+    border: solid 1px;
+}
+
+.input-statement .body,
+.output-statement .body {
+    display: block;
     position: relative;
-    width: 100%;
+    text-align: center;
+    padding: 5pt;
+}
+
+.input-statement .symbol,
+.output-statement .symbol {
+    position: absolute;
+    width: 15pt;
+    line-height: 15pt;
+    vertical-align: middle;
+    text-align: center;
+    border-right: solid 1px;
     border-bottom: solid 1px;
 }
 
-    .input-statement .body,
-    .output-statement .body {
-        display: block;
-        position: relative;
-        text-align: center;
-        padding: 15pt;
-    }
-
-    .input-statement .symbol,
-    .output-statement .symbol {
-        position: absolute;
-        width: 15pt;
-        line-height: 15pt;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 9pt;
-        border-right: solid 1px;
-        border-bottom: solid 1px;
-    }
-
 .for-statement {
+	display: block;
+	border: solid 1px;
+}
+
+.for-statement ._container {
+    display: table;
+    width: 100%;
+}
+
+.for-statement .controller {
+    display: table-cell;
+    border-right: solid 1px;
+    position: relative;
+	vertical-align: middle;
+	max-width: 100pt;
+}
+
+.for-statement .controller * {
     display: block;
 }
 
-    .for-statement .container {
-        display: table;
-        width: 100%;
-    }
+.for-statement .controller .top {
+    position: absolute;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+    top: 0px;
+    width: 20pt;
+    border-right: solid 1px;
+    border-bottom: solid 1px;
+}
 
-    .for-statement .controller {
-        display: table-cell;
-        border-right: solid 1px;
-        position: relative;
-        vertical-align: middle;
-    }
+.for-statement .controller .bottom {
+    width: 20pt;
+    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+    border-right: solid 1px;
+    border-top: solid 1px;
+    position: absolute;
+    bottom: 0px;
+}
 
-        .for-statement .controller * {
-            display: block;
-        }
+.for-statement .controller .content-block {
+    padding-left: 5pt;
+    padding-right: 5pt;
+}
 
-        .for-statement .controller .top {
-            position: absolute;
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
-            top: 0px;
-            width: 15pt;
-            border-right: solid 1px;
-            border-bottom: solid 1px;
-        }
+.for-statement .controller .content {
+    text-align: center;
+    padding: 5pt;
+}
 
-        .for-statement .controller .bottom {
-            width: 15pt;
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
-            border-right: solid 1px;
-            border-top: solid 1px;
-            position: absolute;
-            bottom: 0px;
-        }
+.for-statement .statements-block {
+	vertical-align: middle;
+    display: table-cell;
+	min-width: 50pt;
+}
 
-        .for-statement .controller .content-block {
-            padding-left: 5pt;
-            padding-right: 5pt;
-        }
+.for-statement .statements-block>div {
+	border: none;
+    border-bottom: solid 1px;
+}
 
-        .for-statement .controller .content {
-            text-align: center;
-            padding: 15pt;
-        }
-
-    .for-statement .statements-block {
-        display: table-cell;
-        min-width: 50%;
-    }
+.for-statement .statements-block>div:last-child {
+	border: none;
+}
 
 .call-statement {
     display: block;
     position: relative;
     text-align: center;
-    border-bottom: solid 1px;
+    border: solid 1px;
 }
 
-    .call-statement .margin {
-        display: block;
-        position: absolute;
-        height: 100%;
-        width: 15pt;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAEElEQVQYV2NgYGBoYEABDQAIlAEB8MHMtAAAAABJRU5ErkJggg==);
-    }
+.call-statement .margin {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 20pt;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAECAYAAABP2FU6AAAAEElEQVQYV2NgYGBoYEABDQAIlAEB8MHMtAAAAABJRU5ErkJggg==);
+}
 
-        .call-statement .margin.left {
-            border-right: solid 1px;
-        }
+.call-statement .margin.right {
+    right: 0px;
+    top: 0px; 
+}
 
-        .call-statement .margin.right {
-            right: 0px;
-            top: 0px;
-            border-left: solid 1px;
-        }
-
-    .call-statement .call {
-        position: relative;
-        padding: 5pt;
-        margin-left: 15pt;
-        margin-right: 15pt;
-        text-align: center;
-        border: none;
-    }
+.call-statement .call {
+    position: relative;
+    padding: 5pt;
+    margin-left: 15pt;
+    margin-right: 15pt;
+    text-align: center;
+    border: none;
+}
 
 .while-statement .condition,
 .dowhile-statement .condition {
     text-align: center;
-    padding: 2pt;
+    padding: 5pt;
 }
 
-.while-statement > .container > .statements-block,
-.dowhile-statement > .container > .statements-block {
-    margin-left: 15pt;
-    border-left: solid 1px;
+.while-statement,
+.dowhile-statement {
+	border: solid 1px;
 }
 
-.while-statement > .container > .statements-block {
+.while-statement>._container>.statements-block,
+.dowhile-statement>._container>.statements-block {
+    margin-left: 20pt;
+}
+
+.while-statement>._container>.statements-block {
     border-top: solid 1px;
 }
 
-    .dowhile-statement > .container > .statements-block {
-        border-bottom: solid 1px;
-    }
+.dowhile-statement>._container>.statements-block {
+    border-bottom: solid 1px;
+}
+
+.while-statement>._container>.statements-block>div,
+.dowhile-statement>._container>.statements-block>div {
+    border-right: none;
+}
 
 .empty {
-    position: absolute;
-    display: block;
-    width: 100%;
+    /*position: absolute;*/
+	display: block;
+	width: 100%;
+	/*height: 1pt;*/
     top: 0px;
-    bottom: 0px;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
+	bottom: 0px;
+	/*background: #f2faff;*/
+	/*border: 1px dashed #2c637f;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
 }
 
 /** -- Exception extensions -- **/
-.try-statement, .catch-statement, .finally-statement {
+
+.try-statement,
+.catch-statement,
+.finally-statement {
     display: inline-table;
     width: 100%;
     border-bottom: solid 1px;
 }
-.try-statement > .margin.left, .catch-statement > .margin.left, .finally-statement > .margin.left {
+
+.try-statement>.margin.left,
+.catch-statement>.margin.left,
+.finally-statement>.margin.left {
     display: table-cell;
     border-right: solid 1px;
     text-align: center;
@@ -338,15 +373,15 @@
 }
 
 .exception {
-        background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
-        .exception .variable,
-        .exception .identifier {
-            display: inline-block;
-        }
+.exception .variable,
+.exception .identifier {
+    display: inline-block;
+}
 
-        .exception .identifier {
-            font-style: italic;
-            padding-right: 5pt;
-        }
+.exception .identifier {
+    font-style: italic;
+    padding-right: 5pt;
+}
