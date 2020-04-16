@@ -13,3 +13,6 @@ In addition, it can create an image from the rendered diagram.
 
 # Next steps
 The next step will be to create a drag-and-drop diagram editor that helps people learn (and teach) programming algorithms by using an online tool, in an agile and comfortable way and without using paper and pencil.
+
+# USE IT!
+To access to the current diagram aditor please go to <a href="https://axxonita.github.io/XNSDiagrams/">here</a>.
