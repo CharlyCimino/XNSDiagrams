@@ -22,9 +22,16 @@ header>.logo {
 	width: 65pt;
 }
 
-.trash {
+#trash {
 	width: 40pt;
+	height: 40pt;
 	float: right;
+	background-image: url("../img/icons8-basura-96.png");
+	background-size: cover;
+}
+
+.trash-over {
+	transform: rotate(15deg) scale(1.2);
 }
 
 footer {

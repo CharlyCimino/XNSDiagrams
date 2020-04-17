@@ -1,5 +1,6 @@
 var diagramCont = document.getElementById("diagram");
 var prueba = document.getElementById("prueba");
+var trash = document.getElementById("trash");
 var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
 var xnsd = new XNSDiagram();
@@ -20,16 +21,29 @@ function drop(ev) {
 	var templateIndex = ev.dataTransfer.getData("template-index");
 	var id = ev.dataTransfer.getData("id");
 	var statement;
-	var target = ev.target;
+	var deleteEmpty = true;
 	if (mode == "copy") {
 		statement = renderStatement(templates[templateIndex]);
 		empty = newEmptyBlock();
+		deleteEmpty = false;
 	} else {
 		statement = document.getElementById(id);
 		empty = statement.nextSibling;
 	}
-	insertStatementInTarget(target, statement);
-	handleDragLeave(ev);
+	if (ev.target == trash) {
+		deleteStatement(statement, deleteEmpty);
+		handleDragLeaveInTrash(ev);
+	} else {
+		insertStatementInTarget(ev.target, statement);
+		handleDragLeaveInBlock(ev);
+	}
+}
+
+function deleteStatement(statement, deleteEmpty) {
+	if (deleteEmpty) {
+		statement.nextSibling.remove();
+	}
+	statement.remove();
 }
 
 /*
@@ -68,14 +82,12 @@ function insertStatementInTarget(target, statement) {
 		parent.appendChild(statement);
 		parent.appendChild(empty);
 	} else {
-		console.log(statement);
-		console.log(target);
 		parent.insertBefore(statement, target);
 		parent.insertBefore(empty, statement);
 	}
 }
 
-function handleDragOver(ev) {
+function handleDragOverInBlock(ev) {
 	if (ev.target.getAttribute("droppable") == "true") {
 		if (ev.target.className == "empty") {
 			ev.target.style.height = "20px";
@@ -84,11 +96,19 @@ function handleDragOver(ev) {
 	}
 }
 
-function handleDragLeave(ev) {
+function handleDragLeaveInBlock(ev) {
 	if (ev.target.classList.contains("empty")) {
 		ev.target.style.height = "1px";
 	}
 	ev.target.classList.remove("over");
+}
+
+function handleDragOverInTrash(ev) {
+	ev.target.classList.add("trash-over");
+}
+
+function handleDragLeaveInTrash(ev) {
+	ev.target.classList.remove("trash-over");
 }
 
 function renderStatement(statement) {
@@ -192,10 +212,14 @@ function generateCanvasIn(target, statement) {
 }
 
 function init() {
-	setEvent(diagramCont, "dragenter", handleDragOver);
-	setEvent(diagramCont, "dragleave", handleDragLeave);
+	setEvent(diagramCont, "dragenter", handleDragOverInBlock);
+	setEvent(diagramCont, "dragleave", handleDragLeaveInBlock);
 	setEvent(diagramCont, "drop", drop);
 	setEvent(diagramCont, "dragover", allowDrop);
+	setEvent(trash, "dragover", allowDrop);
+	setEvent(trash, "drop", drop);
+	setEvent(trash, "dragenter", handleDragOverInTrash);
+	setEvent(trash, "dragleave", handleDragLeaveInTrash);
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
 }
