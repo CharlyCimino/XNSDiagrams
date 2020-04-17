@@ -67,12 +67,8 @@ footer .professor img {
 	width: 16px;
 }
 
-.buttons button {
-	box-shadow:inset 0px 2px 5px 1px #5091b2;
-	background:linear-gradient(to bottom, #6cb4d8 5%, #5091b2 100%);
-	background-color:#6cb4d8;
+.button {
 	border-radius:5px;
-	border: 1px solid #5091b2;
 	display:inline-block;
 	cursor:pointer;
 	color:#f2faff;
@@ -84,9 +80,28 @@ footer .professor img {
 	font-family: 'Lato', Arial, sans-serif;
 }
 
-.buttons button:hover {
+.diagram-button {
+	box-shadow:inset 0px 2px 5px 1px #5091b2;
+	background:linear-gradient(to bottom, #6cb4d8 5%, #5091b2 100%);
+	background-color:#6cb4d8;
+	border: 1px solid #5091b2;
+}
+
+.diagram-button:hover {
 	background:linear-gradient(to bottom, #5091b2 5%, #6cb4d8 100%);
 	background-color:#5091b2;
+}
+
+.project-button {
+	box-shadow:inset 0px 2px 5px 1px #b27550;
+	background:linear-gradient(to bottom, #d8956c 5%, #b27550 100%);
+	background-color:#d8956c;
+	border: 1px solid #b27550;
+}
+
+.project-button:hover {
+	background:linear-gradient(to bottom, #b27550 5%, #d8956c 100%);
+	background-color:#b27550;
 }
 
 #menuContainer {
