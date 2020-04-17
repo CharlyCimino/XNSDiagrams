@@ -10,33 +10,25 @@ function drag(e) {
 	} else {
 		e.dataTransfer.setData("mode", "move");
 	}
-	e.dataTransfer.setData("data", this.getAttribute("type"));
 	e.dataTransfer.setData("template-index", this.getAttribute("template-index"));
 	e.dataTransfer.setData("id", e.target.id);
-	console.log(e);
-
-	console.log(e.target.id);
-
 }
 
 function drop(ev) {
 	ev.preventDefault();
-	var type = ev.dataTransfer.getData("data");
 	var mode = ev.dataTransfer.getData("mode");
 	var templateIndex = ev.dataTransfer.getData("template-index");
 	var id = ev.dataTransfer.getData("id");
-	var obj;
+	var statement;
 	var target = ev.target;
 	if (mode == "copy") {
-		obj = renderStatement(templates[templateIndex]);
-		obj.json = templates[templateIndex];
+		statement = renderStatement(templates[templateIndex]);
+		empty = newEmptyBlock();
 	} else {
-		obj = document.getElementById(id);
-		console.log(obj);
-
+		statement = document.getElementById(id);
+		empty = statement.nextSibling;
 	}
-	insertStatementInTarget(target, obj, mode);
-	//appendDiagram(prueba, diagramCont.json);
+	insertStatementInTarget(target, statement);
 	handleDragLeave(ev);
 }
 
@@ -70,9 +62,8 @@ function generateJSONEachFieldOfBase() {
 	diagramCont.lastChild.json = base["statements"];
 }*/
 
-function insertStatementInTarget(target, statement, mode) {
+function insertStatementInTarget(target, statement) {
 	var parent = target.parentNode == diagramCont ? target : target.parentNode;
-	var empty = mode == "copy" ? newEmptyBlock() : statement.nextSibling;
 	if (parent.lastChild == target || target.parentNode == diagramCont) {
 		parent.appendChild(statement);
 		parent.appendChild(empty);
