@@ -101,9 +101,26 @@ function eXtendendNassiShneiderman(params) {
 	function _localVarsBuilder(localVars) {
 		var box = _self.newBlock("local-variable-declaration");
 		for (var v in localVars) {
-			box.appendChild(_self.newBlock("", _self.htmlString(localVars[v]["type"]) + " " + localVars[v]["name"]));
+			box.appendChild(_variableDeclarationBuilder(localVars[v]));
 		}
 		return box;
+	}
+
+	function _parameterDeclarationBuilder(obj) {
+		return "parameter";
+	}
+
+	function _variableDeclarationBuilder(obj) {
+		var type = _self.newBlock("type", _self.htmlString(obj["type"]), false, true);
+		var name = _self.newBlock("name", _self.htmlString(obj["name"]), false, true);
+		var variableDeclaration = _self.newBlock("variable-declaration");
+		variableDeclaration.appendChild(type);
+		variableDeclaration.appendChild(name);
+		return variableDeclaration;
+	}
+
+	function _constantDeclarationBuilder(obj) {
+		return "constant";
 	}
 
 	function _statementsBuilder(theStatements) {
@@ -283,6 +300,9 @@ function eXtendendNassiShneiderman(params) {
 			"declaration": _declarationBuilder,
 			"localVars": _localVarsBuilder,
 			"statements": _statementsBuilder,
+			"newParameter": _parameterDeclarationBuilder,
+			"newVariable": _variableDeclarationBuilder,
+			"newConstant": _variableDeclarationBuilder,
 			"block": _blockBuilder,
 			"assignment": _assignmentBuilder,
 			"if": _conditionalBuilder,

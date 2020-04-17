@@ -2,15 +2,18 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+#diagram *,
+#menuContainer * {
 	font-family: "Consolas", monospace;
 	font-size: 11pt;
+	color: #071c26;
 }
 
 .method-declaration {
-    font-size: 13pt;
-    color: #000;
-    font-weight: 700;
-    font-family: "Consolas", monospace;
+    font-size: 13pt !important;
+    font-weight: bolder;
     padding-bottom: 1em;
     padding-left: 3em;
     text-indent: -3em;
@@ -18,9 +21,21 @@
 
 .local-variable-declaration,
 .local-const-declaration {
-    font-size: 12pt;
-    padding-bottom: .5em;
-	font-family: "Consolas", Serif;
+    padding: 5pt 0;
+}
+
+.local-variable-declaration>.variable-declaration  {
+	display: inline-block;
+	margin: 1pt 5pt;
+}
+
+.local-variable-declaration>.variable-declaration>.type,
+.local-variable-declaration>.variable-declaration>.name  {
+	margin: 0pt 3pt;
+}
+
+.local-variable-declaration>.variable-declaration>.type {
+	font-weight: bold;
 }
 
 #diagram>.statements {
@@ -375,7 +390,7 @@
 
 [contenteditable=true]:focus,
 [contenteditable=true]:hover {
-	font-weight: bolder;
+	text-decoration: underline;
 	cursor: text;
 	outline: none;
 }

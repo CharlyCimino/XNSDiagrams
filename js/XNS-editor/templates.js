@@ -10,6 +10,22 @@ var base = {
 	"statements": []
 };
 
+var buttonsDiagramTemplates = [
+	{
+		"type": "tipo",
+		"name": "nombre"
+	},
+	{
+		"type": "final tipo",
+		"name": "NOMBRE"
+	}
+]
+
+var newDeclaration = {
+	"type": "tipo",
+	"name": "nombre"
+};
+
 var templates = [
 	{
 		"type": "block",
@@ -115,11 +131,4 @@ var templates = [
 		"type": "break",
 		"data": ""
 	}
-	/*,{
-		"name": "Nuevo parámetro",
-		"data": {
-			"type": "tipo",
-			"name": "nombre"
-		}
-	}*/
 ];

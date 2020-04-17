@@ -1,8 +1,9 @@
 var diagramCont = document.getElementById("diagram");
-var prueba = document.getElementById("prueba");
+//var prueba = document.getElementById("prueba");
 var trash = document.getElementById("trash");
 var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
+var localVars;
 var xnsd = new XNSDiagram();
 
 function drag(e) {
@@ -22,12 +23,17 @@ function drop(ev) {
 	var id = ev.dataTransfer.getData("id");
 	var statement;
 	var deleteEmpty = true;
+	console.log(id);
+
 	if (mode == "copy") {
 		statement = renderStatement(templates[templateIndex]);
 		empty = newEmptyBlock();
 		deleteEmpty = false;
 	} else {
 		statement = document.getElementById(id);
+		if (statement.className == "parameter-declaration" || statement.className == "variable-declaration") {
+			deleteEmpty = false;
+		}
 		empty = statement.nextSibling;
 	}
 	if (ev.target == trash) {
@@ -196,6 +202,8 @@ function appendDiagram(container, json) {
 function handleOpen() {
 	appendDiagram(diagramCont, base);
 	diagramCont.lastChild.appendChild(newEmptyBlock());
+	localVars = document.getElementById("xnsd-local-variable-declaration-1");
+
 	//generateJSONEachFieldOfBase();
 	generateMenuItems();
 }
@@ -205,23 +213,56 @@ function handleCheckbox(e) {
 	link.setAttribute("href", (e.target.checked ? link.id : ""));
 }
 
+function handleClickButtonDiagram(ev) {
+	var id = ev.target.id;
+	var obj;
+	if (id == "newParameter") {
+		console.log("Falta implementar");
+	} else {
+		if (id == "newVariable") {
+			obj = xnsd[id](buttonsDiagramTemplates[0]);
+			localVars.appendChild(obj);
+		} else {
+			obj = xnsd[id](buttonsDiagramTemplates[1]);
+			localVars.insertBefore(obj, localVars.firstChild);
+		}
+	}
+	obj.setAttribute("draggable", "true");
+	setEvent(obj, "dragstart", drag);
+}
+
 function generateCanvasIn(target, statement) {
 	return html2canvas(statement).then(canvas => {
 		target.appendChild(canvas);
 	});
 }
 
-function init() {
+function setButtonsEvents() {
+	setEvent(document.getElementById("newParameter"), "click", handleClickButtonDiagram);
+	setEvent(document.getElementById("newVariable"), "click", handleClickButtonDiagram);
+	setEvent(document.getElementById("newConstant"), "click", handleClickButtonDiagram);
+}
+
+function setTrashEvents() {
+	setEvent(trash, "dragenter", handleDragOverInTrash);
+	setEvent(trash, "dragleave", handleDragLeaveInTrash);
+	setEvent(trash, "drop", drop);
+	setEvent(trash, "dragover", allowDrop);
+}
+
+function setDiagramEvents() {
 	setEvent(diagramCont, "dragenter", handleDragOverInBlock);
 	setEvent(diagramCont, "dragleave", handleDragLeaveInBlock);
 	setEvent(diagramCont, "drop", drop);
 	setEvent(diagramCont, "dragover", allowDrop);
-	setEvent(trash, "dragover", allowDrop);
-	setEvent(trash, "drop", drop);
-	setEvent(trash, "dragenter", handleDragOverInTrash);
-	setEvent(trash, "dragleave", handleDragLeaveInTrash);
+}
+
+function init() {
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
+	setDiagramEvents();
+	setTrashEvents();
+	setButtonsEvents();
 }
 
 init();
