@@ -92,6 +92,10 @@ footer .professor img {
 	border: 2px solid #2c637f;
 }
 
+#diagram>.statements {
+	height: 90%;
+}
+
 .diagramContainer {
 	float: right;
 	width: 80%;

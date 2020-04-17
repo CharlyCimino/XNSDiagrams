@@ -39,3 +39,16 @@
 .empty {
 	background: #f2faff;
 }
+
+.method-declaration {
+    background: mistyrose;
+}
+
+.local-variable-declaration,
+.local-const-declaration {
+    background: palegreen;
+}
+
+#diagram>.statements {
+	background: skyblue;
+}

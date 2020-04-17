@@ -7,10 +7,7 @@ var base = {
 		"arguments": []
 	},
 	"localVars": [],
-	"statements": [{
-		"type": "empty",
-		"data": ""
-	}]
+	"statements": []
 };
 
 var templates = [

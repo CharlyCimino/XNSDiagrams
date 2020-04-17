@@ -107,7 +107,7 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function _statementsBuilder(theStatements) {
-		var box = _self.newBlock("statements");
+		var box = _self.newBlock("statements", undefined, true, false);
 		for (var s = 0; s < theStatements.length; s++) {
 			_self.process(box, theStatements[s]["type"], theStatements[s]["data"]);
 		}

@@ -21,24 +21,72 @@ function drop(ev) {
 	var templateIndex = ev.dataTransfer.getData("template-index");
 	var id = ev.dataTransfer.getData("id");
 	var obj;
+	var target = ev.target;
 	if (mode == "copy") {
 		obj = renderStatement(templates[templateIndex]);
+		obj.json = templates[templateIndex];
 	} else {
 		obj = document.getElementById(id);
 	}
-	var target = ev.target;
-	var empty = newEmptyBlock();
-	if (target == diagramCont) {
-		target.appendChild(obj);
-		target.appendChild(empty);
-	} else {
-		var parent = target.parentNode;
-		parent.insertBefore(obj, target);
-		parent.insertBefore(empty, obj);
-	}
-	resizeInputs();
-	handleInputs();
+	console.log(diagramCont.json.statements);
+	console.log(diagramCont.lastChild);
+	insertStatementInTarget(target, obj, mode);
 	handleDragLeave(ev);
+}
+
+function deleteStatementInJSON(container, index) {
+	container = checkMethodStatements(container);
+	container.json.statements.splice(index, 1);
+}
+
+function insertStatementInJSON(container, index, statement) {
+	container = checkMethodStatements(container);
+	if (typeof index == "undefined") {
+		container.json.statements.push(statement.json);
+	} else {
+		container.json.statements.splice(index, 0, statement.json);
+	}
+}
+
+function checkMethodStatements(node) {
+	return node.className != "statements" ? node : node.parentNode;
+}
+
+function insertStatementInTarget(target, statement, mode) {
+	var parent = target.parentNode;
+	if (parent == diagramCont) {
+		target.appendChild(statement);
+		target.appendChild(newEmptyBlock());
+		insertStatementInJSON(parent, undefined, statement);
+	} else if (mode == "copy") {
+		if (parent.lastChild == target) {
+			parent.appendChild(statement);
+			parent.appendChild(newEmptyBlock());
+		} else {
+			parent.insertBefore(statement, target);
+			parent.insertBefore(newEmptyBlock(), statement);
+		}
+		insertStatementInJSON(parent, indexOfStatement(statement), statement);
+	} else {
+		var currentIndex = indexOfStatement(statement);
+		var targetIndex = indexOfStatement(target) + 0.5;
+		var parentTarget = target.parentNode;
+		var parentStatement = statement.parentNode;
+		var empty = statement.nextSibling;
+		parent.insertBefore(statement, target);
+		parent.insertBefore(empty, statement);
+		deleteStatementInJSON(parentStatement, currentIndex);
+		insertStatementInJSON(parentTarget, targetIndex, statement);
+	}
+}
+
+function indexOfStatement(statement) {
+	var realIndex = indexOfChild(statement);
+	return (realIndex - 1) / 2;
+}
+
+function indexOfChild(child) {
+	return Array.from(child.parentNode.children).indexOf(child);
 }
 
 function handleDragOver(ev) {
@@ -129,48 +177,23 @@ function newMenuItem(obj) {
 }
 
 function appendDiagram(json) {
-	var diagram = xnsd.render(
+	diagram = xnsd.render(
 		diagramCont,
 		json.statements ?
 			json : {
 				statements: [json]
 			}
 	);
+	diagramCont.json = json;
+	return diagram;
 }
 
 function handleOpen() {
 	appendDiagram(base);
+	diagramCont.lastChild.appendChild(newEmptyBlock());
 	generateMenuItems();
-	resizeInputs();
-	handleInputs();
 }
 
-function handleInputs() {
-	var inputs = document.getElementsByClassName("input-for-statement");
-	for (let i = 0; i < inputs.length; i++) {
-		handleInput(inputs[i]);
-	}
-}
-
-function resizeInputs() {
-	var inputs = document.getElementsByClassName("input-for-statement");
-	for (let i = 0; i < inputs.length; i++) {
-		resizeInput(inputs[i]);
-	}
-}
-
-function handleInput(inputObj) {
-	setEvent(inputObj, "input", handleKeyDown);
-}
-
-function resizeInput(inputObj) {
-	var adjust = 0.5;
-	inputObj.style.width = (inputObj.value.length + adjust) + "ch";
-}
-
-function handleKeyDown(e) {
-	resizeInput(this);
-}
 
 function handleCheckbox(e) {
 	var link = document.getElementById("css/XNSColors.css");
