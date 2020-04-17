@@ -96,6 +96,10 @@ footer .professor img {
 	height: 90%;
 }
 
+.statements {
+	border: none;
+}
+
 .diagramContainer {
 	float: right;
 	width: 80%;
@@ -105,6 +109,11 @@ footer .professor img {
 	box-sizing: border-box;
 	padding: 10pt;
 }
+
+/*#prueba {
+	float: right;
+	width: 40%;
+}*/
 
 .menuItem {
 	cursor: copy;

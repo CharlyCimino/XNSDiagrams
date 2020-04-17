@@ -1,4 +1,5 @@
 var diagramCont = document.getElementById("diagram");
+var prueba = document.getElementById("prueba");
 var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
 var xnsd = new XNSDiagram();
@@ -11,7 +12,11 @@ function drag(e) {
 	}
 	e.dataTransfer.setData("data", this.getAttribute("type"));
 	e.dataTransfer.setData("template-index", this.getAttribute("template-index"));
-	e.dataTransfer.setData("id", this.id);
+	e.dataTransfer.setData("id", e.target.id);
+	console.log(e);
+
+	console.log(e.target.id);
+
 }
 
 function drop(ev) {
@@ -27,57 +32,27 @@ function drop(ev) {
 		obj.json = templates[templateIndex];
 	} else {
 		obj = document.getElementById(id);
+		console.log(obj);
+
 	}
-	console.log(diagramCont.json.statements);
-	console.log(diagramCont.lastChild);
 	insertStatementInTarget(target, obj, mode);
+	//appendDiagram(prueba, diagramCont.json);
 	handleDragLeave(ev);
 }
 
+/*
 function deleteStatementInJSON(container, index) {
-	container = checkMethodStatements(container);
-	container.json.statements.splice(index, 1);
+	container.json.splice(index, 1);
 }
 
 function insertStatementInJSON(container, index, statement) {
-	container = checkMethodStatements(container);
-	if (typeof index == "undefined") {
-		container.json.statements.push(statement.json);
-	} else {
-		container.json.statements.splice(index, 0, statement.json);
-	}
+	container.json.splice(index, 0, statement.json);
 }
 
-function checkMethodStatements(node) {
-	return node.className != "statements" ? node : node.parentNode;
-}
-
-function insertStatementInTarget(target, statement, mode) {
-	var parent = target.parentNode;
-	if (parent == diagramCont) {
-		target.appendChild(statement);
-		target.appendChild(newEmptyBlock());
-		insertStatementInJSON(parent, undefined, statement);
-	} else if (mode == "copy") {
-		if (parent.lastChild == target) {
-			parent.appendChild(statement);
-			parent.appendChild(newEmptyBlock());
-		} else {
-			parent.insertBefore(statement, target);
-			parent.insertBefore(newEmptyBlock(), statement);
-		}
-		insertStatementInJSON(parent, indexOfStatement(statement), statement);
-	} else {
-		var currentIndex = indexOfStatement(statement);
-		var targetIndex = indexOfStatement(target) + 0.5;
-		var parentTarget = target.parentNode;
-		var parentStatement = statement.parentNode;
-		var empty = statement.nextSibling;
-		parent.insertBefore(statement, target);
-		parent.insertBefore(empty, statement);
-		deleteStatementInJSON(parentStatement, currentIndex);
-		insertStatementInJSON(parentTarget, targetIndex, statement);
-	}
+function reBuildJson() {
+	diagramCont.json.declaration = diagramCont.firstChild.json;
+	diagramCont.json.localVars = diagramCont.firstChild.nextSibling.json;
+	diagramCont.json.statements = diagramCont.lastChild.json;
 }
 
 function indexOfStatement(statement) {
@@ -87,6 +62,26 @@ function indexOfStatement(statement) {
 
 function indexOfChild(child) {
 	return Array.from(child.parentNode.children).indexOf(child);
+}
+
+function generateJSONEachFieldOfBase() {
+	diagramCont.firstChild.json = base["declaration"];
+	diagramCont.firstChild.nextSibling.json = base["localVars"];
+	diagramCont.lastChild.json = base["statements"];
+}*/
+
+function insertStatementInTarget(target, statement, mode) {
+	var parent = target.parentNode == diagramCont ? target : target.parentNode;
+	var empty = mode == "copy" ? newEmptyBlock() : statement.nextSibling;
+	if (parent.lastChild == target || target.parentNode == diagramCont) {
+		parent.appendChild(statement);
+		parent.appendChild(empty);
+	} else {
+		console.log(statement);
+		console.log(target);
+		parent.insertBefore(statement, target);
+		parent.insertBefore(empty, statement);
+	}
 }
 
 function handleDragOver(ev) {
@@ -107,7 +102,6 @@ function handleDragLeave(ev) {
 
 function renderStatement(statement) {
 	var obj = xnsd[statement.type](statement.data);
-	obj.classList.add("Nassi-Shneiderman");
 	obj.setAttribute("type", statement.type);
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);
@@ -176,24 +170,24 @@ function newMenuItem(obj) {
 	return div;
 }
 
-function appendDiagram(json) {
+function appendDiagram(container, json) {
 	diagram = xnsd.render(
-		diagramCont,
+		container,
 		json.statements ?
 			json : {
 				statements: [json]
 			}
 	);
-	diagramCont.json = json;
+	container.json = json;
 	return diagram;
 }
 
 function handleOpen() {
-	appendDiagram(base);
+	appendDiagram(diagramCont, base);
 	diagramCont.lastChild.appendChild(newEmptyBlock());
+	//generateJSONEachFieldOfBase();
 	generateMenuItems();
 }
-
 
 function handleCheckbox(e) {
 	var link = document.getElementById("css/XNSColors.css");
@@ -215,6 +209,4 @@ function init() {
 	setEvent(window, "load", handleOpen);
 }
 
-
 init();
-

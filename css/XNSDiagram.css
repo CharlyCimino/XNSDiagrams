@@ -2,10 +2,7 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
-}
-
-.Nassi-Shneiderman {
-    font-family: "Consolas", monospace;
+	font-family: "Consolas", monospace;
 	font-size: 11pt;
 }
 
@@ -26,20 +23,20 @@
 	font-family: "Consolas", Serif;
 }
 
-.statements {
+#diagram>.statements {
 	border: solid 1px;
 	padding-bottom: .5em;
 }
 
-.statements>* {
+#diagram>.statements>* {
     border: solid 1px;
 }
 
-.statements-block> :last-child {
+.statements> :last-child {
     border-bottom: none;
 }
 
-.statements-block> :first-child {
+.statements> :first-child {
     border-top: none;
 }
 
@@ -130,7 +127,8 @@
     right: 0px;
 }
 
-.conditional-statement>.body .side {
+.conditional-statement>.body .then,
+.conditional-statement>.body .else {
     display: table-cell;
     position: relative;
     vertical-align: top;
@@ -145,8 +143,9 @@
 	border-left: solid 0.5px;
 }
 
-.conditional-statement>.body>.case>.statements-block>div,
-.conditional-statement>.body>.side>div {
+.conditional-statement>.body>.case>.statements>div,
+.conditional-statement>.body>.then>div,
+.conditional-statement>.body>.else>div {
 	border: none;
     border-bottom: solid 1px;
 }
@@ -157,7 +156,8 @@
     position: relative;
 }
 
-.conditional-statement>.body .side:last-child,
+.conditional-statement>.body .then:last-child,
+.conditional-statement>.body .else:last-child,
 .conditional-statement>.body .case:last-child {
     border-right: none;
 }
@@ -174,7 +174,7 @@
     border-right: none;
 }
 
-.conditional-statement .body .case .statements-block {
+.conditional-statement .body .case .statements {
     display: block;
 }
 
@@ -253,18 +253,18 @@
     padding-left: 10pt;
 }
 
-.for-statement .statements-block {
+.for-statement .statements {
 	vertical-align: middle;
     display: table-cell;
 	min-width: 20pt;
 }
 
-.for-statement .statements-block>div {
+.for-statement .statements>div {
 	border: none;
     border-bottom: solid 1px;
 }
 
-.for-statement .statements-block>div:last-child {
+.for-statement .statements>div:last-child {
 	border: none;
 }
 
@@ -328,8 +328,8 @@
 	border-top: solid 1px;
 }
 
-.while-statement>.container>.statements-block,
-.dowhile-statement>.container>.statements-block {
+.while-statement>.container>.statements,
+.dowhile-statement>.container>.statements {
 	display: table-cell;
     position: relative;
     vertical-align: top;
@@ -337,21 +337,21 @@
 	width: 100%;	
 }
 
-.while-statement>.container>.statements-block>div,
-.dowhile-statement>.container>.statements-block>div {
+.while-statement>.container>.statements>div,
+.dowhile-statement>.container>.statements>div {
 	display: block;
 }
 
-.while-statement>.container>.statements-block {
+.while-statement>.container>.statements {
     border-top: solid 1px;
 }
 
-.dowhile-statement>.container>.statements-block {
+.dowhile-statement>.container>.statements {
     border-bottom: solid 1px;
 }
 
-.while-statement>.container>.statements-block>div,
-.dowhile-statement>.container>.statements-block>div {
+.while-statement>.container>.statements>div,
+.dowhile-statement>.container>.statements>div {
     border-right: none;
 }
 
