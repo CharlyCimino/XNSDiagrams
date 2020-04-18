@@ -20,31 +20,35 @@ function drag(e) {
 
 function drop(ev) {
 	ev.preventDefault();
-	var mode = ev.dataTransfer.getData("mode");
-	var templateIndex = ev.dataTransfer.getData("template-index");
-	var id = ev.dataTransfer.getData("id");
-	var statement;
-	var deleteEmpty = true;
-	if (mode == "copy") {
-		statement = renderStatement(templates[templateIndex]);
-		empty = newEmptyBlock();
-		deleteEmpty = false;
+	if (ev.dataTransfer.files.length > 0) {
+		importDiagram(ev.dataTransfer.files[0]);
 	} else {
-		statement = document.getElementById(id);
-		if (statement.className.includes("declaration")) {
+		var mode = ev.dataTransfer.getData("mode");
+		var templateIndex = ev.dataTransfer.getData("template-index");
+		var id = ev.dataTransfer.getData("id");
+		var statement;
+		var deleteEmpty = true;
+		if (mode == "copy") {
+			statement = renderStatement(templates[templateIndex]);
+			empty = newEmptyBlock();
 			deleteEmpty = false;
-			if (statement.className = "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
-				methodParameters.children[1].innerHTML = methodParameters.children[1].innerHTML.substring(" , ".length);
+		} else {
+			statement = document.getElementById(id);
+			if (statement.className.includes("declaration")) {
+				deleteEmpty = false;
+				if (statement.className = "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
+					methodParameters.children[1].innerHTML = methodParameters.children[1].innerHTML.substring(" , ".length);
+				}
 			}
+			empty = statement.nextSibling;
 		}
-		empty = statement.nextSibling;
-	}
-	if (ev.target == trash) {
-		deleteStatement(statement, deleteEmpty);
-		handleDragLeaveInTrash(ev);
-	} else {
-		insertStatementInTarget(ev.target, statement);
-		handleDragLeaveInBlock(ev);
+		if (ev.target == trash) {
+			deleteStatement(statement, deleteEmpty);
+			handleDragLeaveInTrash(ev);
+		} else {
+			insertStatementInTarget(ev.target, statement);
+			handleDragLeaveInBlock(ev);
+		}
 	}
 }
 
@@ -243,6 +247,13 @@ function handleClickButtonDiagram(ev) {
 
 function handleHideTrash(e) {
 	viewTrash(false);
+}
+
+function reAssignDragEvents() {
+	var draggables = Array.from(document.querySelectorAll("#diagram [draggable=true]"));
+	for (let d = 0; d < draggables.length; d++) {
+		makeDraggable(draggables[d]);
+	}
 }
 
 function makeDraggable(obj) {
