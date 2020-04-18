@@ -16,26 +16,29 @@
 }
 
 .class-declaration div,
-.method-signature div {
+.method-signature>div {
 	font-size: 12pt !important;
     font-weight: bolder;
 	display: inline-block;
 	margin: 3pt 2pt;
 }
 
+.method-signature>.method-parameters div {
+	display: inline-block;
+	margin: 0pt 2pt;
+}
+
+.method-declaration>.class-declaration>div:last-child,
 .method-parameters>div:first-child,
+.method-parameters>div:first-child>div:first-child,
 .parameter-declaration>div:first-child {
-	margin-left: 0;
+	margin-left: 0 !important;
 }
 
 .method-parameters>div:last-child,
 .parameter-declaration>div:last-child,
 .method-declaration>.class-declaration>.class-name {
-	margin-right: 0;
-}
-
-.method-declaration>.class-declaration>div:last-child {
-	margin-left: 0;
+	margin-right: 0 !important;
 }
 
 .method-parameters,
@@ -43,10 +46,14 @@
 	margin: 0 !important;
 }
 
-
 .local-variable-declaration,
 .local-const-declaration {
     padding: 5pt 0;
+}
+
+.parameter-declaration {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .local-variable-declaration>.variable-declaration,

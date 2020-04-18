@@ -30,10 +30,11 @@ function drop(ev) {
 		deleteEmpty = false;
 	} else {
 		statement = document.getElementById(id);
-		if (statement.className == "parameter-declaration" ||
-			statement.className == "variable-declaration" ||
-			statement.className == "initialized-variable-declaration") {
+		if (statement.className.includes("declaration")) {
 			deleteEmpty = false;
+			if (statement.className = "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
+				methodParameters.children[1].innerHTML = methodParameters.children[1].innerHTML.substring(" , ".length);
+			}
 		}
 		empty = statement.nextSibling;
 	}
