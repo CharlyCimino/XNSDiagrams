@@ -25,9 +25,11 @@ header>.logo {
 #trash {
 	width: 40pt;
 	height: 40pt;
-	float: right;
 	background-image: url("../img/icons8-basura-96.png");
 	background-size: cover;
+	position: absolute;
+	bottom: 8%;
+	right: 2%;
 }
 
 .trash-over {
@@ -198,4 +200,8 @@ footer .professor img {
 	display: inline-block;
 	position: relative;
 	transform : scale(1.3);
+}
+
+.invisible {
+	display: none;
 }

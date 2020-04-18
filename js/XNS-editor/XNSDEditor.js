@@ -15,6 +15,7 @@ function drag(e) {
 	}
 	e.dataTransfer.setData("template-index", this.getAttribute("template-index"));
 	e.dataTransfer.setData("id", e.target.id);
+	viewTrash(true);
 }
 
 function drop(ev) {
@@ -80,6 +81,7 @@ function generateJSONEachFieldOfBase() {
 	diagramCont.lastChild.json = base["statements"];
 }*/
 
+
 function insertStatementInTarget(target, statement) {
 	var parent = target.parentNode == diagramCont ? target : target.parentNode;
 	if (parent.lastChild == target || target.parentNode == diagramCont) {
@@ -115,11 +117,18 @@ function handleDragLeaveInTrash(ev) {
 	ev.target.classList.remove("trash-over");
 }
 
+function viewTrash(flag) {
+	if (flag) {
+		trash.classList.remove("invisible");
+	} else {
+		trash.classList.add("invisible");
+	}
+}
+
 function renderStatement(statement) {
 	var obj = xnsd[statement.type](statement.data);
 	obj.setAttribute("type", statement.type);
-	obj.setAttribute("draggable", "true");
-	setEvent(obj, "dragstart", drag);
+	makeDraggable(obj);
 	return obj;
 }
 
@@ -229,8 +238,17 @@ function handleClickButtonDiagram(ev) {
 			localVars.appendChild(obj);
 			break;
 	}
+	makeDraggable(obj);
+}
+
+function handleHideTrash(e) {
+	viewTrash(false);
+}
+
+function makeDraggable(obj) {
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);
+	setEvent(obj, "dragend", handleHideTrash);
 }
 
 function generateCanvasIn(target, statement) {
