@@ -254,6 +254,8 @@ function reAssignDragEvents() {
 	for (let d = 0; d < draggables.length; d++) {
 		makeDraggable(draggables[d]);
 	}
+	localVars = document.getElementById("xnsd-local-variable-declaration-8");
+	methodParameters = document.getElementById("xnsd-method-parameters-7");
 }
 
 function makeDraggable(obj) {
