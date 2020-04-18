@@ -10,16 +10,24 @@ var base = {
 	"statements": []
 };
 
-var buttonsDiagramTemplates = [
-	{
-		"type": "tipo",
-		"name": "nombre"
-	},
-	{
-		"type": "final tipo",
-		"name": "NOMBRE"
-	}
-]
+var buttonsDiagramTemplates = [{
+	"type": "tipo",
+	"name": "nombre"
+}, {
+	"type": "final tipo",
+	"name": "NOMBRE"
+}, {
+	"type": "final tipo",
+	"name": "NOMBRE",
+	"value": "expresión"
+}, {
+	"type": "tipo",
+	"name": "nombre"
+}, {
+	"type": "tipo",
+	"name": "nombre",
+	"value": "expresión"
+}];
 
 var newDeclaration = {
 	"type": "tipo",

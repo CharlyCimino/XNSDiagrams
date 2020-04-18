@@ -24,19 +24,31 @@
     padding: 5pt 0;
 }
 
-.local-variable-declaration>.variable-declaration  {
+.local-variable-declaration>.variable-declaration,
+.local-variable-declaration>.initialized-variable-declaration,
+.local-variable-declaration>.initialized-variable-declaration>.assignment-statement {
 	display: inline-block;
 	margin: 1pt 5pt;
 }
 
-.local-variable-declaration>.variable-declaration>.type,
-.local-variable-declaration>.variable-declaration>.name  {
-	margin: 0pt 3pt;
+.local-variable-declaration>.initialized-variable-declaration>.assignment-statement {
+	margin-left: 2pt;
+	padding: 0;
+	background: none;
+	border: none;
 }
 
-.local-variable-declaration>.variable-declaration>.type {
+.local-variable-declaration>.variable-declaration>.type,
+.local-variable-declaration>.variable-declaration>.name,
+.local-variable-declaration>.initialized-variable-declaration>.type {
+	margin: 0pt 2pt;
+}
+
+.local-variable-declaration>.variable-declaration>.type,
+.local-variable-declaration>.initialized-variable-declaration>.type {
 	font-weight: bold;
 }
+
 
 #diagram>.statements {
 	border: solid 1px;
@@ -407,7 +419,7 @@
 }
 
 .arrow {
-	font-size: 13.5pt;
+	font-size: 13.5pt !important;
 }
 
 /** -- Exception extensions -- **/

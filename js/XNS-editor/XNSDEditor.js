@@ -31,7 +31,9 @@ function drop(ev) {
 		deleteEmpty = false;
 	} else {
 		statement = document.getElementById(id);
-		if (statement.className == "parameter-declaration" || statement.className == "variable-declaration") {
+		if (statement.className == "parameter-declaration" ||
+			statement.className == "variable-declaration" ||
+			statement.className == "initialized-variable-declaration") {
 			deleteEmpty = false;
 		}
 		empty = statement.nextSibling;
@@ -70,10 +72,6 @@ function reBuildJson() {
 function indexOfStatement(statement) {
 	var realIndex = indexOfChild(statement);
 	return (realIndex - 1) / 2;
-}
-
-function indexOfChild(child) {
-	return Array.from(child.parentNode.children).indexOf(child);
 }
 
 function generateJSONEachFieldOfBase() {
@@ -215,17 +213,17 @@ function handleCheckbox(e) {
 
 function handleClickButtonDiagram(ev) {
 	var id = ev.target.id;
-	var obj;
-	if (id == "newParameter") {
-		console.log("Falta implementar");
-	} else {
-		if (id == "newVariable") {
-			obj = xnsd[id](buttonsDiagramTemplates[0]);
-			localVars.appendChild(obj);
-		} else {
-			obj = xnsd[id](buttonsDiagramTemplates[1]);
+	var idx = indexOfChild(ev.target);
+	obj = xnsd[id](buttonsDiagramTemplates[idx]);
+	switch (idx) {
+		case 0:
+			console.log("Falta implementar");
+		case 1:
+		case 2:
 			localVars.insertBefore(obj, localVars.firstChild);
-		}
+		case 3:
+		case 4:
+			localVars.appendChild(obj);
 	}
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);
@@ -237,10 +235,16 @@ function generateCanvasIn(target, statement) {
 	});
 }
 
+function indexOfChild(child) {
+	return Array.from(child.parentNode.children).indexOf(child);
+}
+
 function setButtonsEvents() {
-	setEvent(document.getElementById("newParameter"), "click", handleClickButtonDiagram);
-	setEvent(document.getElementById("newVariable"), "click", handleClickButtonDiagram);
-	setEvent(document.getElementById("newConstant"), "click", handleClickButtonDiagram);
+	var diagramButtons = Array.from(document.getElementById("diagram-buttons").children);
+	for (let b = 0; b < diagramButtons.length; b++) {
+		const button = diagramButtons[b];
+		setEvent(button, "click", handleClickButtonDiagram);
+	}
 }
 
 function setTrashEvents() {

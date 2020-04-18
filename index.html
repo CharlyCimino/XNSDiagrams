@@ -12,23 +12,38 @@
 <body>
 	<header id="header">
 		<img src="img/ort-logo-blanco.png" class="logo" alt="Logo" />
-		<div class="buttons">
-			<button type="button" class="button project-button">Nuevo</button>
-			<button type="button" class="button project-button">Importar</button>
-			<button type="button" class="button project-button">Exportar</button>
+		<div class="project-buttons-control">
+			<div>
+				<span class="switcher-text">Diagrama </span>
+			</div>
+			<div class="buttons">
+				<button type="button" class="button project-button">Nuevo</button>
+				<button type="button" class="button project-button">Importar</button>
+				<button type="button" class="button project-button">Exportar</button>
+			</div>
 		</div>
 		<div class="switcher-block">
+			<span class="switcher-text">Colorear </span>
 			<label class="switcher-button">
 				<input type="checkbox" id="checkColors" checked>
 				<span class="slider"></span>
 			</label>
-			<span class="switcher-text"> Colorear</span>
 		</div>
-		<div class="buttons">
-			<button type="button" class="button diagram-button" id="newParameter">Nuevo parámetro</button>
-			<button type="button" class="button diagram-button" id="newVariable">Nueva variable</button>
-			<button type="button" class="button diagram-button" id="newConstant">Nueva constante</button>
+		<div class="diagram-buttons-control">
+			<div>
+				<span class="switcher-text">Insertar </span>
+			</div>
+			<div class="buttons" id="diagram-buttons">
+				<button type="button" class="button diagram-button" id="newParameter">Parámetro</button>
+				<button type="button" class="button diagram-button" id="newConstant">Constante</button>
+				<button type="button" class="button diagram-button" id="newInitializedConstant">Constante
+					inicializada</button>
+				<button type="button" class="button diagram-button" id="newVariable">Variable</button>
+				<button type="button" class="button diagram-button" id="newInitializedVariable">Variable
+					inicializada</button>
+			</div>
 		</div>
+
 		<div id="trash" droppable="true"></div>
 	</header>
 	<div id="menuContainer" class="menu"></div>

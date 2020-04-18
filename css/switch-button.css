@@ -64,5 +64,6 @@ input:checked + .slider:before {
 .switcher-text {
 	color:#f2faff;
 	font-weight:bolder;
-	font-size: 13pt;
+	font-size: 12pt;
+	margin-right: 5pt;
 }
