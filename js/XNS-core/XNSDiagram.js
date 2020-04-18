@@ -63,7 +63,7 @@ function eXtendendNassiShneiderman(params) {
 	/* --- diagram blocks implementation --- */
 
 	function _declarationBuilder(methodDec) {
-		function ifHas(value, handler, defaultValue) {
+		/*function ifHas(value, handler, defaultValue) {
 			return (typeof value != "undefined") ?
 				handler(value) :
 				defaultValue;
@@ -88,14 +88,37 @@ function eXtendendNassiShneiderman(params) {
 
 		function exceptionsToString(exceptionList) {
 			return (!exceptionList) ? "" : " throws " + exceptionList.join(", ");
+		}*/
+
+		function classDeclarationBuilder(className) {
+			var box = _self.newBlock("class-declaration");
+			appendFixedValue(box, "class");
+			box.appendChild(_self.newBlock("class-name", className, false, true));
+			appendFixedValue(box, ":");
+			return box;
 		}
-		return _self.newBlock("method-declaration",
+
+		var methodDeclaration = _self.newBlock("method-declaration");
+		if (typeof methodDec["class"] != "undefined") {
+			methodDeclaration.appendChild(classDeclarationBuilder(methodDec["class"]));
+		}
+		var methodSignature = _self.newBlock("method-signature");
+		methodSignature.appendChild(_self.newBlock("method-modifiers", methodDec["modifiers"], false, true));
+		methodSignature.appendChild(_self.newBlock("method-type", methodDec["type"], false, true));
+		methodSignature.appendChild(_self.newBlock("method-name", methodDec["name"], false, true));
+		appendFixedValue(methodSignature, "(");
+		methodSignature.appendChild(_self.newBlock("method-parameters"));
+		appendFixedValue(methodSignature, ")");
+		methodDeclaration.appendChild(methodSignature);
+		return methodDeclaration;
+
+		/*return _self.newBlock("method-declaration",
 			ifHas(methodDec["class"], function (val) { return "<p>class " + val + ":</p>" }, "") +
 			stringValue(methodDec["modifiers"]) +
 			_self.htmlString(stringValue(methodDec["type"])) +
 			stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
 			"(" + argumentsToString(methodDec["arguments"]) + ")" +
-			exceptionsToString(methodDec["throws"]));
+			exceptionsToString(methodDec["throws"]));*/
 	}
 
 	function _localVarsBuilder(localVars) {
@@ -106,17 +129,21 @@ function eXtendendNassiShneiderman(params) {
 		return box;
 	}
 
+	function typeNameBuilder(obj, containerName) {
+		var type = _self.newBlock("type", _self.htmlString(obj["type"]), false, true);
+		var name = _self.newBlock("name", _self.htmlString(obj["name"]), false, true);
+		var container = _self.newBlock(containerName);
+		container.appendChild(type);
+		container.appendChild(name);
+		return container;
+	}
+
 	function _parameterDeclarationBuilder(obj) {
-		return "parameter";
+		return typeNameBuilder(obj, "parameter-declaration");
 	}
 
 	function _variableDeclarationBuilder(obj) {
-		var type = _self.newBlock("type", _self.htmlString(obj["type"]), false, true);
-		var name = _self.newBlock("name", _self.htmlString(obj["name"]), false, true);
-		var variableDeclaration = _self.newBlock("variable-declaration");
-		variableDeclaration.appendChild(type);
-		variableDeclaration.appendChild(name);
-		return variableDeclaration;
+		return typeNameBuilder(obj, "variable-declaration");
 	}
 
 	function _initializedVariableDeclarationBuilder(obj) {

@@ -4,6 +4,7 @@ var trash = document.getElementById("trash");
 var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
 var localVars;
+var methodParameters;
 var xnsd = new XNSDiagram();
 
 function drag(e) {
@@ -23,8 +24,6 @@ function drop(ev) {
 	var id = ev.dataTransfer.getData("id");
 	var statement;
 	var deleteEmpty = true;
-	console.log(id);
-
 	if (mode == "copy") {
 		statement = renderStatement(templates[templateIndex]);
 		empty = newEmptyBlock();
@@ -200,8 +199,8 @@ function appendDiagram(container, json) {
 function handleOpen() {
 	appendDiagram(diagramCont, base);
 	diagramCont.lastChild.appendChild(newEmptyBlock());
-	localVars = document.getElementById("xnsd-local-variable-declaration-1");
-
+	localVars = document.getElementById("xnsd-local-variable-declaration-8");
+	methodParameters = document.getElementById("xnsd-method-parameters-7");
 	//generateJSONEachFieldOfBase();
 	generateMenuItems();
 }
@@ -217,13 +216,17 @@ function handleClickButtonDiagram(ev) {
 	obj = xnsd[id](buttonsDiagramTemplates[idx]);
 	switch (idx) {
 		case 0:
-			console.log("Falta implementar");
+			obj.innerHTML = (methodParameters.hasChildNodes() ? " , " : "") + obj.innerHTML;
+			methodParameters.appendChild(obj);
+			break;
 		case 1:
 		case 2:
 			localVars.insertBefore(obj, localVars.firstChild);
+			break;
 		case 3:
 		case 4:
 			localVars.appendChild(obj);
+			break;
 	}
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);

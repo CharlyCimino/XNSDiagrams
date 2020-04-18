@@ -11,13 +11,38 @@
 	color: #071c26;
 }
 
-.method-declaration {
-    font-size: 13pt !important;
-    font-weight: bolder;
-    padding-bottom: 1em;
-    padding-left: 3em;
-    text-indent: -3em;
+.method-signature {
+	margin-left: 20pt;
 }
+
+.class-declaration div,
+.method-signature div {
+	font-size: 12pt !important;
+    font-weight: bolder;
+	display: inline-block;
+	margin: 3pt 2pt;
+}
+
+.method-parameters>div:first-child,
+.parameter-declaration>div:first-child {
+	margin-left: 0;
+}
+
+.method-parameters>div:last-child,
+.parameter-declaration>div:last-child,
+.method-declaration>.class-declaration>.class-name {
+	margin-right: 0;
+}
+
+.method-declaration>.class-declaration>div:last-child {
+	margin-left: 0;
+}
+
+.method-parameters,
+.method-declaration>.method-signature>.fixed-value-in-statement {
+	margin: 0 !important;
+}
+
 
 .local-variable-declaration,
 .local-const-declaration {
@@ -403,6 +428,8 @@
 [contenteditable=true]:focus,
 [contenteditable=true]:hover {
 	text-decoration: underline;
+	font-weight: bolder;
+	color: #2c637f !important;
 	cursor: text;
 	outline: none;
 }
