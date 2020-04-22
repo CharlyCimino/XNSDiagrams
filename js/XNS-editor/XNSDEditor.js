@@ -68,26 +68,6 @@ function insertStatementInTarget(target, statement) {
 	}
 }
 
-function handleDragOverInBlock(ev) {
-	if (ev.target.classList.contains("empty")) {
-		toggleClass(ev.target, "empty-hover w3-card-4");
-	}
-}
-
-function handleDragLeaveInBlock(ev) {
-	if (ev.target.classList.contains("empty")) {
-		toggleClass(ev.target, "empty-hover w3-card-4");
-	}
-}
-
-function handleDragOverInTrash(ev) {
-	ev.target.classList.add("trash-over");
-}
-
-function handleDragLeaveInTrash(ev) {
-	ev.target.classList.remove("trash-over");
-}
-
 function viewTrash(flag) {
 	if (flag) {
 		trash.classList.remove("invisible");
@@ -169,36 +149,6 @@ function appendDiagram(container, json) {
 	return diagram;
 }
 
-function handleCheckbox(e) {
-	var link = document.getElementById("css/XNSColors.css");
-	link.setAttribute("href", (e.target.checked ? link.id : ""));
-}
-
-function handleClickButtonDiagram(ev) {
-	var id = ev.target.id;
-	var idx = indexOfChild(ev.target);
-	obj = xnsd[id](buttonsDiagramTemplates[idx]);
-	switch (idx) {
-		case 0:
-			obj.innerHTML = (methodParameters.hasChildNodes() ? " , " : "") + obj.innerHTML;
-			methodParameters.appendChild(obj);
-			break;
-		case 1:
-		case 2:
-			localVars.insertBefore(obj, localVars.firstChild);
-			break;
-		case 3:
-		case 4:
-			localVars.appendChild(obj);
-			break;
-	}
-	makeDraggable(obj);
-}
-
-function handleHideTrash(e) {
-	viewTrash(false);
-}
-
 function reAssignDragEvents() {
 	var draggables = Array.from(document.querySelectorAll("#diagram [draggable=true]"));
 	for (let d = 0; d < draggables.length; d++) {
@@ -246,13 +196,9 @@ function setDiagramEvents() {
 	setEvent(diagramCont, "dragover", allowDrop);
 }
 
-function handleOpen(e) {
-	appendDiagram(diagramCont, base);
-	diagramCont.lastChild.appendChild(newEmptyBlock());
-	localVars = document.getElementById("xnsd-local-variable-declaration-8");
-	methodParameters = document.getElementById("xnsd-method-parameters-7");
-	generateMenuItems();
-	handleResize();
+function setOtherEvents() {
+	setEvent(checkColors, "click", handleCheckColors);
+	setEvent(checkObjects, "click", handleCheckObjects);
 }
 
 function reSize() {
@@ -267,17 +213,13 @@ function reSize() {
 	diagramCont.style.height = newSectionDiagramHeight - (diagramContMargin * 2);
 }
 
-function handleResize(e) {
-	reSize();
-}
-
 function init() {
-	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
 	setEvent(window, "resize", handleResize);
 	setDiagramEvents();
 	setTrashEvents();
 	setButtonsEvents();
+	setOtherEvents();
 }
 
 init();
