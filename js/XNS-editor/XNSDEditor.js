@@ -1,19 +1,17 @@
 var diagramCont = document.getElementById("diagram");
-//var prueba = document.getElementById("prueba");
 var trash = document.getElementById("trash");
-var menuCont = document.getElementById("menuContainer");
 var checkColors = document.getElementById("checkColors");
 var localVars;
 var methodParameters;
 var xnsd = new XNSDiagram();
 
 function drag(e) {
-	if (this.id.includes("menu-item")) {
+	if (this.template) {
 		e.dataTransfer.setData("mode", "copy");
 	} else {
 		e.dataTransfer.setData("mode", "move");
 	}
-	e.dataTransfer.setData("template-index", this.getAttribute("template-index"));
+	e.dataTransfer.setData("template", this.template);
 	e.dataTransfer.setData("id", e.target.id);
 	viewTrash(true);
 }
@@ -24,12 +22,12 @@ function drop(ev) {
 		importDiagram(ev.dataTransfer.files[0]);
 	} else {
 		var mode = ev.dataTransfer.getData("mode");
-		var templateIndex = ev.dataTransfer.getData("template-index");
+		var template = ev.dataTransfer.getData("template");
 		var id = ev.dataTransfer.getData("id");
 		var statement;
 		var deleteEmpty = true;
 		if (mode == "copy") {
-			statement = renderStatement(templates[templateIndex]);
+			statement = renderStatement(JSON.parse(template));
 			empty = newEmptyBlock();
 			deleteEmpty = false;
 		} else {
@@ -59,33 +57,6 @@ function deleteStatement(statement, deleteEmpty) {
 	statement.remove();
 }
 
-/*
-function deleteStatementInJSON(container, index) {
-	container.json.splice(index, 1);
-}
-
-function insertStatementInJSON(container, index, statement) {
-	container.json.splice(index, 0, statement.json);
-}
-
-function reBuildJson() {
-	diagramCont.json.declaration = diagramCont.firstChild.json;
-	diagramCont.json.localVars = diagramCont.firstChild.nextSibling.json;
-	diagramCont.json.statements = diagramCont.lastChild.json;
-}
-
-function indexOfStatement(statement) {
-	var realIndex = indexOfChild(statement);
-	return (realIndex - 1) / 2;
-}
-
-function generateJSONEachFieldOfBase() {
-	diagramCont.firstChild.json = base["declaration"];
-	diagramCont.firstChild.nextSibling.json = base["localVars"];
-	diagramCont.lastChild.json = base["statements"];
-}*/
-
-
 function insertStatementInTarget(target, statement) {
 	var parent = target.parentNode == diagramCont ? target : target.parentNode;
 	if (parent.lastChild == target || target.parentNode == diagramCont) {
@@ -98,19 +69,15 @@ function insertStatementInTarget(target, statement) {
 }
 
 function handleDragOverInBlock(ev) {
-	if (ev.target.getAttribute("droppable") == "true") {
-		if (ev.target.className == "empty") {
-			ev.target.style.height = "20px";
-		}
-		ev.target.classList.add("over");
+	if (ev.target.classList.contains("empty")) {
+		toggleClass(ev.target, "empty-hover w3-card-4");
 	}
 }
 
 function handleDragLeaveInBlock(ev) {
 	if (ev.target.classList.contains("empty")) {
-		ev.target.style.height = "1px";
+		toggleClass(ev.target, "empty-hover w3-card-4");
 	}
-	ev.target.classList.remove("over");
 }
 
 function handleDragOverInTrash(ev) {
@@ -126,6 +93,14 @@ function viewTrash(flag) {
 		trash.classList.remove("invisible");
 	} else {
 		trash.classList.add("invisible");
+	}
+}
+
+function toggleClass(element, theClass) {
+	if (element.className.indexOf(theClass) == -1) {
+		element.className += " " + theClass;
+	} else {
+		element.className = element.className.replace(" " + theClass, "");
 	}
 }
 
@@ -175,27 +150,10 @@ function setEvent(domElement, eventName, handler) {
 	}
 }
 
-function generateMenuItems() {
-	for (let index = 0; index < templates.length; index++) {
-		const template = templates[index];
-		var obj = renderStatement(template);
-		obj.id = "menu-item-" + template.type;
-		obj.setAttribute("template-index", index);
-		menuCont.appendChild(newMenuItem(obj));
-	}
-}
-
 function clearAllChilds(node) {
 	while (node.firstChild) {
 		node.removeChild(node.lastChild);
 	}
-}
-
-function newMenuItem(obj) {
-	var div = document.createElement("div");
-	div.classList.add("menuItem");
-	div.appendChild(obj);
-	return div;
 }
 
 function appendDiagram(container, json) {
@@ -206,17 +164,9 @@ function appendDiagram(container, json) {
 				statements: [json]
 			}
 	);
+	container.classList.add("w3-panel", "w3-card-4");
 	container.json = json;
 	return diagram;
-}
-
-function handleOpen() {
-	appendDiagram(diagramCont, base);
-	diagramCont.lastChild.appendChild(newEmptyBlock());
-	localVars = document.getElementById("xnsd-local-variable-declaration-8");
-	methodParameters = document.getElementById("xnsd-method-parameters-7");
-	//generateJSONEachFieldOfBase();
-	generateMenuItems();
 }
 
 function handleCheckbox(e) {
@@ -275,7 +225,7 @@ function indexOfChild(child) {
 }
 
 function setButtonsEvents() {
-	var diagramButtons = Array.from(document.getElementById("diagram-buttons").children);
+	var diagramButtons = Array.from(document.getElementById("diagramButtons").children);
 	for (let b = 0; b < diagramButtons.length; b++) {
 		const button = diagramButtons[b];
 		setEvent(button, "click", handleClickButtonDiagram);
@@ -296,9 +246,35 @@ function setDiagramEvents() {
 	setEvent(diagramCont, "dragover", allowDrop);
 }
 
+function handleOpen(e) {
+	appendDiagram(diagramCont, base);
+	diagramCont.lastChild.appendChild(newEmptyBlock());
+	localVars = document.getElementById("xnsd-local-variable-declaration-8");
+	methodParameters = document.getElementById("xnsd-method-parameters-7");
+	generateMenuItems();
+	handleResize();
+}
+
+function reSize() {
+	var bodyHeight = parseInt(window.getComputedStyle(document.body).height);
+	var headerHeight = parseInt(window.getComputedStyle(document.getElementById("header")).height);
+	var footerHeight = parseInt(window.getComputedStyle(document.getElementById("footer")).height);
+	var diagramContMargin = parseInt(window.getComputedStyle(diagramCont).marginTop);
+	document.body.style.paddingTop = headerHeight;
+	document.body.style.paddingBottom = footerHeight;
+	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight;
+	document.getElementById("sectionDiagram").style.height = newSectionDiagramHeight;
+	diagramCont.style.height = newSectionDiagramHeight - (diagramContMargin * 2);
+}
+
+function handleResize(e) {
+	reSize();
+}
+
 function init() {
 	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
+	setEvent(window, "resize", handleResize);
 	setDiagramEvents();
 	setTrashEvents();
 	setButtonsEvents();

@@ -4,8 +4,7 @@
 	box-sizing: border-box;
 }
 
-#diagram *,
-#menuContainer * {
+#diagram * {
 	font-family: "Consolas", monospace;
 	font-size: 11pt;
 	color: #071c26;
@@ -81,15 +80,9 @@
 	font-weight: bold;
 }
 
-
-#diagram>.statements {
-	border: solid 1px;
-	padding-bottom: .5em;
-}
-
-#diagram>.statements>* {
+/*#diagram>.statements>* {
     border: solid 1px;
-}
+}*/
 
 .statements> :last-child {
     border-bottom: none;
@@ -114,7 +107,6 @@
 
 .conditional-statement {
 	border: solid 1px;
-	border-bottom: none;
 }
 
 .conditional-statement .header,
@@ -206,7 +198,6 @@
 .conditional-statement>.body>.then>div,
 .conditional-statement>.body>.else>div {
 	border: none;
-    border-bottom: solid 1px;
 }
 
 .conditional-statement>.body .case {
@@ -421,8 +412,13 @@
 	height: 1pt;
     top: 0px;
 	bottom: 0px;
+	border: none;
 	/*border: 1px dashed #2c637f;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+}
+
+.empty-hover {
+	height: 10px;
 }
 
 [contenteditable=true] {

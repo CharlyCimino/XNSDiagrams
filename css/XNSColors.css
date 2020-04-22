@@ -3,25 +3,25 @@
 .for-statement,
 .while-statement,
 .dowhile-statement {
-	background-color: #ceb2ff;
+	background-color: #ddddff; /*pale purple*/
 }
 
 .conditional-statement,
 .conditional-statement,
 .conditional-statement .body .case .test-value {
-	background-color: #b2e5ff;
+	background-color: #ddffff; /*w3 pale blue*/
 }
 
 .conditional-statement .body .case .test-value {
-	background-color: #8ed9ff;
+	background-color: #87ceeb; /*w3 light blue*/
 }
 
 .input-statement {
-	background-color: #ffb2b2;
+	background-color: #ffe7e7; /*w3 pale red*/
 }
 
 .output-statement {
-	background-color: #b2ffcc;
+	background-color: #ddffdd; /*w3 pale green*/
 }
 
 .call-statement,
@@ -29,16 +29,16 @@
 .assignment-statement,
 .return-statement,
 .break-statement {
-	background-color: #ffedb2;
+	background-color: #ffffcc; /*w3 pale yellow*/
 }
 
 #diagramContainer {
 	background: #f2faff;
 }
 
-.empty {
+/* .empty {
 	background: #f2faff;
-}
+} */
 
 /*
 

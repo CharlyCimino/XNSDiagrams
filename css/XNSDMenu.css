@@ -1,0 +1,50 @@
+#menuContainer>div {
+	font-family: "Consolas", monospace;
+	font-size: 11pt;
+	color: #071c26;
+}
+
+#menuContainer {
+	width: 20%;
+	right: 0;
+}
+
+.menuItem {
+	cursor: copy;
+}
+
+.menuItem .for-statement {
+	font-size: 10pt;
+}
+
+.menuItem .conditional-statement .empty,
+.menuItem .while-statement .empty,
+.menuItem .dowhile-statement .empty {
+	height: 8pt;
+	background-color: white;
+}
+
+.menuItem .for-statement .empty {
+	height: 25pt;
+}
+
+.menuItem .while-statement {
+	border-width: 1px 0px 0px 1px;
+}
+
+.menuItem .dowhile-statement {
+	border-width: 0px 0px 1px 1px;
+}
+
+.menuItem .while-statement .condition,
+.menuItem .dowhile-statement .condition {
+	border-right: solid 1px;
+}
+
+.menuItem:first-child {
+	margin-top: 0;
+}
+
+.menuItem:last-child {
+	margin-bottom: 0;
+}
