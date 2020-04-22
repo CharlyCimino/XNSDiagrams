@@ -11,13 +11,12 @@
 
 
 #trash {
-	width: 40pt;
-	height: 40pt;
-	background-image: url("../img/icons8-basura-96.png");
-	background-size: cover;
+	font-size: 50px;
+	display: block;
 	position: absolute;
-	bottom: 8%;
-	right: 2%;
+	bottom: 10%;
+	right: 25%;
+	z-index: 1;
 }
 
 .trash-over {
