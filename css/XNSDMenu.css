@@ -5,46 +5,41 @@
 }
 
 #menuContainer {
-	width: 20%;
+	width: 22%;
 	right: 0;
 }
 
-.menuItem {
+#menuContainer .w3-bar-block .w3-button {
 	cursor: copy;
 }
 
-.menuItem .for-statement {
+#menuContainer .w3-bar-block .w3-button .for-statement {
 	font-size: 10pt;
 }
 
-.menuItem .conditional-statement .empty,
-.menuItem .while-statement .empty,
-.menuItem .dowhile-statement .empty {
-	height: 8pt;
-	background-color: white;
-}
-
-.menuItem .for-statement .empty {
+#menuContainer .w3-bar-block .w3-button .for-statement .empty {
 	height: 25pt;
 }
 
-.menuItem .while-statement {
+#menuContainer .w3-bar-block .w3-button .while-statement {
 	border-width: 1px 0px 0px 1px;
 }
 
-.menuItem .dowhile-statement {
+#menuContainer .w3-bar-block .w3-button .dowhile-statement {
 	border-width: 0px 0px 1px 1px;
 }
 
-.menuItem .while-statement .condition,
-.menuItem .dowhile-statement .condition {
+#menuContainer .w3-bar-block .w3-button .while-statement .condition,
+#menuContainer .w3-bar-block .w3-button .dowhile-statement .condition {
 	border-right: solid 1px;
 }
 
-.menuItem:first-child {
-	margin-top: 0;
+#menuContainer .w3-bar-block .w3-button .for-statement .controller {
+	height: 56px;
 }
 
-.menuItem:last-child {
-	margin-bottom: 0;
+#menuContainer .w3-bar-block .w3-button .for-statement .statements {
+	vertical-align: middle;
+    display: table-cell;
+	min-width: 20pt;
 }

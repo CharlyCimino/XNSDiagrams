@@ -58,13 +58,13 @@ function handleClickButtonDiagram(ev) {
 
 function handleDragOverInBlock(ev) {
 	if (ev.target.classList.contains("empty")) {
-		toggleClass(ev.target, "empty-hover w3-card-4");
+		toggleClass(ev.target, "empty-hover");
 	}
 }
 
 function handleDragLeaveInBlock(ev) {
 	if (ev.target.classList.contains("empty")) {
-		toggleClass(ev.target, "empty-hover w3-card-4");
+		toggleClass(ev.target, "empty-hover");
 	}
 }
 
