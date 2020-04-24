@@ -32,16 +32,7 @@
 	background-color: #ffffcc; /*w3 pale yellow*/
 }
 
-#diagramContainer {
-	background: #f2faff;
-}
-
-#diagram>.statements {
-	background: skyblue;
-}
-
 /*
-
 #diagram>.statements {
 	background: skyblue;
 }

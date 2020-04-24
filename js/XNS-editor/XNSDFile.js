@@ -14,8 +14,6 @@ function exportDiagramProject() {
 }
 
 function exportDiagramImage() {
-	console.log("Generando...");
-
 	diagramCont.lastChild.style.height = "auto";
 	diagramCont.style.height = "auto";
 	var options = {
@@ -34,18 +32,6 @@ function exportDiagramImage() {
 			link.href = dataUrl;
 			link.click();
 		});
-
-}
-
-function makeDiagramExportable() {
-	var clon = diagramCont.cloneNode(true);
-	var elements = Array.from(clon.children);
-	var div = document.getElementById("diagramExportable")
-	for (let e = 0; e < elements.length; e++) {
-		const element = elements[e];
-		div.appendChild(element);
-	}
-	return div;
 }
 
 function generateNameFile() {
@@ -58,16 +44,6 @@ function generateNameFile() {
 		fileName = "Función-" + methodName;
 	}
 	return fileName;
-}
-
-function generateCanvasIn(target, statement) {
-	return html2canvas(statement, {
-		allowTaint: false,
-		foreignObjectRendering: true,
-	}).then(canvas => {
-		target.appendChild(canvas);
-		downloadImg();
-	});
 }
 
 function importDiagram(file) {
