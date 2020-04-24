@@ -144,7 +144,7 @@ function appendDiagram(container, json) {
 				statements: [json]
 			}
 	);
-	container.classList.add("w3-panel", "w3-card-4");
+	container.classList.add("w3-card-4");
 	container.json = json;
 	return diagram;
 }
@@ -162,12 +162,6 @@ function makeDraggable(obj) {
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);
 	setEvent(obj, "dragend", handleHideTrash);
-}
-
-function generateCanvasIn(target, statement) {
-	return html2canvas(statement).then(canvas => {
-		target.appendChild(canvas);
-	});
 }
 
 function indexOfChild(child) {
@@ -199,18 +193,6 @@ function setDiagramEvents() {
 function setOtherEvents() {
 	setEvent(checkColors, "click", handleCheckColors);
 	setEvent(checkObjects, "click", handleCheckObjects);
-}
-
-function reSize() {
-	var bodyHeight = parseInt(window.getComputedStyle(document.body).height);
-	var headerHeight = parseInt(window.getComputedStyle(document.getElementById("header")).height);
-	var footerHeight = parseInt(window.getComputedStyle(document.getElementById("footer")).height);
-	var diagramContMargin = parseInt(window.getComputedStyle(diagramCont).marginTop);
-	document.body.style.paddingTop = headerHeight;
-	document.body.style.paddingBottom = footerHeight;
-	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight;
-	document.getElementById("sectionDiagram").style.height = newSectionDiagramHeight;
-	diagramCont.style.height = newSectionDiagramHeight - (diagramContMargin * 2);
 }
 
 function init() {

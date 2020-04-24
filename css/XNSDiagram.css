@@ -45,10 +45,10 @@
 	margin: 0 !important;
 }
 
-.local-variable-declaration,
+/*.local-variable-declaration,
 .local-const-declaration {
     padding: 5pt 0;
-}
+}*/
 
 .parameter-declaration {
 	margin-top: 0;

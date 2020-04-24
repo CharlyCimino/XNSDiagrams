@@ -36,11 +36,15 @@
 	background: #f2faff;
 }
 
-/* .empty {
-	background: #f2faff;
-} */
+#diagram>.statements {
+	background: skyblue;
+}
 
 /*
+
+#diagram>.statements {
+	background: skyblue;
+}
 
 .method-declaration {
     background: mistyrose;
@@ -50,9 +54,4 @@
 .local-const-declaration {
     background: palegreen;
 }
-
-#diagram>.statements {
-	background: skyblue;
-}
-
 */

@@ -2,6 +2,20 @@ function handleHideTrash(e) {
 	viewTrash(false);
 }
 
+function reSize() {
+	var headerHeight = parseFloat(window.getComputedStyle(document.getElementById("header")).height);
+	var footerHeight = parseFloat(window.getComputedStyle(document.getElementById("footer")).height);
+	var sectionDiagram = document.getElementById("sectionDiagram");
+	document.body.style.paddingTop = headerHeight;
+	document.body.style.paddingBottom = footerHeight;
+	var bodyHeight = parseFloat(window.getComputedStyle(document.body).height);
+	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight;
+	sectionDiagram.style.height = newSectionDiagramHeight;
+	var paddingTopSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingTop);
+	var paddingBottomSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingBottom);
+	diagramCont.style.height = newSectionDiagramHeight - paddingTopSection - paddingBottomSection;
+}
+
 function handleResize(e) {
 	reSize();
 }
