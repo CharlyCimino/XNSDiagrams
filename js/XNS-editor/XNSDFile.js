@@ -56,7 +56,7 @@ function generateNameFile() {
 	} else {
 		fileName = "Función-" + methodName;
 	}
-	return fileName;
+	return fileName + ".xnsd";
 }
 
 function importDiagram(file) {
