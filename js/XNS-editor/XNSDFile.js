@@ -1,7 +1,20 @@
+var importDiagramProjectBtn = document.getElementById("importDiagramProject");
 var exportDiagramProjectBtn = document.getElementById("exportDiagramProject");
 var exportDiagramImageBtn = document.getElementById("exportDiagramImage");
+setEvent(importDiagramProjectBtn, "click", importDiagramProject);
 setEvent(exportDiagramProjectBtn, "click", exportDiagramProject);
 setEvent(exportDiagramImageBtn, "click", exportDiagramImage);
+
+function importDiagramProject() {
+	var input = document.getElementById('fileInput');
+	input.onchange = e => {
+		var file = e.target.files[0];
+		if (file) {
+			importDiagram(file);
+		}
+	}
+	input.click();
+}
 
 function exportDiagramProject() {
 	var element = document.createElement('a');
