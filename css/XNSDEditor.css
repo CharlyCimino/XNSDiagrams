@@ -53,7 +53,8 @@
 	font-size: 20px;
 }
 
-#footer {
+#footer, #header {
 	display : flex;
 	align-items : center;
+	z-index: 3;
 }

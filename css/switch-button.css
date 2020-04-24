@@ -2,8 +2,8 @@
 .switcher-button {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 64px;
+  height: 38px;
 }
 
 /* Hide default HTML checkbox */
@@ -29,8 +29,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 30px;
+  width: 30px;
   left: 4px;
   bottom: 4px;
   background-color: white;

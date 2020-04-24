@@ -9,7 +9,7 @@ function reSize() {
 	document.body.style.paddingTop = headerHeight;
 	document.body.style.paddingBottom = footerHeight;
 	var bodyHeight = parseFloat(window.getComputedStyle(document.body).height);
-	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight;
+	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight - 16;
 	sectionDiagram.style.height = newSectionDiagramHeight;
 	var paddingTopSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingTop);
 	var paddingBottomSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingBottom);

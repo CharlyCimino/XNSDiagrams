@@ -14,20 +14,26 @@
 
 <body>
 	<header id="header" class="w3-bar w3-indigo w3-top">
-		<!-- <img src="img/ort-logo-blanco.png" class="logo w3-image w3-bar-item" alt="Logo" /> -->
+		<img src="img/ort-logo-blanco.png" class="logo w3-image w3-bar-item" alt="Logo" />
+		<div class="w3-bar-item">
+			<a type="button" class="w3-button w3-light-grey w3-hover-white" id="importDiagramProject"><i
+					class="fa fa-sm fa-sign-in"></i> Importar </a>
+		</div>
 		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
-			<button class="w3-button  w3-light-grey w3-hover-light-grey w3-text-black">Guardar <i
-					class="fa fa-caret-down"></i></button>
+			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
+				Exportar <i class="fa fa-sm fa-caret-down"></i></button>
 			<div class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
-				<a href="#" id="exportDiagramProject" class="w3-button w3-light-grey w3-hover-indigo">Como proyecto
+				<a href="#" id="exportDiagramProject" class="w3-button w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-code-o"></i> Como proyecto
 					(editable)</a>
-				<a href="#" id="exportDiagramImage" class="w3-button w3-light-grey w3-hover-indigo">Como imagen
+				<a href="#" id="exportDiagramImage" class="w3-button w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-image-o"></i> Como imagen
 					(final)</a>
 			</div>
 		</div>
 		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
-			<button class="w3-button  w3-light-grey w3-hover-light-grey w3-text-black">Insertar <i
-					class="fa fa-caret-down"></i></button>
+			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-plus"></i>
+				Insertar <i class="fa fa-sm fa-caret-down"></i></button>
 			<div id="diagramButtons" class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
 				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newParameter">Parámetro</a>
 				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newConstant">Constante</a>
@@ -57,23 +63,20 @@
 	<div id="main">
 		<div id="menuContainer" class="w3-sidebar w3-animate-right">
 		</div>
-		<i id="trash" droppable="true" class="invisible fa fa-trash w3-text-indigo"></i>
-
+		<i id="trash" droppable="true" class="invisible fa fa-sm fa-trash w3-text-indigo"></i>
 		<section id="sectionDiagram" class="w3-animate-zoom w3-container w3-padding-16">
 			<div id="diagram" class="diagram"></div>
 		</section>
 	</div>
 
-	<div id="diagramExportable"></div>
-
 	<footer id="footer" class="w3-indigo w3-bottom w3-row w3-padding">
 		<div class="professor w3-col s4 w3-center w3-cell w3-cell-middle">
-			<i class="fa fa-github"></i>
+			<i class="fa fa-sm fa-github"></i>
 			<a href="http://www.github.com/axxonita">Prof. C. Daniel Vázquez</a>
 		</div>
 		<div class="message w3-col s4 w3-center">Con 💗 para toda la comunidad de ORT</div>
 		<div class="professor w3-col s4 w3-center">
-			<i class="fa fa-github"></i>
+			<i class="fa fa-sm fa-github"></i>
 			<a href="http://www.github.com/caemci">Prof. Carlos E. Cimino</a>
 		</div>
 	</footer>
