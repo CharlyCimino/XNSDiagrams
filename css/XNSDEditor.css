@@ -1,6 +1,11 @@
-.logo {
+#ortLogo {
 	width: 100%;
 	max-width: 100px;
+}
+
+#xnsdLogo {
+	width: 100%;
+	max-width: 150px;
 }
 
 #sectionDiagram {
