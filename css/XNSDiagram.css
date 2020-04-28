@@ -80,10 +80,6 @@
 	font-weight: bold;
 }
 
-/*#diagram>.statements>* {
-    border: solid 1px;
-}*/
-
 .statements> :last-child {
     border-bottom: none;
 }
@@ -105,10 +101,6 @@
     font-weight: bolder;
 }
 
-.conditional-statement {
-	border: solid 1px;
-}
-
 .conditional-statement .header,
 .conditional-statement .body {
     display: table;
@@ -117,7 +109,7 @@
 }
 
 .conditional-statement .header {
-	border-bottom: solid 1px;
+	border: solid 1px;
 }
 
 .conditional-statement .header .condition {
@@ -186,14 +178,6 @@
     min-width: 30pt;
 }
 
-.conditional-statement>.body>.then {
-	border-right: solid 0.5px;
-}
-
-.conditional-statement>.body>.else {
-	border-left: solid 0.5px;
-}
-
 .conditional-statement>.body>.case>.statements>div,
 .conditional-statement>.body>.then>div,
 .conditional-statement>.body>.else>div {
@@ -202,7 +186,6 @@
 
 .conditional-statement>.body .case {
     display: table-cell;
-    border-right: solid 1px;
     position: relative;
 }
 
@@ -256,7 +239,6 @@
 
 .for-statement {
 	display: block;
-	border: solid 1px;
 }
 
 .for-statement .container {
@@ -265,6 +247,7 @@
 }
 
 .for-statement .controller {
+	border: solid 1px;
     display: table-cell;
     border-right: solid 1px;
     position: relative;
@@ -309,9 +292,10 @@
 	min-width: 150pt;
 }
 
-.for-statement .statements>div {
+.for-statement .statements>div:not(.block-container) {
 	border: none;
     border-bottom: solid 1px;
+    border-right: solid 1px;
 }
 
 .for-statement .statements>div:last-child {
@@ -356,11 +340,20 @@
     text-align: center;
 	padding: 5pt;
 	margin-left: 20pt;
+	border-right: solid 1px;
 }
 
 .while-statement,
 .dowhile-statement {
-	border: solid 1px;
+	border-left: solid 1px;
+}
+
+.while-statement {
+	border-top: solid 1px;
+}
+
+.dowhile-statement {
+	border-bottom: solid 1px;
 }
 
 .while-statement>.container>.side-while,

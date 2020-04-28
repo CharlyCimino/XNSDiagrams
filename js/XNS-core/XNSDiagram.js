@@ -57,7 +57,7 @@ function eXtendendNassiShneiderman(params) {
 		loopController.appendChild(_self.newBlock("bottom", "&nbsp;"));
 		var container = _self.newBlock("container", loopController);
 		appendBlockOrEmpty(container, "statements", obj["statements"]);
-		return _self.newBlock("for-statement", container);
+		return _self.newBlock("for-statement block-container", container);
 	}
 
 	/* --- diagram blocks implementation --- */
@@ -191,7 +191,7 @@ function eXtendendNassiShneiderman(params) {
 		var body = _self.newBlock("body");
 		appendBlockOrEmpty(body, "then", obj["then"]);
 		appendBlockOrEmpty(body, "else", obj["else"]);
-		var box = _self.newBlock("conditional-statement conditional");
+		var box = _self.newBlock("conditional-statement conditional block-container");
 		box.appendChild(header);
 		box.appendChild(body);
 		return box;
@@ -211,7 +211,7 @@ function eXtendendNassiShneiderman(params) {
 		for (var c = 0; c < obj["options"].length; c++) {
 			body.appendChild(makeCaseOption(obj["options"][c]));
 		}
-		var box = _self.newBlock("conditional-statement switch");
+		var box = _self.newBlock("conditional-statement switch block-container");
 		box.appendChild(header);
 		box.appendChild(body);
 		return box;
@@ -238,7 +238,7 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function _whileBuilder(obj) {
-		var box = _self.newBlock("while-statement");
+		var box = _self.newBlock("while-statement block-container");
 		box.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		var container = _self.newBlock("container");
 		appendBlockOrEmpty(container, "side-while", "side-while");
@@ -250,7 +250,7 @@ function eXtendendNassiShneiderman(params) {
 		var container = _self.newBlock("container");
 		appendBlockOrEmpty(container, "side-dowhile", "side-dowhile");
 		appendBlockOrEmpty(container, "statements", obj["statements"]);
-		var box = _self.newBlock("dowhile-statement", container);
+		var box = _self.newBlock("dowhile-statement block-container", container);
 		box.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		return box;
 	}

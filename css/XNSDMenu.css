@@ -13,29 +13,43 @@
 	cursor: copy;
 }
 
+#menuContainer .conditional-statement {
+	border: solid 1px;
+}
+
+#menuContainer .conditional-statement .header {
+	border: none;
+	border-bottom: solid 1px;
+}
+
+#menuContainer .conditional-statement>.body>.then {
+	border-right: solid 0.5px;
+}
+
+#menuContainer .conditional-statement>.body>.else {
+	border-left: solid 0.5px;
+}
+
+#menuContainer .conditional-statement>.body .case {
+    border-right: solid 1px;
+}
+
+#menuContainer .conditional-statement>.body .case:last-child {
+    border-right: none;
+}
+
 #menuContainer .w3-bar-block .w3-button .for-statement {
 	font-size: 10pt;
+	border: solid 1px;
 }
 
 #menuContainer .w3-bar-block .w3-button .for-statement .empty {
 	height: 25pt;
 }
 
-#menuContainer .w3-bar-block .w3-button .while-statement {
-	border-width: 1px 0px 0px 1px;
-}
-
-#menuContainer .w3-bar-block .w3-button .dowhile-statement {
-	border-width: 0px 0px 1px 1px;
-}
-
-#menuContainer .w3-bar-block .w3-button .while-statement .condition,
-#menuContainer .w3-bar-block .w3-button .dowhile-statement .condition {
-	border-right: solid 1px;
-}
-
 #menuContainer .w3-bar-block .w3-button .for-statement .controller {
 	height: 56px;
+	border: none;
 }
 
 #menuContainer .w3-bar-block .w3-button .for-statement .statements {
