@@ -326,8 +326,16 @@
     text-align: center;
 	padding: 5pt;
 	margin-left: 20pt;
+}
+
+.while-statement .condition {
 	border-style: solid;
 	border-width: 0 1px 1px 0;
+}
+
+.dowhile-statement .condition {
+	border-style: solid;
+	border-width: 1px 1px 0 0;
 }
 
 .while-statement,
@@ -374,10 +382,6 @@
 	border-right: 0;
 }
 
-.dowhile-statement>.container>.statements {
-    border-bottom: solid 1px;
-}
-
 .empty {
 	display: block;
 	width: 100%;
@@ -422,16 +426,6 @@
 	border-style: solid;
 	border-width: 1px 1px 1px 0;
 }
-
-/* emptys de los extremos 
-.conditional-statement>.body>.then > div:nth-child(1),
-.conditional-statement>.body>.else > div:nth-child(1),
-.conditional-statement>.body>.then > div:nth-last-child(1),
-.conditional-statement>.body>.else > div:nth-last-child(1) {
-	border-style: solid;
-	border-width: 0 1px;
-} */
-
 
 .for-statement .statements > div:not(.empty),
 .while-statement>.container>.statements > div:not(.empty),
@@ -485,7 +479,9 @@
 }
 
 .while-statement>.container>.statements>div.while-statement,
-.dowhile-statement>.container>.statements>div.dowhile-statement {
+.while-statement>.container>.statements>div.dowhile-statement,
+.dowhile-statement>.container>.statements>div.dowhile-statement,
+.dowhile-statement>.container>.statements>div.while-statement {
 	border: 0;
 }
 
