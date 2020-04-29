@@ -46,7 +46,6 @@ function handleCheckObjects(e) {
 	} else {
 		methodName.innerHTML = "función";
 	}
-
 }
 
 function handleClickButtonDiagram(ev) {
