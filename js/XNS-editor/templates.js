@@ -34,6 +34,11 @@ var newDeclaration = {
 	"name": "nombre"
 }
 
+var switchCaseTemplate = {
+	"case": "PRUEBA",
+	"statements": []
+}
+
 var templates = [
 	{
 		"category": "Entrada / Salida",
@@ -86,11 +91,11 @@ var templates = [
 				"data": {
 					"expression": "variable",
 					"options": [{
-						"case": "1",
+						"case": "valor",
 						"statements": []
 					},
 					{
-						"case": "2",
+						"case": "valor",
 						"statements": []
 					},
 					{

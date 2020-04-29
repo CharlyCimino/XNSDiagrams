@@ -11,7 +11,6 @@
 #sectionDiagram {
 	margin-right: 22%;
 	z-index: -1;
-	
 }
 
 #trash {
@@ -62,4 +61,24 @@
 	display : flex;
 	align-items : center;
 	z-index: 3;
+}
+
+.switch {
+	position: relative;
+}
+
+.switch-add-button,
+.switch-remove-button {
+	position: absolute;
+	left: 3px;
+}
+
+.switch-add-button {
+	color: #50b271; /*w3 pale green*/
+    top: 1px;
+}
+
+.switch-remove-button {
+	color: #b25050; /*w3 pale red*/
+    bottom: 1px;
 }

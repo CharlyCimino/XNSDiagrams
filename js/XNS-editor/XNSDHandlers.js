@@ -88,3 +88,17 @@ function handleDragOverInTrash(ev) {
 function handleDragLeaveInTrash(ev) {
 	ev.target.classList.remove("trash-over");
 }
+
+function handleAddCaseSwitch(e) {
+	var targetCase = e.target.parentNode.parentNode;
+	var newCase = xnsd["switch-case"](switchCaseTemplate);
+	appendButtonsInCase(newCase);
+	targetCase.parentNode.insertBefore(newCase, targetCase);
+}
+
+function handleRemoveCaseSwitch(e) {
+	var targetCase = e.target.parentNode.parentNode;
+	console.log(targetCase);
+
+	targetCase.remove();
+}

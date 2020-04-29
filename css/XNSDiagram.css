@@ -4,10 +4,14 @@
 	box-sizing: border-box;
 }
 
-#diagram * {
+#diagram {
 	font-family: "Consolas", monospace;
 	font-size: 11pt;
 	color: #071c26;
+}
+
+#diagram .switch-button {
+	font-family: initial;
 }
 
 .method-signature {
@@ -188,7 +192,8 @@
     text-align: center;
     background-color: #F0F0F0;
 	border-bottom: solid 1px;
-    line-height: 20pt;
+	line-height: 20pt;
+	min-height: 30px;
 }
 
 .conditional-statement .body .case:first-child .test-value {

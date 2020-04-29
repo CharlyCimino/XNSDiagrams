@@ -30,6 +30,9 @@ function drop(ev) {
 			statement = renderStatement(JSON.parse(template));
 			empty = newEmptyBlock();
 			deleteEmpty = false;
+			if (statement.getAttribute("type") == "switch") {
+				makeButtonAddInSwitch(statement);
+			}
 		} else {
 			statement = document.getElementById(id);
 			if (statement.className.includes("declaration")) {
@@ -48,6 +51,32 @@ function drop(ev) {
 			handleDragLeaveInBlock(ev);
 		}
 	}
+}
+
+function makeButtonAddInSwitch(switchBlock) {
+	var cases = Array.from(switchBlock.lastChild.children);
+	for (let c = 0; c < cases.length; c++) {
+		appendButtonsInCase(cases[c]);
+	}
+}
+
+function appendButtonsInCase(theCase) {
+	theCase.appendChild(newSwitchCaseButton("add"));
+	theCase.appendChild(newSwitchCaseButton("remove"));
+}
+
+function newSwitchCaseButton(type) {
+	var btn = document.createElement("a");
+	btn.setAttribute("type", "button");
+	btn.classList.add("switch-button", "switch-" + type + "-button");
+	if (type == "add") {
+		btn.innerHTML = '<i class="fa fa-sm fa-plus"></i>';
+		setEvent(btn, "click", handleAddCaseSwitch);
+	} else {
+		btn.innerHTML = '<i class="fa fa-sm fa-minus"></i>';
+		setEvent(btn, "click", handleRemoveCaseSwitch);
+	}
+	return btn;
 }
 
 function deleteStatement(statement, deleteEmpty) {

@@ -197,19 +197,20 @@ function eXtendendNassiShneiderman(params) {
 		return box;
 	}
 
+	function _switchCaseBuilder(obj) {
+		var column = _self.newBlock("case", _self.newBlock("test-value", obj["case"], false, true));
+		appendBlockOrEmpty(column, "statements", obj["statements"]);
+		return column;
+	}
+
 	function _switchBuilder(obj) {
-		function makeCaseOption(obj) {
-			var column = _self.newBlock("case", _self.newBlock("test-value", obj["case"], false, true));
-			appendBlockOrEmpty(column, "statements", obj["statements"]);
-			return column;
-		}
 		var header = _self.newBlock("header");
 		header.appendChild(makeCorner("true", "&nbsp;"));
 		header.appendChild(_self.newBlock("condition", obj["expression"], false, true));
 		header.appendChild(makeCorner("false", "&nbsp;"));
 		var body = _self.newBlock("body");
 		for (var c = 0; c < obj["options"].length; c++) {
-			body.appendChild(makeCaseOption(obj["options"][c]));
+			body.appendChild(_switchCaseBuilder(obj["options"][c]));
 		}
 		var box = _self.newBlock("conditional-statement switch block-container");
 		box.appendChild(header);
@@ -344,6 +345,7 @@ function eXtendendNassiShneiderman(params) {
 			"if": _conditionalBuilder,
 			"conditional": _conditionalBuilder,
 			"switch": _switchBuilder,
+			"switch-case": _switchCaseBuilder,
 			"break": _breakBuilder,
 			"input": _inputBuilder,
 			"output": _outputBuilder,
