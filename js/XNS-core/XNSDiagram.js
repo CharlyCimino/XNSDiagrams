@@ -183,6 +183,14 @@ function eXtendendNassiShneiderman(params) {
 		return box;
 	}
 
+	function _commentBuilder(obj) {
+		var box = _self.newBlock("comment-statement");
+		appendFixedValue(box, "/* ");
+		box.appendChild(_self.newBlock("content", obj["content"], false, true));
+		appendFixedValue(box, " */");
+		return box;
+	}
+
 	function _conditionalBuilder(obj) {
 		var header = _self.newBlock("header")
 		header.appendChild(makeCorner("true", _self.SYMBOLS[_self.currentLanguage].TRUE));
@@ -355,7 +363,8 @@ function eXtendendNassiShneiderman(params) {
 			"foreach": _foreachBuilder,
 			"call": _callBuilder,
 			"return": _returnBuilder,
-			"empty": _emptyBuilder
+			"empty": _emptyBuilder,
+			"comment": _commentBuilder
 		}
 		if (_self["includeExceptions"]) {
 			_builders["throw"] = _throwBuilder;

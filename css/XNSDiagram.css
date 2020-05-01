@@ -95,7 +95,8 @@
 .block-statement,
 .assignment-statement,
 .return-statement,
-.break-statement {
+.break-statement,
+.comment-statement {
     padding: 5pt;
     text-align: center;
     border: solid 1px;

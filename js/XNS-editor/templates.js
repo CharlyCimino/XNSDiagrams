@@ -59,6 +59,11 @@ var templates = [
 	{
 		"category": "Bloques",
 		"items": [{
+			"type": "comment",
+			"data": {
+				"content": "comentario"
+			}
+		}, {
 			"type": "block",
 			"data": {
 				"content": "instrucción"
