@@ -90,15 +90,13 @@ function handleDragLeaveInTrash(ev) {
 }
 
 function handleAddCaseSwitch(e) {
-	var targetCase = e.target.parentNode.parentNode;
+	var targetCase = e.target.parentNode.parentNode.parentNode;
 	var newCase = xnsd["switch-case"](switchCaseTemplate);
 	appendButtonsInCase(newCase);
 	targetCase.parentNode.insertBefore(newCase, targetCase);
 }
 
 function handleRemoveCaseSwitch(e) {
-	var targetCase = e.target.parentNode.parentNode;
-	console.log(targetCase);
-
+	var targetCase = e.target.parentNode.parentNode.parentNode;
 	targetCase.remove();
 }

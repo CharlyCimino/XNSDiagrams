@@ -61,8 +61,9 @@ function makeButtonAddInSwitch(switchBlock) {
 }
 
 function appendButtonsInCase(theCase) {
-	theCase.appendChild(newSwitchCaseButton("add"));
-	theCase.appendChild(newSwitchCaseButton("remove"));
+	// theCase.firstChild --> test-value
+	theCase.firstChild.appendChild(newSwitchCaseButton("add"));
+	theCase.firstChild.appendChild(newSwitchCaseButton("remove"));
 }
 
 function newSwitchCaseButton(type) {
@@ -178,11 +179,25 @@ function appendDiagram(container, json) {
 	return diagram;
 }
 
+function reAssignSwitchEvents() {
+	var switchAddButtons = Array.from(document.querySelectorAll("#diagram .switch-add-button"));
+	var switchRemoveButtons = Array.from(document.querySelectorAll("#diagram .switch-remove-button"));
+	for (let a = 0; a < switchAddButtons.length; a++) {
+		setEvent(switchAddButtons[a], "click", handleAddCaseSwitch);
+	}
+	for (let r = 0; r < switchRemoveButtons.length; r++) {
+		setEvent(switchRemoveButtons[r], "click", handleRemoveCaseSwitch);
+	}
+}
+
 function reAssignDragEvents() {
 	var draggables = Array.from(document.querySelectorAll("#diagram [draggable=true]"));
 	for (let d = 0; d < draggables.length; d++) {
 		makeDraggable(draggables[d]);
 	}
+}
+
+function bindVarsAndSignature() {
 	localVars = document.getElementById("xnsd-local-variable-declaration-8");
 	methodParameters = document.getElementById("xnsd-method-parameters-7");
 }

@@ -499,9 +499,10 @@
 
 [contenteditable=true]:focus,
 [contenteditable=true]:hover {
-	text-decoration: underline;
+	text-decoration-line: underline;
+ 	text-decoration-style: double;
 	font-weight: bolder;
-	color: #2c637f !important;
+	color: #555 !important;
 	cursor: text;
 	outline: 0;
 }

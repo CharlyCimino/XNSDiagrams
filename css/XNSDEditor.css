@@ -63,22 +63,26 @@
 	z-index: 3;
 }
 
-.switch {
+.switch .test-value {
 	position: relative;
 }
 
-.switch-add-button,
-.switch-remove-button {
+.switch-button {
 	position: absolute;
 	left: 3px;
 }
 
+.switch-button:hover {
+	transform: scale(1.3);
+	cursor: pointer;
+}
+
 .switch-add-button {
 	color: #50b271; /*w3 pale green*/
-    top: 1px;
+    top: 3px;
 }
 
 .switch-remove-button {
 	color: #b25050; /*w3 pale red*/
-    bottom: 1px;
+    bottom: -2px;
 }

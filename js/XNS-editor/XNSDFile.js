@@ -65,7 +65,9 @@ function importDiagram(file) {
 	reader.onload = (function (theFile) {
 		return function (e) {
 			diagramCont.innerHTML = e.target.result;
+			bindVarsAndSignature();
 			reAssignDragEvents();
+			reAssignSwitchEvents();
 		};
 	})(file);
 	// Read in the image file as a data URL.
