@@ -56,14 +56,14 @@ function eXtendendNassiShneiderman(params) {
 		loopController.appendChild(controllerBlockBuilder(_self.newBlock("content-block"), obj["control"]));
 		loopController.appendChild(_self.newBlock("bottom", "&nbsp;"));
 		var container = _self.newBlock("container", loopController);
-		appendBlockOrEmpty(container, "statements-block", obj["statements"]);
-		return _self.newBlock("for-statement", container);
+		appendBlockOrEmpty(container, "statements", obj["statements"]);
+		return _self.newBlock("for-statement block-container", container);
 	}
 
 	/* --- diagram blocks implementation --- */
 
 	function _declarationBuilder(methodDec) {
-		function ifHas(value, handler, defaultValue) {
+		/*function ifHas(value, handler, defaultValue) {
 			return (typeof value != "undefined") ?
 				handler(value) :
 				defaultValue;
@@ -88,26 +88,77 @@ function eXtendendNassiShneiderman(params) {
 
 		function exceptionsToString(exceptionList) {
 			return (!exceptionList) ? "" : " throws " + exceptionList.join(", ");
+		}*/
+
+		function classDeclarationBuilder(className) {
+			var box = _self.newBlock("class-declaration");
+			appendFixedValue(box, "class");
+			box.appendChild(_self.newBlock("class-name", className, false, true));
+			appendFixedValue(box, ":");
+			return box;
 		}
-		return _self.newBlock("method-declaration",
+
+		var methodDeclaration = _self.newBlock("method-declaration");
+		if (typeof methodDec["class"] != "undefined") {
+			methodDeclaration.appendChild(classDeclarationBuilder(methodDec["class"]));
+		}
+		var methodSignature = _self.newBlock("method-signature");
+		methodSignature.appendChild(_self.newBlock("method-modifiers", methodDec["modifiers"], false, true));
+		methodSignature.appendChild(_self.newBlock("method-type", methodDec["type"], false, true));
+		methodSignature.appendChild(_self.newBlock("method-name", methodDec["name"], false, true));
+		appendFixedValue(methodSignature, "(");
+		methodSignature.appendChild(_self.newBlock("method-parameters"));
+		appendFixedValue(methodSignature, ")");
+		methodDeclaration.appendChild(methodSignature);
+		return methodDeclaration;
+
+		/*return _self.newBlock("method-declaration",
 			ifHas(methodDec["class"], function (val) { return "<p>class " + val + ":</p>" }, "") +
 			stringValue(methodDec["modifiers"]) +
 			_self.htmlString(stringValue(methodDec["type"])) +
 			stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
 			"(" + argumentsToString(methodDec["arguments"]) + ")" +
-			exceptionsToString(methodDec["throws"]));
+			exceptionsToString(methodDec["throws"]));*/
 	}
 
 	function _localVarsBuilder(localVars) {
 		var box = _self.newBlock("local-variable-declaration");
 		for (var v in localVars) {
-			box.appendChild(_self.newBlock("", _self.htmlString(localVars[v]["type"]) + " " + localVars[v]["name"]));
+			box.appendChild(_variableDeclarationBuilder(localVars[v]));
 		}
 		return box;
 	}
 
+	function typeNameBuilder(obj, containerName) {
+		var type = _self.newBlock("type", _self.htmlString(obj["type"]), false, true);
+		var name = _self.newBlock("name", _self.htmlString(obj["name"]), false, true);
+		var container = _self.newBlock(containerName);
+		container.appendChild(type);
+		container.appendChild(name);
+		return container;
+	}
+
+	function _parameterDeclarationBuilder(obj) {
+		return typeNameBuilder(obj, "parameter-declaration");
+	}
+
+	function _variableDeclarationBuilder(obj) {
+		return typeNameBuilder(obj, "variable-declaration");
+	}
+
+	function _initializedVariableDeclarationBuilder(obj) {
+		var type = _self.newBlock("type", _self.htmlString(obj["type"]), false, true);
+		var name = _self.newBlock("name", _self.htmlString(obj["name"]), false, true);
+		var value = _self.newBlock("value", _self.htmlString(obj["value"]), false, true);
+		var assignment = _assignmentBuilder({ "variable": name, "value": value });
+		var initializedVariableDeclaration = _self.newBlock("initialized-variable-declaration");
+		initializedVariableDeclaration.appendChild(type);
+		initializedVariableDeclaration.appendChild(assignment);
+		return initializedVariableDeclaration;
+	}
+
 	function _statementsBuilder(theStatements) {
-		var box = _self.newBlock("statements");
+		var box = _self.newBlock("statements", undefined, true, false);
 		for (var s = 0; s < theStatements.length; s++) {
 			_self.process(box, theStatements[s]["type"], theStatements[s]["data"]);
 		}
@@ -132,35 +183,44 @@ function eXtendendNassiShneiderman(params) {
 		return box;
 	}
 
+	function _commentBuilder(obj) {
+		var box = _self.newBlock("comment-statement");
+		appendFixedValue(box, "/* ");
+		box.appendChild(_self.newBlock("content", obj["content"], false, true));
+		appendFixedValue(box, " */");
+		return box;
+	}
+
 	function _conditionalBuilder(obj) {
 		var header = _self.newBlock("header")
 		header.appendChild(makeCorner("true", _self.SYMBOLS[_self.currentLanguage].TRUE));
 		header.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		header.appendChild(makeCorner("false", _self.SYMBOLS[_self.currentLanguage].FALSE));
 		var body = _self.newBlock("body");
-		appendBlockOrEmpty(body, "then side", obj["then"]);
-		appendBlockOrEmpty(body, "else side", obj["else"]);
-		var box = _self.newBlock("conditional-statement conditional");
+		appendBlockOrEmpty(body, "then", obj["then"]);
+		appendBlockOrEmpty(body, "else", obj["else"]);
+		var box = _self.newBlock("conditional-statement conditional block-container");
 		box.appendChild(header);
 		box.appendChild(body);
 		return box;
 	}
 
+	function _switchCaseBuilder(obj) {
+		var column = _self.newBlock("case", _self.newBlock("test-value", obj["case"], false, true));
+		appendBlockOrEmpty(column, "statements", obj["statements"]);
+		return column;
+	}
+
 	function _switchBuilder(obj) {
-		function makeCaseOption(obj) {
-			var column = _self.newBlock("case", _self.newBlock("test-value", obj["case"], false, true));
-			appendBlockOrEmpty(column, "statements-block", obj["statements"]);
-			return column;
-		}
 		var header = _self.newBlock("header");
 		header.appendChild(makeCorner("true", "&nbsp;"));
 		header.appendChild(_self.newBlock("condition", obj["expression"], false, true));
 		header.appendChild(makeCorner("false", "&nbsp;"));
 		var body = _self.newBlock("body");
 		for (var c = 0; c < obj["options"].length; c++) {
-			body.appendChild(makeCaseOption(obj["options"][c]));
+			body.appendChild(_switchCaseBuilder(obj["options"][c]));
 		}
-		var box = _self.newBlock("conditional-statement switch");
+		var box = _self.newBlock("conditional-statement switch block-container");
 		box.appendChild(header);
 		box.appendChild(body);
 		return box;
@@ -187,19 +247,19 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function _whileBuilder(obj) {
-		var box = _self.newBlock("while-statement");
+		var box = _self.newBlock("while-statement block-container");
 		box.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		var container = _self.newBlock("container");
 		appendBlockOrEmpty(container, "side-while", "side-while");
-		box.appendChild(appendBlockOrEmpty(container, "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(container, "statements", obj["statements"]));
 		return box;
 	}
 
 	function _doWhileBuilder(obj) {
 		var container = _self.newBlock("container");
 		appendBlockOrEmpty(container, "side-dowhile", "side-dowhile");
-		appendBlockOrEmpty(container, "statements-block", obj["statements"]);
-		var box = _self.newBlock("dowhile-statement", container);
+		appendBlockOrEmpty(container, "statements", obj["statements"]);
+		var box = _self.newBlock("dowhile-statement block-container", container);
 		box.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		return box;
 	}
@@ -255,7 +315,7 @@ function eXtendendNassiShneiderman(params) {
 
 	function _tryBuilder(obj) {
 		var box = _self.newBlock("try-statement", _self.newBlock("margin left", "try"));
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements", obj["statements"]));
 		return box;
 	}
 
@@ -264,13 +324,13 @@ function eXtendendNassiShneiderman(params) {
 		exception.appendChild(_self.newBlock("identifier", obj["exception"]));
 		exception.appendChild(_self.newBlock("variable", obj["variable"]));
 		var box = _self.newBlock("catch-statement", _self.newBlock("margin left", "catch"));
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("container", exception), "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(_self.newBlock("container", exception), "statements", obj["statements"]));
 		return box;
 	}
 
 	function _finallyBuilder(obj) {
 		var box = _self.newBlock("finally-statement", _self.newBlock("margin left", "finally"))
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements", obj["statements"]));
 		return box;
 	}
 
@@ -283,11 +343,17 @@ function eXtendendNassiShneiderman(params) {
 			"declaration": _declarationBuilder,
 			"localVars": _localVarsBuilder,
 			"statements": _statementsBuilder,
+			"newParameter": _parameterDeclarationBuilder,
+			"newVariable": _variableDeclarationBuilder,
+			"newConstant": _variableDeclarationBuilder,
+			"newInitializedVariable": _initializedVariableDeclarationBuilder,
+			"newInitializedConstant": _initializedVariableDeclarationBuilder,
 			"block": _blockBuilder,
 			"assignment": _assignmentBuilder,
 			"if": _conditionalBuilder,
 			"conditional": _conditionalBuilder,
 			"switch": _switchBuilder,
+			"switch-case": _switchCaseBuilder,
 			"break": _breakBuilder,
 			"input": _inputBuilder,
 			"output": _outputBuilder,
@@ -297,7 +363,8 @@ function eXtendendNassiShneiderman(params) {
 			"foreach": _foreachBuilder,
 			"call": _callBuilder,
 			"return": _returnBuilder,
-			"empty": _emptyBuilder
+			"empty": _emptyBuilder,
+			"comment": _commentBuilder
 		}
 		if (_self["includeExceptions"]) {
 			_builders["throw"] = _throwBuilder;

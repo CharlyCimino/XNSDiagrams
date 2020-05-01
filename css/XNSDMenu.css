@@ -1,0 +1,72 @@
+#menuContainer>div {
+	font-family: "Consolas", monospace;
+	font-size: 11pt;
+	color: #071c26;
+}
+
+#menuContainer {
+	width: 22%;
+	right: 0;
+}
+
+#menuContainer .w3-bar-block .w3-button {
+	cursor: copy;
+}
+
+#menuContainer .conditional-statement {
+	border: solid 1px;
+}
+
+#menuContainer .conditional-statement .header {
+	border: 0;
+	border-bottom: solid 1px;
+}
+
+#menuContainer .conditional-statement>.body>.then {
+	border-right: solid 0.5px;
+}
+
+#menuContainer .conditional-statement>.body>.else {
+	border-left: solid 0.5px;
+}
+
+#menuContainer .conditional-statement>.body .case {
+    border-right: solid 1px;
+}
+
+#menuContainer .conditional-statement>.body .case:last-child {
+    border-right: 0;
+}
+
+#menuContainer .w3-bar-block .w3-button .for-statement {
+	font-size: 10pt;
+	border: solid 1px;
+}
+
+#menuContainer .w3-bar-block .w3-button .for-statement .empty {
+	height: 25pt;
+}
+
+#menuContainer .w3-bar-block .w3-button .for-statement .controller {
+	height: 56px;
+	border: 0;
+}
+
+#menuContainer .w3-bar-block .w3-button .for-statement .statements {
+	vertical-align: middle;
+    display: table-cell;
+	min-width: 20pt;
+}
+
+#menuContainer .conditional-statement>.body .case .statements {
+	height: 20px;
+	background: white;
+}
+
+#menuContainer .conditional-statement>.body .case:first-child .test-value {
+	border-left: 0;
+}
+
+#menuContainer .conditional-statement>.body .case:last-child .test-value {
+	border-right: 0;
+}

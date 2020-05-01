@@ -2,46 +2,88 @@
 
 <head>
 	<meta charset="utf-8" />
-	<link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Lato&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/w3.css" />
 	<link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
 	<link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
+	<link rel="stylesheet" type="text/css" href="css/XNSDMenu.css" />
 	<link rel="stylesheet" type="text/css" href="css/switch-button.css" />
 	<link rel="stylesheet" type="text/css" href="css/XNSColors.css" id="css/XNSColors.css" />
 </head>
 
 <body>
-	<header id="header">
-		<img src="img/ort-logo-blanco.png" class="logo" alt="Logo" />
-		<div class="buttons">
-			<button type="button">Boton 1</button>
-			<button type="button">Boton 2</button>
-			<button type="button">Boton 3</button>
+	<header id="header" class="w3-bar w3-indigo w3-top">
+		<img src="img/ort-logo-blanco.png" class="w3-image w3-bar-item" id="ortLogo" alt="Logo" />
+		<img src="img/xnsd-logo-white.png" class="w3-image w3-bar-item" id="xnsdLogo" alt="Logo" />
+		<div class="w3-bar-item">
+			<a type="button" class="w3-button w3-light-grey w3-hover-white" id="importDiagramProject"><i
+					class="fa fa-sm fa-sign-in"></i> Importar </a>
+			<input id="fileInput" type="file" accept=".xnsd" name="name" style="display: none;" />
 		</div>
-		<div class="switcher-block">
+		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
+			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
+				Exportar <i class="fa fa-sm fa-caret-down"></i></button>
+			<div class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
+				<a href="#" id="exportDiagramProject" class="w3-button w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-code-o"></i> Como proyecto
+					(editable)</a>
+				<a href="#" id="exportDiagramImage" class="w3-button w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-image-o"></i> Como imagen
+					(final)</a>
+			</div>
+		</div>
+		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
+			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-plus"></i>
+				Insertar <i class="fa fa-sm fa-caret-down"></i></button>
+			<div id="diagramButtons" class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
+				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newParameter">Parámetro</a>
+				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newConstant">Constante</a>
+				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newInitializedConstant">Constante
+					inicializada</a>
+				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newVariable">Variable</a>
+				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newInitializedVariable">Variable
+					inicializada</a>
+			</div>
+		</div>
+		<div class="w3-bar-item switcher-block">
+			<span class="w3-bar-item">Colorear </span>
 			<label class="switcher-button">
 				<input type="checkbox" id="checkColors" checked>
 				<span class="slider"></span>
 			</label>
-			<span class="switcher-text"> Colorear</span>
 		</div>
-		<img src="img/icons8-basura-96.png" id="trash" class="trash" alt="Logo" />
+		<div class="w3-bar-item switcher-block">
+			<span class="w3-bar-item">Objetos </span>
+			<label class="switcher-button">
+				<input type="checkbox" id="checkObjects" checked>
+				<span class="slider"></span>
+			</label>
+		</div>
 	</header>
-	<div id="menuContainer" class="menu"></div>
-	<div class="diagramContainer">
-		<div id="diagram" droppable="true"></div>
+
+	<div id="main">
+		<div id="menuContainer" class="w3-sidebar w3-animate-right">
+		</div>
+		<i id="trash" droppable="true" class="invisible fa fa-sm fa-trash w3-text-indigo"></i>
+		<section id="sectionDiagram" class="w3-animate-zoom w3-container w3-padding-16">
+			<div id="diagram" class="diagram">
+
+			</div>
+		</section>
 	</div>
-	<footer id="footer">
-		<div class="professor">
-			<img src="img/GitHub-Mark-32px.png" alt="github">
+
+	<footer id="footer" class="w3-indigo w3-bottom w3-row w3-padding">
+		<div class="professor w3-col s4 w3-center w3-cell w3-cell-middle">
+			<i class="fa fa-sm fa-github"></i>
 			<a href="http://www.github.com/axxonita">Prof. C. Daniel Vázquez</a>
 		</div>
-		<span class="message">Con 💗 para toda la comunidad de ORT</span>
-		<div class="professor">
-			<img src="img/GitHub-Mark-32px.png" alt="github">
+		<div class="message w3-col s4 w3-center">Con 💗 para toda la comunidad de ORT</div>
+		<div class="professor w3-col s4 w3-center">
+			<i class="fa fa-sm fa-github"></i>
 			<a href="http://www.github.com/caemci">Prof. Carlos E. Cimino</a>
 		</div>
 	</footer>
-
 
 </body>
 <script type="application/javascript" src="js/XNS-core/html2canvas.js"></script>
@@ -50,7 +92,11 @@
 <script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script>
 <script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
 <script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>
+<script type="application/javascript" src="js/XNS-editor/dom-to-image.min.js"></script>
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDHandlers.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDMenu.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDFile.js"></script>
 
 </html>

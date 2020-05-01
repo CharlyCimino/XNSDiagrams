@@ -2,8 +2,8 @@
 .switcher-button {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 64px;
+  height: 38px;
 }
 
 /* Hide default HTML checkbox */
@@ -29,8 +29,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 30px;
+  width: 30px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -39,11 +39,11 @@
 }
 
 input:checked + .slider {
-  background-color: #6cd890;
+  background-color: #2196F3;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #6cd890;
+  box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .slider:before {
@@ -64,5 +64,6 @@ input:checked + .slider:before {
 .switcher-text {
 	color:#f2faff;
 	font-weight:bolder;
-	font-size: 13pt;
+	font-size: 12pt;
+	margin-right: 5pt;
 }

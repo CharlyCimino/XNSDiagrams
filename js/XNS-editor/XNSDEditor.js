@@ -1,68 +1,123 @@
 var diagramCont = document.getElementById("diagram");
-var menuCont = document.getElementById("menuContainer");
+var trash = document.getElementById("trash");
 var checkColors = document.getElementById("checkColors");
+var localVars;
+var methodParameters;
 var xnsd = new XNSDiagram();
 
 function drag(e) {
-	if (this.id.includes("menu-item")) {
+	if (this.template) {
 		e.dataTransfer.setData("mode", "copy");
 	} else {
 		e.dataTransfer.setData("mode", "move");
 	}
-	e.dataTransfer.setData("data", this.getAttribute("type"));
-	e.dataTransfer.setData("template-index", this.getAttribute("template-index"));
-	e.dataTransfer.setData("id", this.id);
+	e.dataTransfer.setData("template", this.template);
+	e.dataTransfer.setData("id", e.target.id);
+	viewTrash(true);
 }
 
 function drop(ev) {
 	ev.preventDefault();
-	var type = ev.dataTransfer.getData("data");
-	var mode = ev.dataTransfer.getData("mode");
-	var templateIndex = ev.dataTransfer.getData("template-index");
-	var id = ev.dataTransfer.getData("id");
-	var obj;
-	if (mode == "copy") {
-		obj = renderStatement(templates[templateIndex]);
+	if (ev.dataTransfer.files.length > 0) {
+		importDiagram(ev.dataTransfer.files[0]);
 	} else {
-		obj = document.getElementById(id);
-	}
-	var target = ev.target;
-	var empty = newEmptyBlock();
-	if (target == diagramCont) {
-		target.appendChild(obj);
-		target.appendChild(empty);
-	} else {
-		var parent = target.parentNode;
-		parent.insertBefore(obj, target);
-		parent.insertBefore(empty, obj);
-	}
-	resizeInputs();
-	handleInputs();
-	handleDragLeave(ev);
-}
-
-function handleDragOver(ev) {
-	if (ev.target.getAttribute("droppable") == "true") {
-		if (ev.target.className == "empty") {
-			ev.target.style.height = "20px";
+		var mode = ev.dataTransfer.getData("mode");
+		var template = ev.dataTransfer.getData("template");
+		var id = ev.dataTransfer.getData("id");
+		var statement;
+		var deleteEmpty = true;
+		if (mode == "copy") {
+			statement = renderStatement(JSON.parse(template));
+			empty = newEmptyBlock();
+			deleteEmpty = false;
+			if (statement.getAttribute("type") == "switch") {
+				makeButtonAddInSwitch(statement);
+			}
+		} else {
+			statement = document.getElementById(id);
+			if (statement.className.includes("declaration")) {
+				deleteEmpty = false;
+				if (statement.className = "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
+					methodParameters.children[1].innerHTML = methodParameters.children[1].innerHTML.substring(" , ".length);
+				}
+			}
+			empty = statement.nextSibling;
 		}
-		ev.target.classList.add("over");
+		if (ev.target == trash) {
+			deleteStatement(statement, deleteEmpty);
+			handleDragLeaveInTrash(ev);
+		} else {
+			insertStatementInTarget(ev.target, statement);
+			handleDragLeaveInBlock(ev);
+		}
 	}
 }
 
-function handleDragLeave(ev) {
-	if (ev.target.classList.contains("empty")) {
-		ev.target.style.height = "1px";
+function makeButtonAddInSwitch(switchBlock) {
+	var cases = Array.from(switchBlock.lastChild.children);
+	for (let c = 0; c < cases.length; c++) {
+		appendButtonsInCase(cases[c]);
 	}
-	ev.target.classList.remove("over");
+}
+
+function appendButtonsInCase(theCase) {
+	// theCase.firstChild --> test-value
+	theCase.firstChild.appendChild(newSwitchCaseButton("add"));
+	theCase.firstChild.appendChild(newSwitchCaseButton("remove"));
+}
+
+function newSwitchCaseButton(type) {
+	var btn = document.createElement("a");
+	btn.setAttribute("type", "button");
+	btn.classList.add("switch-button", "switch-" + type + "-button");
+	if (type == "add") {
+		btn.innerHTML = '<i class="fa fa-sm fa-plus"></i>';
+		setEvent(btn, "click", handleAddCaseSwitch);
+	} else {
+		btn.innerHTML = '<i class="fa fa-sm fa-minus"></i>';
+		setEvent(btn, "click", handleRemoveCaseSwitch);
+	}
+	return btn;
+}
+
+function deleteStatement(statement, deleteEmpty) {
+	if (deleteEmpty) {
+		statement.nextSibling.remove();
+	}
+	statement.remove();
+}
+
+function insertStatementInTarget(target, statement) {
+	var parent = target.parentNode == diagramCont ? target : target.parentNode;
+	if (parent.lastChild == target || target.parentNode == diagramCont) {
+		parent.appendChild(statement);
+		parent.appendChild(empty);
+	} else {
+		parent.insertBefore(statement, target);
+		parent.insertBefore(empty, statement);
+	}
+}
+
+function viewTrash(flag) {
+	if (flag) {
+		trash.classList.remove("invisible");
+	} else {
+		trash.classList.add("invisible");
+	}
+}
+
+function toggleClass(element, theClass) {
+	if (element.className.indexOf(theClass) == -1) {
+		element.className += " " + theClass;
+	} else {
+		element.className = element.className.replace(" " + theClass, "");
+	}
 }
 
 function renderStatement(statement) {
 	var obj = xnsd[statement.type](statement.data);
-	obj.classList.add("Nassi-Shneiderman");
 	obj.setAttribute("type", statement.type);
-	obj.setAttribute("draggable", "true");
-	setEvent(obj, "dragstart", drag);
+	makeDraggable(obj);
 	return obj;
 }
 
@@ -105,93 +160,92 @@ function setEvent(domElement, eventName, handler) {
 	}
 }
 
-function generateMenuItems() {
-	for (let index = 0; index < templates.length; index++) {
-		const template = templates[index];
-		var obj = renderStatement(template);
-		obj.id = "menu-item-" + template.type;
-		obj.setAttribute("template-index", index);
-		menuCont.appendChild(newMenuItem(obj));
-	}
-}
-
 function clearAllChilds(node) {
 	while (node.firstChild) {
 		node.removeChild(node.lastChild);
 	}
 }
 
-function newMenuItem(obj) {
-	var div = document.createElement("div");
-	div.classList.add("menuItem");
-	div.appendChild(obj);
-	return div;
-}
-
-function appendDiagram(json) {
-	var diagram = xnsd.render(
-		diagramCont,
+function appendDiagram(container, json) {
+	diagram = xnsd.render(
+		container,
 		json.statements ?
 			json : {
 				statements: [json]
 			}
 	);
+	container.classList.add("w3-card-4");
+	container.json = json;
+	return diagram;
 }
 
-function handleOpen() {
-	appendDiagram(base);
-	generateMenuItems();
-	resizeInputs();
-	handleInputs();
-}
-
-function handleInputs() {
-	var inputs = document.getElementsByClassName("input-for-statement");
-	for (let i = 0; i < inputs.length; i++) {
-		handleInput(inputs[i]);
+function reAssignSwitchEvents() {
+	var switchAddButtons = Array.from(document.querySelectorAll("#diagram .switch-add-button"));
+	var switchRemoveButtons = Array.from(document.querySelectorAll("#diagram .switch-remove-button"));
+	for (let a = 0; a < switchAddButtons.length; a++) {
+		setEvent(switchAddButtons[a], "click", handleAddCaseSwitch);
+	}
+	for (let r = 0; r < switchRemoveButtons.length; r++) {
+		setEvent(switchRemoveButtons[r], "click", handleRemoveCaseSwitch);
 	}
 }
 
-function resizeInputs() {
-	var inputs = document.getElementsByClassName("input-for-statement");
-	for (let i = 0; i < inputs.length; i++) {
-		resizeInput(inputs[i]);
+function reAssignDragEvents() {
+	var draggables = Array.from(document.querySelectorAll("#diagram [draggable=true]"));
+	for (let d = 0; d < draggables.length; d++) {
+		makeDraggable(draggables[d]);
 	}
 }
 
-function handleInput(inputObj) {
-	setEvent(inputObj, "input", handleKeyDown);
+function bindVarsAndSignature() {
+	localVars = document.getElementById("xnsd-local-variable-declaration-8");
+	methodParameters = document.getElementById("xnsd-method-parameters-7");
 }
 
-function resizeInput(inputObj) {
-	var adjust = 0.5;
-	inputObj.style.width = (inputObj.value.length + adjust) + "ch";
+function makeDraggable(obj) {
+	obj.setAttribute("draggable", "true");
+	setEvent(obj, "dragstart", drag);
+	setEvent(obj, "dragend", handleHideTrash);
 }
 
-function handleKeyDown(e) {
-	resizeInput(this);
+function indexOfChild(child) {
+	return Array.from(child.parentNode.children).indexOf(child);
 }
 
-function handleCheckbox(e) {
-	var link = document.getElementById("css/XNSColors.css");
-	link.setAttribute("href", (e.target.checked ? link.id : ""));
+function setButtonsEvents() {
+	var diagramButtons = Array.from(document.getElementById("diagramButtons").children);
+	for (let b = 0; b < diagramButtons.length; b++) {
+		const button = diagramButtons[b];
+		setEvent(button, "click", handleClickButtonDiagram);
+	}
 }
 
-function generateCanvasIn(target, statement) {
-	return html2canvas(statement).then(canvas => {
-		target.appendChild(canvas);
-	});
+function setTrashEvents() {
+	setEvent(trash, "dragenter", handleDragOverInTrash);
+	setEvent(trash, "dragleave", handleDragLeaveInTrash);
+	setEvent(trash, "drop", drop);
+	setEvent(trash, "dragover", allowDrop);
+}
+
+function setDiagramEvents() {
+	setEvent(diagramCont, "dragenter", handleDragOverInBlock);
+	setEvent(diagramCont, "dragleave", handleDragLeaveInBlock);
+	setEvent(diagramCont, "drop", drop);
+	setEvent(diagramCont, "dragover", allowDrop);
+}
+
+function setOtherEvents() {
+	setEvent(checkColors, "click", handleCheckColors);
+	setEvent(checkObjects, "click", handleCheckObjects);
 }
 
 function init() {
-	setEvent(diagramCont, "dragenter", handleDragOver);
-	setEvent(diagramCont, "dragleave", handleDragLeave);
-	setEvent(diagramCont, "drop", drop);
-	setEvent(diagramCont, "dragover", allowDrop);
-	setEvent(checkColors, "click", handleCheckbox);
 	setEvent(window, "load", handleOpen);
+	setEvent(window, "resize", handleResize);
+	setDiagramEvents();
+	setTrashEvents();
+	setButtonsEvents();
+	setOtherEvents();
 }
 
-
 init();
-
