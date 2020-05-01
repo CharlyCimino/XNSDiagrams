@@ -1,9 +1,5 @@
 /* statements colors */
 
-.diagrama {
-	background-color: #f2faff;
-}
-
 .for-statement,
 .while-statement,
 .dowhile-statement {
@@ -30,6 +26,16 @@
 
 .call-statement,
 .block-statement,
+.assignment-statement,
+.return-statement,
 .break-statement {
 	background-color: #ffedb2;
+}
+
+#diagramContainer {
+	background: #f2faff;
+}
+
+.empty {
+	background: #f2faff;
 }

@@ -31,6 +31,7 @@
 }
 
 .statements {
+	border: solid 1px;
 	padding-bottom: .5em;
 }
 
@@ -47,6 +48,8 @@
 }
 
 .block-statement,
+.assignment-statement,
+.return-statement,
 .break-statement {
     padding: 5pt;
     text-align: center;
@@ -220,25 +223,23 @@
     border-right: solid 1px;
     position: relative;
 	vertical-align: middle;
+	min-width: 50pt;
 	max-width: 100pt;
-}
-
-.for-statement .controller * {
-    display: block;
+	height: 25pt;
 }
 
 .for-statement .controller .top {
     position: absolute;
     /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
     top: 0px;
-    width: 20pt;
+    width: 12pt;
     border-right: solid 1px;
     border-bottom: solid 1px;
 }
 
 .for-statement .controller .bottom {
-    width: 20pt;
-    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+    width: 12pt;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
     border-right: solid 1px;
     border-top: solid 1px;
     position: absolute;
@@ -253,12 +254,13 @@
 .for-statement .controller .content {
     text-align: center;
     padding: 5pt;
+    padding-left: 10pt;
 }
 
 .for-statement .statements-block {
 	vertical-align: middle;
     display: table-cell;
-	min-width: 50pt;
+	min-width: 20pt;
 }
 
 .for-statement .statements-block>div {
@@ -268,6 +270,10 @@
 
 .for-statement .statements-block>div:last-child {
 	border: none;
+}
+
+.for-statement>.container>.controller>.content-block>.content>* {
+	margin: 0 1.5pt;
 }
 
 .call-statement {
@@ -302,7 +308,8 @@
 .while-statement .condition,
 .dowhile-statement .condition {
     text-align: center;
-    padding: 5pt;
+	padding: 5pt;
+	margin-left: 20pt;
 }
 
 .while-statement,
@@ -310,12 +317,36 @@
 	border: solid 1px;
 }
 
-.while-statement>._container>.statements-block,
-.dowhile-statement>._container>.statements-block {
-    margin-left: 20pt;
+.while-statement>.container>.side-while,
+.dowhile-statement>.container>.side-dowhile {
+	display: table-cell;
+    min-width: 20pt;
+	border: none;
+	border-right: solid 1px;
 }
 
-.while-statement>._container>.statements-block {
+.while-statement>.container>.side-while {
+	border-bottom: solid 1px;
+}
+.dowhile-statement>.container>.side-dowhile {
+	border-top: solid 1px;
+}
+
+.while-statement>.container>.statements-block,
+.dowhile-statement>.container>.statements-block {
+	display: table-cell;
+    position: relative;
+    vertical-align: top;
+	margin-left: 20pt;
+	width: 100%;	
+}
+
+.while-statement>.container>.statements-block>div,
+.dowhile-statement>.container>.statements-block>div {
+	display: block;
+}
+
+.while-statement>.container>.statements-block {
     border-top: solid 1px;
 }
 
@@ -323,8 +354,8 @@
     border-bottom: solid 1px;
 }
 
-.while-statement>._container>.statements-block>div,
-.dowhile-statement>._container>.statements-block>div {
+.while-statement>.container>.statements-block>div,
+.dowhile-statement>.container>.statements-block>div {
     border-right: none;
 }
 
@@ -332,12 +363,40 @@
     /*position: absolute;*/
 	display: block;
 	width: 100%;
-	/*height: 1pt;*/
+	height: 1pt;
     top: 0px;
 	bottom: 0px;
-	/*background: #f2faff;*/
 	/*border: 1px dashed #2c637f;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+}
+
+[contenteditable=true] {
+	text-align: center;
+	font-family: "Consolas";
+	display: inline-block;
+	border: none;
+}
+
+[contenteditable=true]:focus,
+[contenteditable=true]:hover {
+	font-weight: bolder;
+	cursor: text;
+	outline: none;
+}
+
+.while-statement>.condition,
+.dowhile-statement>.condition {
+	display: block;
+}
+
+.fixed-value-in-statement {
+	display: inline;
+	text-align: center;
+	font-weight: bold;
+}
+
+.arrow {
+	font-size: 13.5pt;
 }
 
 /** -- Exception extensions -- **/

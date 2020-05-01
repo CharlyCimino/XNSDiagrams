@@ -1,22 +1,140 @@
-.scrollmargin {
-	height: 80px;
-	text-align: center;
+header, footer {
+	background-color: #2c637f;
+	padding: 8pt;
+	font-family: 'Lato', Arial, sans-serif;
+	color: white;
 }
 
-.invisible {
-	display: none;
+header * {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+header>* {
+	margin: 0 10pt;
+}
+
+header>.logo {
+	margin-left: 0;
+}
+
+.logo {
+	width: 65pt;
+}
+
+.trash {
+	width: 40pt;
+	float: right;
+}
+
+footer {
+	overflow: auto;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	font-size: 10pt;
+	width: 100%;
+	padding: 5pt;
+}
+
+footer .message {
+	font-family: 'Bad Script', Times New Roman, serif;
+	letter-spacing: 0.5pt;
+}
+
+footer .professor {
+	margin: 0 30pt;
+	display: inline-block;
+}
+
+footer .professor a {
+	color: #b2e5ff;
+}
+
+footer .professor a:visited {
+	color: #ceb2ff;
+}
+
+footer .professor img {
+	display: inline-block;
+	width: 16px;
+}
+
+.buttons button {
+	box-shadow:inset 0px 2px 5px 1px #5091b2;
+	background:linear-gradient(to bottom, #6cb4d8 5%, #5091b2 100%);
+	background-color:#6cb4d8;
+	border-radius:5px;
+	border: 1px solid #5091b2;
+	display:inline-block;
+	cursor:pointer;
+	color:#f2faff;
+	font-weight:bolder;
+	padding: 10px 25px;
+	font-size: 12pt;
+	text-decoration:none;
+	margin: 2pt 0;
+	font-family: 'Lato', Arial, sans-serif;
+}
+
+.buttons button:hover {
+	background:linear-gradient(to bottom, #5091b2 5%, #6cb4d8 100%);
+	background-color:#5091b2;
+}
+
+#menuContainer {
+	float: left;
+	width: 20%;
+}
+
+#diagram {
+	height: 80%;
+	border: 2px solid #2c637f;
 }
 
 .diagramContainer {
-	height: 95%;
-	border: 2px solid #2c637f;
-	background: #f2faff;
+	float: right;
+	width: 80%;
+}
+
+#menuContainer, .diagramContainer {
+	box-sizing: border-box;
+	padding: 10pt;
 }
 
 .menuItem {
 	cursor: copy;
 	opacity: 0.7;
 	margin: 2% 0;
+	transition: opacity 0.5s;
+}
+
+.menuItem .for-statement {
+	font-size: 10pt;
+}
+
+.menuItem .conditional-statement .empty,
+.menuItem .while-statement .empty,
+.menuItem .dowhile-statement .empty {
+	height: 8pt;
+	background-color: white;
+}
+
+.menuItem .for-statement .empty {
+	height: 25pt;
+}
+
+.menuItem .while-statement {
+	border-width: 1px 0px 0px 1px;
+}
+
+.menuItem .dowhile-statement {
+	border-width: 0px 0px 1px 1px;
+}
+
+.menuItem .while-statement .condition,
+.menuItem .dowhile-statement .condition {
+	border-right: solid 1px;
 }
 
 .menuItem:hover {
@@ -32,27 +150,9 @@
 	margin-bottom: 0;
 }
 
-.ace_editor {
-	border: 1px solid blue;
-	margin: auto;
-}
-
-.scrollmargin {
-	height: 80px;
-	text-align: center;
-}
-
 .checkContainer {
-	margin-left: 10px;
 	font-size: 14px;
-}
-
-.btn {
-	margin: 3px;
-}
-
-.invisible {
-	display: none;
+	margin: 5pt 10pt;
 }
 
 .checkContainer * {
@@ -62,6 +162,5 @@
 #checkColors {
 	display: inline-block;
 	position: relative;
-	margin: 0;
 	transform : scale(1.3);
 }

@@ -37,10 +37,17 @@ function eXtendendNassiShneiderman(params) {
 				_self.process(block, obj[i]["type"], obj[i]["data"]);
 			}
 		} else {
-			block.appendChild(_self.newBlock("empty"));
+			block.appendChild(_emptyBuilder());
 		}
 		container.appendChild(block);
 		return container;
+	}
+
+	function appendFixedValue(container, value) {
+		var div = document.createElement("div");
+		div.classList.add("fixed-value-in-statement");
+		div.innerHTML = value;
+		container.appendChild(div);
 	}
 
 	function fixedLoopBuilder(obj, controllerBlockBuilder) {
@@ -48,7 +55,7 @@ function eXtendendNassiShneiderman(params) {
 		loopController.appendChild(_self.newBlock("top", "&nbsp;"));
 		loopController.appendChild(controllerBlockBuilder(_self.newBlock("content-block"), obj["control"]));
 		loopController.appendChild(_self.newBlock("bottom", "&nbsp;"));
-		var container = _self.newBlock("_container", loopController);
+		var container = _self.newBlock("container", loopController);
 		appendBlockOrEmpty(container, "statements-block", obj["statements"]);
 		return _self.newBlock("for-statement", container);
 	}
@@ -83,7 +90,7 @@ function eXtendendNassiShneiderman(params) {
 			return (!exceptionList) ? "" : " throws " + exceptionList.join(", ");
 		}
 		return _self.newBlock("method-declaration",
-			ifHas(methodDec["class"], function (val) { return "<p class=\"clase\">class " + val + ":</p>" }, "") +
+			ifHas(methodDec["class"], function (val) { return "<p>class " + val + ":</p>" }, "") +
 			stringValue(methodDec["modifiers"]) +
 			_self.htmlString(stringValue(methodDec["type"])) +
 			stringValue(methodDec["name"], "[" + _self.SYMBOLS[_self.currentLanguage].ANONYMOUS_METHOD + "]").trim() +
@@ -107,22 +114,28 @@ function eXtendendNassiShneiderman(params) {
 		return box;
 	}
 
+	function _emptyBuilder() {
+		return _self.newBlock("empty", undefined, "true");
+	}
+
 	function _blockBuilder(obj) {
-		return _self.newBlock("block-statement", obj["content"]);
+		var box = _self.newBlock("block-statement");
+		box.appendChild(_self.newBlock("content", obj["content"], false, true));
+		return box;
 	}
 
 	function _assignmentBuilder(obj) {
-		var content = obj.variable + " &larr; ";
-		if (obj.isString) { content += "\"" }
-		content += _self.htmlString(obj.value);
-		if (obj.isString) { content += "\"" }
-		return _self.newBlock("block-statement", content);
+		var box = _self.newBlock("assignment-statement");
+		box.appendChild(_self.newBlock("variable", obj["variable"], false, true));
+		appendFixedValue(box, " <span class=\"arrow\">&larr;</span> ");
+		box.appendChild(_self.newBlock("value", obj["value"], false, true));
+		return box;
 	}
 
 	function _conditionalBuilder(obj) {
 		var header = _self.newBlock("header")
 		header.appendChild(makeCorner("true", _self.SYMBOLS[_self.currentLanguage].TRUE));
-		header.appendChild(_self.newBlock("condition", _self.htmlString(obj["condition"])));
+		header.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		header.appendChild(makeCorner("false", _self.SYMBOLS[_self.currentLanguage].FALSE));
 		var body = _self.newBlock("body");
 		appendBlockOrEmpty(body, "then side", obj["then"]);
@@ -135,13 +148,13 @@ function eXtendendNassiShneiderman(params) {
 
 	function _switchBuilder(obj) {
 		function makeCaseOption(obj) {
-			var column = _self.newBlock("case", _self.newBlock("test-value", (obj["value"] || obj["case"])));
+			var column = _self.newBlock("case", _self.newBlock("test-value", obj["case"], false, true));
 			appendBlockOrEmpty(column, "statements-block", obj["statements"]);
 			return column;
 		}
 		var header = _self.newBlock("header");
 		header.appendChild(makeCorner("true", "&nbsp;"));
-		header.appendChild(_self.newBlock("condition", _self.htmlString(obj["expression"])));
+		header.appendChild(_self.newBlock("condition", obj["expression"], false, true));
 		header.appendChild(makeCorner("false", "&nbsp;"));
 		var body = _self.newBlock("body");
 		for (var c = 0; c < obj["options"].length; c++) {
@@ -154,58 +167,84 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function _breakBuilder() {
-		return _self.newBlock("break-statement", "break");
+		var box = _self.newBlock("break-statement");
+		appendFixedValue(box, "break");
+		return box;
 	}
 
 	function _inputBuilder(obj) {
 		var box = _self.newBlock("input-statement");
 		box.appendChild(_self.newBlock("symbol", _self.SYMBOLS[_self.currentLanguage].INPUT));
-		box.appendChild(_self.newBlock("body", _self.htmlString(obj["variable"])));
+		box.appendChild(_self.newBlock("body", obj["variable"], false, true));
 		return box;
 	}
 
 	function _outputBuilder(obj) {
 		var box = _self.newBlock("output-statement");
 		box.appendChild(_self.newBlock("symbol", _self.SYMBOLS[_self.currentLanguage].OUTPUT));
-		box.appendChild(_self.newBlock("body", _self.htmlString(obj["message"])));
+		box.appendChild(_self.newBlock("body", obj["message"], false, true));
 		return box;
 	}
 
 	function _whileBuilder(obj) {
-		var box = _self.newBlock("while-statement", _self.newBlock("condition", obj["condition"]));
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("_container"), "statements-block", obj["statements"]));
+		var box = _self.newBlock("while-statement");
+		box.appendChild(_self.newBlock("condition", obj["condition"], false, true));
+		var container = _self.newBlock("container");
+		appendBlockOrEmpty(container, "side-while", "side-while");
+		box.appendChild(appendBlockOrEmpty(container, "statements-block", obj["statements"]));
 		return box;
 	}
 
 	function _doWhileBuilder(obj) {
-		var box = _self.newBlock("dowhile-statement", appendBlockOrEmpty(_self.newBlock("_container"), "statements-block", obj["statements"]));
-		box.appendChild(_self.newBlock("condition", obj["condition"]));
+		var container = _self.newBlock("container");
+		appendBlockOrEmpty(container, "side-dowhile", "side-dowhile");
+		appendBlockOrEmpty(container, "statements-block", obj["statements"]);
+		var box = _self.newBlock("dowhile-statement", container);
+		box.appendChild(_self.newBlock("condition", obj["condition"], false, true));
 		return box;
 	}
 
 	function _forBuilder(obj) {
 		return fixedLoopBuilder(obj, function (container, obj) {
-			container.appendChild(_self.newBlock("content", obj["variable"] + " = " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"]));
+			var box = _self.newBlock("content");
+			box.appendChild(_self.newBlock("variable", obj["variable"], false, true));
+			appendFixedValue(box, "<span class=\"arrow\">&larr;</span>");
+			box.appendChild(_self.newBlock("start", obj["start"], false, true));
+			appendFixedValue(box, ",");
+			box.appendChild(_self.newBlock("stop", obj["stop"], false, true));
+			appendFixedValue(box, ",");
+			box.appendChild(_self.newBlock("step", obj["step"], false, true));
+			container.appendChild(box);
+			//container.appendChild(_self.newBlock("content", obj["variable"] + " &larr; " + obj["start"] + ", " + obj["stop"] + ", " + obj["step"], undefined, "true"));
 			return container;
 		});
 	}
 
 	function _foreachBuilder(obj) {
 		return fixedLoopBuilder(obj, function (container, obj) {
-			container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + " : " + obj["collection"]));
+			var box = _self.newBlock("content");
+			box.appendChild(_self.newBlock("class", obj["class"], false, true));
+			box.appendChild(_self.newBlock("variable", obj["variable"], false, true));
+			appendFixedValue(box, ":");
+			box.appendChild(_self.newBlock("collection", obj["collection"], false, true));
+			container.appendChild(box);
+			//container.appendChild(_self.newBlock("content", obj["class"] + " " + obj["variable"] + ": " + obj["collection"], undefined, "true"));
 			return container;
 		});
 	}
 
 	function _callBuilder(obj) {
 		var box = _self.newBlock("call-statement", _self.newBlock("margin left", "&nbsp;"));
-		box.appendChild(_self.newBlock("call", obj["statement"]));
+		box.appendChild(_self.newBlock("call", obj["statement"], false, true));
 		box.appendChild(_self.newBlock("margin right", "&nbsp;"));
 		return box;
 	}
 
 	function _returnBuilder(obj) {
-		return _self.newBlock("block-statement", ((_self.explicitReturn) ? "<i>return</i> " : " &larr; ") + _self.htmlString(obj["value"]));
+		var box = _self.newBlock("return-statement");
+		appendFixedValue(box, "return ");
+		box.appendChild(_self.newBlock("value", obj["value"], false, true));
+		return box;
 	}
 
 	/* --- Nassi Shneiderman Extension: Exception blocks implementation --- */
@@ -216,7 +255,7 @@ function eXtendendNassiShneiderman(params) {
 
 	function _tryBuilder(obj) {
 		var box = _self.newBlock("try-statement", _self.newBlock("margin left", "try"));
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("_container"), "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
 		return box;
 	}
 
@@ -225,13 +264,13 @@ function eXtendendNassiShneiderman(params) {
 		exception.appendChild(_self.newBlock("identifier", obj["exception"]));
 		exception.appendChild(_self.newBlock("variable", obj["variable"]));
 		var box = _self.newBlock("catch-statement", _self.newBlock("margin left", "catch"));
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("_container", exception), "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(_self.newBlock("container", exception), "statements-block", obj["statements"]));
 		return box;
 	}
 
 	function _finallyBuilder(obj) {
 		var box = _self.newBlock("finally-statement", _self.newBlock("margin left", "finally"))
-		box.appendChild(appendBlockOrEmpty(_self.newBlock("_container"), "statements-block", obj["statements"]));
+		box.appendChild(appendBlockOrEmpty(_self.newBlock("container"), "statements-block", obj["statements"]));
 		return box;
 	}
 
@@ -257,7 +296,8 @@ function eXtendendNassiShneiderman(params) {
 			"for": _forBuilder,
 			"foreach": _foreachBuilder,
 			"call": _callBuilder,
-			"return": _returnBuilder
+			"return": _returnBuilder,
+			"empty": _emptyBuilder
 		}
 		if (_self["includeExceptions"]) {
 			_builders["throw"] = _throwBuilder;
