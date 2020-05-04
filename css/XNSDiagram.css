@@ -180,7 +180,8 @@
     display: table-cell;
     position: relative;
     vertical-align: top;
-    min-width: 30pt;
+	min-width: 30pt;
+	width: 50%;
 }
 
 .conditional-statement>.body .case {
@@ -257,7 +258,7 @@
 
 .for-statement .controller .top {
     position: absolute;
-    /*background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);
     top: 0px;
     width: 12pt;
     border-right: solid 1px;
