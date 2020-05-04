@@ -73,10 +73,10 @@ var templates = [
 				"value": "expresión"
 			}
 		},
-		{
+		/*{
 			"type": "break",
 			"data": ""
-		}]
+		}*/]
 	}, {
 		"category": "Selección",
 		"items": [
