@@ -9,7 +9,7 @@ function newAccordion(id) {
 
 function newAccordionButton(inner) {
 	var btn = document.createElement("button");
-	btn.classList.add("w3-button", "w3-block", "w3-hover-indigo", "w3-leftbar", "w3-border", "w3-border-indigo", "w3-section", "w3-card-4");
+	btn.classList.add("w3-button", "w3-block", "w3-hover-indigo", "w3-leftbar", "w3-border-indigo", "w3-section", "w3-card-4");
 	setEvent(btn, "click", toggleAccordion);
 	btn.innerHTML = inner;
 	return btn;
