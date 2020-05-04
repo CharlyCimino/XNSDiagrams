@@ -31,7 +31,6 @@ function handleOpen(e) {
 	handleResize();
 }
 
-
 function handleCheckColors(e) {
 	var link = document.getElementById("css/XNSColors.css");
 	link.setAttribute("href", (e.target.checked ? link.id : ""));
@@ -60,11 +59,9 @@ function handleClickButtonDiagram(ev) {
 			methodParameters.appendChild(obj);
 			break;
 		case 1:
-		case 2:
 			localVars.insertBefore(obj, localVars.firstChild);
 			break;
-		case 3:
-		case 4:
+		default:
 			localVars.appendChild(obj);
 			break;
 	}

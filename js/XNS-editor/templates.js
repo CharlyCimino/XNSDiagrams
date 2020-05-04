@@ -15,9 +15,6 @@ var buttonsDiagramTemplates = [{
 	"name": "nombre"
 }, {
 	"type": "final tipo",
-	"name": "NOMBRE"
-}, {
-	"type": "final tipo",
 	"name": "NOMBRE",
 	"value": "expresión"
 }, {
@@ -35,7 +32,7 @@ var newDeclaration = {
 }
 
 var switchCaseTemplate = {
-	"case": "PRUEBA",
+	"case": "valor",
 	"statements": []
 }
 
