@@ -97,13 +97,22 @@
 .return-statement,
 .break-statement,
 .comment-statement {
-    padding: 5pt;
+    padding: 5px;
     text-align: center;
-    border: solid 1px;
+	border: solid 1px;
+}
+
+
+.assignment-statement {
+	padding: 2.6px;
 }
 
 .break-statement {
     font-weight: bolder;
+}
+
+.conditional-statement {
+	border: solid 1px;
 }
 
 .conditional-statement .header,
@@ -114,7 +123,7 @@
 }
 
 .conditional-statement .header {
-	border: solid 1px;
+	border-bottom: solid 1px;
 }
 
 .conditional-statement .header .condition {
@@ -180,34 +189,36 @@
     display: table-cell;
     position: relative;
     vertical-align: top;
-	min-width: 30pt;
+	min-width: 30px;
 	width: 50%;
 }
 
-.conditional-statement>.body .case {
+.switch>.body .case {
     display: table-cell;
     position: relative;
 }
 
-.conditional-statement .body .case .test-value {
+.switch>.body .case .test-value {
     display: block;
     text-align: center;
     background-color: #F0F0F0;
-	border-bottom: solid 1px;
 	line-height: 20pt;
 	min-height: 30px;
+	border-bottom: solid 1px;
 }
 
-.conditional-statement .body .case:first-child .test-value {
-    border-left: solid 1px;
+.switch>.body .case .statements {
+	display: block;
 }
 
-.conditional-statement .body .case:last-child .test-value {
+.conditional-statement>.body .then,
+.switch>.body .case .test-value {
     border-right: solid 1px;
 }
 
-.conditional-statement .body .case .statements {
-	display: block;
+.switch>.body .case:last-child .statements,
+.switch>.body .case:last-child .test-value {
+    border-right: 0;
 }
 
 .input-statement,
@@ -222,7 +233,7 @@
     display: block;
     position: relative;
     text-align: center;
-    padding: 5pt;
+    padding: 5px;
 }
 
 .input-statement .symbol,
@@ -238,6 +249,7 @@
 
 .for-statement {
 	display: block;
+	border: solid 1px;
 }
 
 .for-statement .container {
@@ -246,14 +258,13 @@
 }
 
 .for-statement .controller {
-	border: solid 1px;
     display: table-cell;
-    border-right: solid 1px;
     position: relative;
 	vertical-align: middle;
 	min-width: 20px;
 	max-width: 100px;
 	height: 25pt;
+	border-right: solid 1px;
 }
 
 .for-statement .controller .top {
@@ -291,10 +302,6 @@
 	min-width: 150pt;
 }
 
-.for-statement .statements>div:last-child {
-	border: 0;
-}
-
 .for-statement>.container>.controller>.content-block>.content>* {
 	margin: 0 1.5pt;
 }
@@ -321,7 +328,7 @@
 
 .call-statement .call {
     position: relative;
-    padding: 5pt;
+    padding: 5px;
     margin-left: 15pt;
     margin-right: 15pt;
     text-align: center;
@@ -386,7 +393,6 @@
 .dowhile-statement>.container>.statements>div {
 	display: block;
 	width: 100%;
-	border-right: 0;
 }
 
 .empty {
@@ -411,85 +417,19 @@
 .while-statement>.container>.statements,
 .dowhile-statement>.container>.statements {
 	height: 20px;
-	background: white;
+	padding: 1px;
 }
 
-.for-statement .statements > div,
-.conditional-statement>.body>.then > div,
-.conditional-statement>.body>.else > div,
-.conditional-statement .body .case .statements > div,
-.while-statement>.container>.statements > div,
-.dowhile-statement>.container>.statements > div {
-	border: 0;
+.for-statement .statements,
+.while-statement>.container>.statements,
+.dowhile-statement>.container>.statements {
+	background-color: white;
+	padding-right: 0;
 }
 
-.conditional-statement>.body>.then > div:not(.empty) {
-	border-style: solid;
-	border-width: 1px 1px 1px 1px;
-}
-
-.conditional-statement .body .case .statements > div:not(.empty),
-.conditional-statement>.body>.else > div:not(.empty) {
-	border-style: solid;
-	border-width: 1px 1px 1px 0;
-}
-
-.for-statement .statements > div:not(.empty),
-.while-statement>.container>.statements > div:not(.empty),
-.dowhile-statement>.container>.statements > div:not(.empty) {
-	border-style: solid;
-	border-width: 1px 1px 1px 0;
-}
-
-.while-statement>.container>.statements > div:not(.empty),
-.dowhile-statement>.container>.statements > div:not(.empty) {
-	border-style: solid;
-	border-width: 1px 1px 1px 0;
-}
-
-.conditional-statement .body .case .statements > div:nth-child(2),
-.conditional-statement>.body>.then > div:nth-child(2),
-.conditional-statement>.body>.else > div:nth-child(2),
-.while-statement>.container>.statements > div:nth-child(2) {
-	border-top: 0;
-}
-
-.dowhile-statement>.container>.statements > div:nth-last-child(2) {
-	border-bottom: 0;
-}
-
-.conditional-statement .body .case:first-child .statements > div:nth-child(2) {
-	border-left: solid 1px;
-}
-
-.while-statement>.container>.statements > div.for-statement,
-.dowhile-statement>.container>.statements > div.for-statement {
-	border: 0;
-}
-
-.while-statement>.container>.statements > div.for-statement .controller,
-.dowhile-statement>.container>.statements > div.for-statement .controller,
-.for-statement .statements .for-statement .controller {
-	border-left: 0;
-}
-
-.while-statement>.container>.statements > div.for-statement .controller  {
-	border-top: 0;
-}
-
-.dowhile-statement>.container>.statements > div.for-statement .controller  {
-	border-bottom: 0;
-}
-
-.for-statement .statements .for-statement  {
-	border: 0 !important;
-}
-
-.while-statement>.container>.statements>div.while-statement,
-.while-statement>.container>.statements>div.dowhile-statement,
-.dowhile-statement>.container>.statements>div.dowhile-statement,
-.dowhile-statement>.container>.statements>div.while-statement {
-	border: 0;
+.switch>.body>.case .statements {
+	padding: 1px;
+	min-height: 20px;
 }
 
 [contenteditable=true] {

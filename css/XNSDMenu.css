@@ -23,12 +23,14 @@
 	border-bottom: solid 1px;
 }
 
-#menuContainer .conditional-statement>.body>.then {
-	border-right: solid 0.5px;
+#menuContainer .conditional-statement>.body .then {
+	border-width: 0 0.5px 0 0;
+	border-style: solid;
 }
 
-#menuContainer .conditional-statement>.body>.else {
-	border-left: solid 0.5px;
+#menuContainer .conditional-statement>.body .else {
+	border-width: 0 0 0 0.5px;
+	border-style: solid;
 }
 
 #menuContainer .conditional-statement>.body .case {

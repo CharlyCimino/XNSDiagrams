@@ -108,7 +108,7 @@ var templates = [
 			}]
 	},
 	{
-		"category": "Repeticion",
+		"category": "Repetición",
 		"items": [{
 			"type": "while",
 			"data": {
