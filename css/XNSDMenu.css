@@ -33,12 +33,13 @@
 	border-style: solid;
 }
 
-#menuContainer .conditional-statement>.body .case {
-    border-right: solid 1px;
+#menuContainer .switch>.body .case .statements {
+	height: 20px;
+	border-right: solid 1px;
 }
 
-#menuContainer .conditional-statement>.body .case:last-child {
-    border-right: 0;
+#menuContainer .switch>.body .case:last-child .statements {
+	border-right: 0;
 }
 
 #menuContainer .w3-bar-block .w3-button .for-statement {
@@ -52,24 +53,10 @@
 
 #menuContainer .w3-bar-block .w3-button .for-statement .controller {
 	height: 56px;
-	border: 0;
 }
 
 #menuContainer .w3-bar-block .w3-button .for-statement .statements {
 	vertical-align: middle;
     display: table-cell;
 	min-width: 20pt;
-}
-
-#menuContainer .conditional-statement>.body .case .statements {
-	height: 20px;
-	background: white;
-}
-
-#menuContainer .conditional-statement>.body .case:first-child .test-value {
-	border-left: 0;
-}
-
-#menuContainer .conditional-statement>.body .case:last-child .test-value {
-	border-right: 0;
 }
