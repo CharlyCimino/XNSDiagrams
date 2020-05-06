@@ -133,9 +133,14 @@ function eXtendendNassiShneiderman(params) {
 		var type = _self.newBlock("type", _self.htmlString(obj["type"]), false, true);
 		var name = _self.newBlock("name", _self.htmlString(obj["name"]), false, true);
 		var container = _self.newBlock(containerName);
+		appendFixedValue(container, getAnchorIcon());
 		container.appendChild(type);
 		container.appendChild(name);
 		return container;
+	}
+
+	function getAnchorIcon() {
+		return '<i class="fa fa-xs fa-arrows"></i>';
 	}
 
 	function _parameterDeclarationBuilder(obj) {
@@ -152,6 +157,7 @@ function eXtendendNassiShneiderman(params) {
 		var value = _self.newBlock("value", _self.htmlString(obj["value"]), false, true);
 		var assignment = _assignmentBuilder({ "variable": name, "value": value });
 		var initializedVariableDeclaration = _self.newBlock("initialized-variable-declaration");
+		appendFixedValue(initializedVariableDeclaration, getAnchorIcon());
 		initializedVariableDeclaration.appendChild(type);
 		initializedVariableDeclaration.appendChild(assignment);
 		return initializedVariableDeclaration;

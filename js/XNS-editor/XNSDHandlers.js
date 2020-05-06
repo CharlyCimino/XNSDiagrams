@@ -1,5 +1,4 @@
 function handleDragEnd(e) {
-	console.log("end " + this.id);
 	applyClassInNode(true, "invisible", trash);
 	expandEmptys(false);
 }
@@ -100,4 +99,14 @@ function handleAddCaseSwitch(e) {
 function handleRemoveCaseSwitch(e) {
 	var targetCase = e.target.parentNode.parentNode.parentNode;
 	targetCase.remove();
+}
+
+function allowDrop(ev) {
+	ev.preventDefault();
+	if (ev.target.getAttribute("droppable") == "true") {
+		ev.dataTransfer.dropEffect = "copy"; // drop it like it's hot
+	}
+	else {
+		ev.dataTransfer.dropEffect = "none"; // dropping is not allowed
+	}
 }

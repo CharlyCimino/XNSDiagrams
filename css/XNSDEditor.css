@@ -90,3 +90,8 @@ html {
 	color: #b25050; /*w3 pale red*/
     bottom: -2px;
 }
+
+.fa-xs {
+	font-size: .8em;
+}
+	

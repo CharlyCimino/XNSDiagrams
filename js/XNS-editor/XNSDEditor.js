@@ -6,8 +6,6 @@ var methodParameters;
 var xnsd = new XNSDiagram();
 
 function drag(e) {
-	console.log("start " + this.id);
-
 	if (this.template) {
 		e.dataTransfer.setData("mode", "copy");
 	} else {
@@ -19,16 +17,6 @@ function drag(e) {
 		applyClassInNode(false, "invisible", trash);
 		expandEmptys(true);
 	}, 100);
-
-}
-
-function expandEmptys(flag) {
-	console.log(flag);
-
-	var emptys = document.querySelectorAll("#diagram .empty");
-	for (let e = 0; e < emptys.length; e++) {
-		applyClassInNode(flag, "expand-empty", emptys[e]);
-	}
 }
 
 function drop(ev) {
@@ -52,7 +40,7 @@ function drop(ev) {
 			statement = document.getElementById(id);
 			if (statement.className.includes("declaration")) {
 				deleteEmpty = false;
-				if (statement.className = "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
+				if (statement.className == "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
 					methodParameters.children[1].innerHTML = methodParameters.children[1].innerHTML.substring(" , ".length);
 				}
 			}
@@ -62,9 +50,28 @@ function drop(ev) {
 			deleteStatement(statement, deleteEmpty);
 			handleDragLeaveInTrash(ev);
 		} else {
-			insertStatementInTarget(ev.target, statement);
-			handleDragLeaveInBlock(ev);
+			if (!statement.className.includes("declaration")) {
+				insertStatementInTarget(ev.target, statement);
+				handleDragLeaveInBlock(ev);
+			} else {
+				collapseEmptys();
+			}
 		}
+	}
+}
+
+function collapseEmptys() {
+	var emptys = document.querySelectorAll("#diagram .empty");
+	for (let e = 0; e < emptys.length; e++) {
+		applyClassInNode(false, "expand-empty", emptys[e]);
+		applyClassInNode(false, "empty-hover", emptys[e]);
+	}
+}
+
+function expandEmptys(flag) {
+	var emptys = document.querySelectorAll("#diagram .empty");
+	for (let e = 0; e < emptys.length; e++) {
+		applyClassInNode(flag, "expand-empty", emptys[e]);
 	}
 }
 
@@ -138,16 +145,6 @@ function renderStatement(statement) {
 
 function newEmptyBlock() {
 	return xnsd.newBlock("empty", undefined, "true");
-}
-
-function allowDrop(ev) {
-	ev.preventDefault();
-	if (ev.target.getAttribute("droppable") == "true") {
-		ev.dataTransfer.dropEffect = "copy"; // drop it like it's hot
-	}
-	else {
-		ev.dataTransfer.dropEffect = "none"; // dropping is not allowed
-	}
 }
 
 function toJSON(codeStr) {
@@ -224,7 +221,7 @@ function makeDraggable(obj) {
 }
 
 function indexOfChild(child) {
-	return child.parentNode.children.indexOf(child);
+	return Array.from(child.parentNode.children).indexOf(child);
 }
 
 function setButtonsEvents() {
