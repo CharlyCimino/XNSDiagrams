@@ -1,5 +1,7 @@
-function handleHideTrash(e) {
-	viewTrash(false);
+function handleDragEnd(e) {
+	console.log("end " + this.id);
+	applyClassInNode(true, "invisible", trash);
+	expandEmptys(false);
 }
 
 function reSize() {

@@ -398,18 +398,12 @@
 .empty {
 	display: block;
 	width: 100%;
-	height: 1pt;
+	height: 0;
 	border: 0;
 	/*border: 1px dashed #2c637f;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGElEQVQYV2NkgIAGKGZghArAKXSBBgwVAEPuAYWs0fxxAAAAAElFTkSuQmCC);*/
 }
 
-.empty-hover {
-	height: 20px;
-	-webkit-box-shadow: inset 0 0 10px 2px rgba(0,0,0,0.16);
-	-moz-box-shadow: inset 0 0 10px 2px rgba(0,0,0,0.16);
-	box-shadow: inset 0 0 10px 2px rgba(0,0,0,0.16);
-}
 
 .for-statement .statements,
 .conditional-statement>.body>.then,

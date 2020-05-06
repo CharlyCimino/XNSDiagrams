@@ -6,6 +6,8 @@ var methodParameters;
 var xnsd = new XNSDiagram();
 
 function drag(e) {
+	console.log("start " + this.id);
+
 	if (this.template) {
 		e.dataTransfer.setData("mode", "copy");
 	} else {
@@ -13,7 +15,20 @@ function drag(e) {
 	}
 	e.dataTransfer.setData("template", this.template);
 	e.dataTransfer.setData("id", e.target.id);
-	viewTrash(true);
+	setTimeout(() => {
+		applyClassInNode(false, "invisible", trash);
+		expandEmptys(true);
+	}, 100);
+
+}
+
+function expandEmptys(flag) {
+	console.log(flag);
+
+	var emptys = document.querySelectorAll("#diagram .empty");
+	for (let e = 0; e < emptys.length; e++) {
+		applyClassInNode(flag, "expand-empty", emptys[e]);
+	}
 }
 
 function drop(ev) {
@@ -54,7 +69,7 @@ function drop(ev) {
 }
 
 function makeButtonAddInSwitch(switchBlock) {
-	var cases = Array.from(switchBlock.lastChild.children);
+	var cases = switchBlock.lastChild.children;
 	for (let c = 0; c < cases.length; c++) {
 		appendButtonsInCase(cases[c]);
 	}
@@ -98,11 +113,11 @@ function insertStatementInTarget(target, statement) {
 	}
 }
 
-function viewTrash(flag) {
+function applyClassInNode(flag, className, node) {
 	if (flag) {
-		trash.classList.remove("invisible");
+		node.classList.add(className);
 	} else {
-		trash.classList.add("invisible");
+		node.classList.remove(className);
 	}
 }
 
@@ -180,8 +195,8 @@ function appendDiagram(container, json) {
 }
 
 function reAssignSwitchEvents() {
-	var switchAddButtons = Array.from(document.querySelectorAll("#diagram .switch-add-button"));
-	var switchRemoveButtons = Array.from(document.querySelectorAll("#diagram .switch-remove-button"));
+	var switchAddButtons = document.querySelectorAll("#diagram .switch-add-button");
+	var switchRemoveButtons = document.querySelectorAll("#diagram .switch-remove-button");
 	for (let a = 0; a < switchAddButtons.length; a++) {
 		setEvent(switchAddButtons[a], "click", handleAddCaseSwitch);
 	}
@@ -191,7 +206,7 @@ function reAssignSwitchEvents() {
 }
 
 function reAssignDragEvents() {
-	var draggables = Array.from(document.querySelectorAll("#diagram [draggable=true]"));
+	var draggables = document.querySelectorAll("#diagram [draggable=true]");
 	for (let d = 0; d < draggables.length; d++) {
 		makeDraggable(draggables[d]);
 	}
@@ -205,15 +220,15 @@ function bindVarsAndSignature() {
 function makeDraggable(obj) {
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);
-	setEvent(obj, "dragend", handleHideTrash);
+	setEvent(obj, "dragend", handleDragEnd);
 }
 
 function indexOfChild(child) {
-	return Array.from(child.parentNode.children).indexOf(child);
+	return child.parentNode.children.indexOf(child);
 }
 
 function setButtonsEvents() {
-	var diagramButtons = Array.from(document.getElementById("diagramButtons").children);
+	var diagramButtons = document.getElementById("diagramButtons").children;
 	for (let b = 0; b < diagramButtons.length; b++) {
 		const button = diagramButtons[b];
 		setEvent(button, "click", handleClickButtonDiagram);
