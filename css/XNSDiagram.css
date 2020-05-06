@@ -127,17 +127,17 @@
 }
 
 .conditional-statement .header .condition {
-    display: table-cell;
+	display: block;
     text-align: center;
-    vertical-align: middle;
-    border: 0;
     padding: 8pt;
     padding-left: 15pt;
-    padding-right: 15pt;
+	padding-right: 15pt;
+	margin: 0 auto;
+	width: fit-content;
 }
 
 .conditional-statement .header .option {
-    display: table-cell;
+	display: table-cell;
     vertical-align: bottom;
     position: relative;
 }
@@ -335,23 +335,6 @@
     border: 0;
 }
 
-.while-statement .condition,
-.dowhile-statement .condition {
-    text-align: center;
-	padding: 5pt;
-	margin-left: 20pt;
-}
-
-.while-statement .condition {
-	border-style: solid;
-	border-width: 0 1px 1px 0;
-}
-
-.dowhile-statement .condition {
-	border-style: solid;
-	border-width: 1px 1px 0 0;
-}
-
 .while-statement,
 .dowhile-statement {
 	border-left: solid 1px;
@@ -363,6 +346,29 @@
 
 .dowhile-statement {
 	border-bottom: solid 1px;
+}
+
+.while-statement>.condition-block,
+.dowhile-statement>.condition-block {
+	display: block;
+	border-right: solid 1px;
+	padding: 5pt;
+	margin-left: 20pt;
+}
+
+.while-statement>.condition-block {
+	border-bottom: solid 1px;
+}
+
+.dowhile-statement>.condition-block {
+	border-top: solid 1px;
+}
+
+.while-statement .condition,
+.dowhile-statement .condition {
+	display: block;
+	margin: 0 auto;
+	width: fit-content;
 }
 
 .while-statement>.container>.side-while,
@@ -441,11 +447,6 @@
 	color: #555 !important;
 	cursor: text;
 	outline: 0;
-}
-
-.while-statement>.condition,
-.dowhile-statement>.condition {
-	display: block;
 }
 
 .fixed-value-in-statement {
