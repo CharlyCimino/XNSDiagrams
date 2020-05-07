@@ -54,11 +54,15 @@ html {
 #footer .message {
 	font-family: 'Dancing Script', Times New Roman, serif;
 	letter-spacing: 0.5pt;
-	font-size: 20px;
+	font-size: 18px;
 }
 
-#footer .professor>i {
-	font-size: 20px;
+#footer .professor> i {
+	font-size: 16px;
+}
+
+#footer .professor> a {
+	font-size: 14px;
 }
 
 #footer, #header {
