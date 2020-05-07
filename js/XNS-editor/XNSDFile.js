@@ -26,9 +26,17 @@ function exportDiagramProject() {
 	document.body.removeChild(element);
 }
 
+function hideArrows(flag) {
+	var arrows = document.querySelectorAll(".fa-arrows");
+	for (let a = 0; a < arrows.length; a++) {
+		applyClassInNode(flag, "invisible", arrows[a].parentNode);
+	}
+}
+
 function exportDiagramImage() {
 	diagramCont.lastChild.style.height = "auto";
 	diagramCont.style.height = "auto";
+	hideArrows(true);
 	var options = {
 		quality: 0.95,
 		bgcolor: "white",
@@ -44,6 +52,7 @@ function exportDiagramImage() {
 			link.download = generateNameFile() + '.jpeg';
 			link.href = dataUrl;
 			link.click();
+			hideArrows(false);
 		});
 }
 
