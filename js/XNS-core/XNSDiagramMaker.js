@@ -395,4 +395,4 @@ function eXtendendNassiShneiderman(params) {
 // EXTENDED NASSI SCHNEIDERMAN DIAGRAM
 // -----------------------------------
 // Class Synonym
-var XNSDiagram = eXtendendNassiShneiderman;
+var XNSDiagramMaker = eXtendendNassiShneiderman;

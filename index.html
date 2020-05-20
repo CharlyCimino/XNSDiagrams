@@ -49,6 +49,16 @@
 					inicializada</a>
 			</div>
 		</div>
+		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
+			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
+				Diagramas <i class="fa fa-sm fa-caret-down"></i></button>
+			<div class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
+				<a href="#" id="newDiagram" class="w3-button w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-code-o"></i> Nuevo</a>
+				<a href="#" id="viewDiagrams" class="w3-button w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-image-o"></i> Ver todos</a>
+			</div>
+		</div>
 		<div class="w3-bar-item switcher-block">
 			<span class="w3-bar-item">Colorear </span>
 			<label class="switcher-button">
@@ -65,7 +75,17 @@
 		</div>
 	</header>
 
+	<button id="buttonDiagrams" class="w3-button w3-padding-small w3-indigo w3-padding-4"
+		onclick="w3_open()">Diagramas</button>
+
 	<div id="main">
+		<div class="w3-sidebar w3-bar-block w3-border-right w3-animate-left" style="display:none" id="mySidebar">
+			<button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+			<a href="#" class="w3-bar-item w3-button">Link 1</a>
+			<a href="#" class="w3-bar-item w3-button">Link 2</a>
+			<a href="#" class="w3-bar-item w3-button">Link 3</a>
+		</div>
+
 		<div id="menuContainer" class="w3-sidebar w3-animate-right">
 		</div>
 		<i id="trash" droppable="true" class="invisible fa fa-sm fa-trash w3-text-indigo"></i>
@@ -94,7 +114,7 @@
 <script type="application/javascript" src="js/XNS-core/ClassConstructor.js"></script>
 <script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script>
 <script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
-<script type="application/javascript" src="js/XNS-core/XNSDiagram.js"></script>
+<script type="application/javascript" src="js/XNS-core/XNSDiagramMaker.js"></script>
 <script type="application/javascript" src="js/XNS-editor/dom-to-image.min.js"></script>
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDHandlers.js"></script>

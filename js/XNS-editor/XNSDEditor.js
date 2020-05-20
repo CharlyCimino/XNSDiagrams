@@ -3,7 +3,7 @@ var trash = document.getElementById("trash");
 var checkColors = document.getElementById("checkColors");
 var localVars;
 var methodParameters;
-var xnsd = new XNSDiagram();
+var xnsd = new XNSDiagramMaker();
 
 function drag(e) {
 	if (this.template) {
@@ -258,6 +258,14 @@ function init() {
 	setTrashEvents();
 	setButtonsEvents();
 	setOtherEvents();
+}
+
+function w3_open() {
+	document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+	document.getElementById("mySidebar").style.display = "none";
 }
 
 init();
