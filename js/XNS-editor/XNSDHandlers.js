@@ -30,9 +30,6 @@ function handleOpen(e) {
 	methodParameters = document.getElementById("xnsd-method-parameters-7");
 	generateMenuItems();
 	handleResize();
-
-
-
 	project = new XNSDProject("Proyecto sin título", []);
 	project.addDiagram(new XNSDDiagram(classOfActualDiagram(), nameOfActualDiagram(), diagramCont.innerHTML));
 }
@@ -115,3 +112,4 @@ function allowDrop(ev) {
 		ev.dataTransfer.dropEffect = "none"; // dropping is not allowed
 	}
 }
+
