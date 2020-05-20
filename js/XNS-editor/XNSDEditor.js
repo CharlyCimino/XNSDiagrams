@@ -1,9 +1,11 @@
 var diagramCont = document.getElementById("diagram");
 var trash = document.getElementById("trash");
 var checkColors = document.getElementById("checkColors");
+var diagramsContainer = document.getElementById("diagramsContainer");
 var localVars;
 var methodParameters;
 var xnsd = new XNSDiagramMaker();
+var project;
 
 function drag(e) {
 	if (this.template) {
@@ -260,12 +262,14 @@ function init() {
 	setOtherEvents();
 }
 
-function w3_open() {
-	document.getElementById("mySidebar").style.display = "block";
+function classOfActualDiagram() {
+	var className = document.querySelector(".class-name").innerHTML;
+	return (document.getElementById("checkObjects").checked ? "Clase " + className : "");
 }
 
-function w3_close() {
-	document.getElementById("mySidebar").style.display = "none";
+function nameOfActualDiagram() {
+	var methodName = document.querySelector(".method-name").innerHTML;
+	return (document.getElementById("checkObjects").checked ? "Método " : "Función ") + methodName;
 }
 
 init();

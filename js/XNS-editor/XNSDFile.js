@@ -16,10 +16,22 @@ function importDiagramProject() {
 	input.click();
 }
 
+function filename() {
+	var className = document.getElementById("xnsd-class-name-2").innerHTML;
+	var methodName = document.getElementById("xnsd-method-name-6").innerHTML;
+	var fileName;
+	if (document.getElementById("checkObjects").checked) {
+		fileName = "Clase-" + className + "-Método-" + methodName;
+	} else {
+		fileName = "Función-" + methodName;
+	}
+	return fileName;
+}
+
 function exportDiagramProject() {
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(diagramCont.innerHTML));
-	element.setAttribute('download', generateNameFile());
+	element.setAttribute('download', filename() + ".xnsd");
 	element.style.display = 'none';
 	document.body.appendChild(element);
 	element.click();
@@ -54,18 +66,6 @@ function exportDiagramImage() {
 			link.click();
 			hideArrows(false);
 		});
-}
-
-function generateNameFile() {
-	var className = document.getElementById("xnsd-class-name-2").innerHTML;
-	var methodName = document.getElementById("xnsd-method-name-6").innerHTML;
-	var fileName;
-	if (document.getElementById("checkObjects").checked) {
-		fileName = "Clase-" + className + "-Método-" + methodName;
-	} else {
-		fileName = "Función-" + methodName;
-	}
-	return fileName + ".xnsd";
 }
 
 function importDiagram(file) {

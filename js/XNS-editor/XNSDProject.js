@@ -1,7 +1,8 @@
-function XNSDProject(name, methods) {
+function XNSDProject(name, diagrams) {
 	this.name = name;
-	this.methods = methods;
-	this.addMethod = function () {
-
+	this.diagrams = diagrams;
+	this.addDiagram = function (diagram) {
+		this.diagrams.push(diagram);
+		appendDiagramInContainer(diagram);
 	}
 }

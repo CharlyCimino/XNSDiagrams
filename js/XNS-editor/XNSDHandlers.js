@@ -30,6 +30,11 @@ function handleOpen(e) {
 	methodParameters = document.getElementById("xnsd-method-parameters-7");
 	generateMenuItems();
 	handleResize();
+
+
+
+	project = new XNSDProject("Proyecto sin título", []);
+	project.addDiagram(new XNSDDiagram(classOfActualDiagram(), nameOfActualDiagram(), diagramCont.innerHTML));
 }
 
 function handleCheckColors(e) {

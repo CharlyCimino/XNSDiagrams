@@ -79,11 +79,9 @@
 		onclick="w3_open()">Diagramas</button>
 
 	<div id="main">
-		<div class="w3-sidebar w3-bar-block w3-border-right w3-animate-left" style="display:none" id="mySidebar">
-			<button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
-			<a href="#" class="w3-bar-item w3-button">Link 1</a>
-			<a href="#" class="w3-bar-item w3-button">Link 2</a>
-			<a href="#" class="w3-bar-item w3-button">Link 3</a>
+		<div class="w3-sidebar w3-bar-block w3-border-right w3-animate-left" style="display:none"
+			id="diagramsContainer">
+			<button onclick="w3_close()" class="w3-bar-item w3-large">Cerrar &times;</button>
 		</div>
 
 		<div id="menuContainer" class="w3-sidebar w3-animate-right">
@@ -118,8 +116,11 @@
 <script type="application/javascript" src="js/XNS-editor/dom-to-image.min.js"></script>
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDHandlers.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDMenu.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDiagram.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDProject.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDiagramsContainer.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDFile.js"></script>
 
 </html>
