@@ -1,3 +1,11 @@
+function setEvent(domElement, eventName, handler) {
+	if (document.body.addEventListener) {
+		domElement.addEventListener(eventName, handler);
+	} else {
+		domElement.attachEvent("on" + eventName, handler);
+	}
+}
+
 function handleDragEnd(e) {
 	applyClassInNode(true, "invisible", trash);
 	expandEmptys(false);
@@ -24,14 +32,10 @@ function handleResize(e) {
 }
 
 function handleOpen(e) {
-	appendDiagram(diagramCont, base);
-	diagramCont.lastChild.appendChild(newEmptyBlock());
-	localVars = document.getElementById("xnsd-local-variable-declaration-8");
-	methodParameters = document.getElementById("xnsd-method-parameters-7");
+	project = new XNSDProject("Proyecto sin título", []);
+	createNewDiagram();
 	generateMenuItems();
 	handleResize();
-	project = new XNSDProject("Proyecto sin título", []);
-	project.addDiagram(new XNSDDiagram(classOfActualDiagram(), nameOfActualDiagram(), diagramCont.innerHTML));
 }
 
 function handleCheckColors(e) {

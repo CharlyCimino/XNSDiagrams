@@ -109,6 +109,7 @@ html {
 
 #diagramsContainer {
 	width: 20%;
+	z-index: 3;
 }
 
 #diagramsContainer>.diagram-item>p:last-child {

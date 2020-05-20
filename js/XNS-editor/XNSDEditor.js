@@ -6,6 +6,7 @@ var localVars;
 var methodParameters;
 var xnsd = new XNSDiagramMaker();
 var project;
+var actualDiagram;
 
 function drag(e) {
 	if (this.template) {
@@ -166,13 +167,6 @@ function insertHeader(elem, description) {
 	elem.appendChild(title);
 }
 
-function setEvent(domElement, eventName, handler) {
-	if (document.body.addEventListener) {
-		domElement.addEventListener(eventName, handler);
-	} else {
-		domElement.attachEvent("on" + eventName, handler);
-	}
-}
 
 function clearAllChilds(node) {
 	while (node.firstChild) {
