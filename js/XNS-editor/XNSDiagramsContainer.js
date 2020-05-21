@@ -2,26 +2,41 @@ var newDiagramBtn = document.getElementById("newDiagram");
 var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
 var buttonOpenDiagrams = document.getElementById("buttonOpenDiagrams");
 var buttonCloseDiagrams = document.getElementById("buttonCloseDiagrams");
-setEvent(newDiagramBtn, "click", createNewDiagram);
+setEvent(newDiagramBtn, "click", function () { createNewDiagram(false) });
 setEvent(buttonOpenDiagrams, "click", openDiagramsContainer);
 setEvent(buttonCloseDiagrams, "click", closeDiagramsContainer);
 setEvent(viewAllDiagramsBtn, "click", null);
 
-function createNewDiagram() {
-	if (actualDiagram) {
+function createNewDiagram(openFlag) {
+	if (actualDiagram && !openFlag) {
 		saveActualDiagram();
 	}
 	diagramCont.innerHTML = "";
 	appendDiagram(diagramCont, base);
 	diagramCont.lastChild.appendChild(newEmptyBlock());
+	setActualDiagram();
+	project.addDiagram(actualDiagram);
+	appendDiagramInContainer(actualDiagram);
+}
+
+function setActualDiagram() {
 	localVars = document.querySelector("#diagram .local-variable-declaration");
 	methodParameters = document.querySelector("#diagram .method-parameters");
 	actualDiagram = new XNSDDiagram(classOfActualDiagram(), nameOfActualDiagram(), diagramCont.innerHTML);
-	project.addDiagram(actualDiagram);
 }
 
 function appendDiagramInContainer(diagram) {
 	diagramsContainer.appendChild(newDiagramItem(diagram.id, diagram.theClass, diagram.name));
+}
+
+function updateBeforeOpenProject() {
+	clearAllChilds(diagramsContainer);
+	actualDiagram = project.diagrams[0];
+	setActualDiagram();
+	project.diagrams.forEach(diagram => {
+		appendDiagramInContainer(diagram);
+	});
+	console.log(project);
 }
 
 function newDiagramItem(id, theClass, name) {
@@ -50,7 +65,6 @@ function handleClickInDiagramItem(e) {
 function saveActualDiagram() {
 	actualDiagram.setData(classOfActualDiagram(), nameOfActualDiagram(), diagramCont.innerHTML);
 	var item = document.getElementById(actualDiagram.id);
-	console.log(item);
 	if (item) {
 		setNameInItem(item, actualDiagram.theClass, actualDiagram.name);
 	}

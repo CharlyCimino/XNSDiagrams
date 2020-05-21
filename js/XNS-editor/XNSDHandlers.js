@@ -33,7 +33,7 @@ function handleResize(e) {
 
 function handleOpen(e) {
 	project = new XNSDProject("Proyecto sin título", []);
-	createNewDiagram();
+	createNewDiagram(false);
 	generateMenuItems();
 	handleResize();
 }

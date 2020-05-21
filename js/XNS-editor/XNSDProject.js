@@ -3,7 +3,6 @@ function XNSDProject(name, diagrams) {
 	this.diagrams = diagrams;
 	this.addDiagram = function (diagram) {
 		this.diagrams.push(diagram);
-		appendDiagramInContainer(diagram);
 	}
 	this.getDiagramById = function (id) {
 		var diag = null;

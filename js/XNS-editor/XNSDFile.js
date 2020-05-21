@@ -5,33 +5,25 @@ setEvent(importProjectBtn, "click", importProject);
 setEvent(exportProjectBtn, "click", exportProject);
 setEvent(exportPDFBtn, "click", exportPDF);
 
-function importDiagramProject() {
+function importProject() {
 	var input = document.getElementById('fileInput');
 	input.onchange = e => {
 		var file = e.target.files[0];
 		if (file) {
-			importDiagram(file);
+			openFile(file);
 		}
 	}
 	input.click();
 }
 
 function filename() {
-	var className = document.getElementById("xnsd-class-name-2").innerHTML;
-	var methodName = document.getElementById("xnsd-method-name-6").innerHTML;
-	var fileName;
-	if (document.getElementById("checkObjects").checked) {
-		fileName = "Clase-" + className + "-Método-" + methodName;
-	} else {
-		fileName = "Función-" + methodName;
-	}
-	return fileName;
+	return "prueba";
 }
 
 function exportProject() {
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(diagramCont.innerHTML));
-	element.setAttribute('download', filename() + ".xnsd");
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(project)));
+	element.setAttribute('download', filename() + ".nsplus");
 	element.style.display = 'none';
 	document.body.appendChild(element);
 	element.click();
@@ -59,19 +51,29 @@ function exportPDF() {
 	html2pdf().set(opt).from(toPrint).save();
 }
 
-function importProject(file) {
+function openFile(file) {
 	var reader = new FileReader();
 	// Closure to capture the file information.
 	reader.onload = (function (theFile) {
 		return function (e) {
-			diagramCont.innerHTML = e.target.result;
-			bindVarsAndSignature();
-			reAssignDragEvents();
-			reAssignSwitchEvents();
+			project = jsonToProject(toJSON(e.target.result));
+			updateBeforeOpenProject();
+			// diagramCont.innerHTML = e.target.result;
+			// bindVarsAndSignature();
+			// reAssignDragEvents();
+			// reAssignSwitchEvents();
 		};
 	})(file);
 	// Read in the image file as a data URL.
 	reader.readAsText(file);
+}
+
+function jsonToProject(projectJSON) {
+	var newD = new XNSDProject(projectJSON.name, []);
+	projectJSON.diagrams.forEach(diagram => {
+		newD.addDiagram(new XNSDDiagram(diagram.theClass, diagram.name, diagram.code));
+	});
+	return newD;
 }
 
 if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
