@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" type="text/css"
+		href="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/css/XNSDiagram.css" />
+	<script type="application/javascript"
+		src="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/js/XNS-core/html2canvas.js"></script>
+	<script type="application/javascript"
+		src="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/js/XNS-core/Enumeration.js"></script>
+	<script type="application/javascript"
+		src="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/js/XNS-core/ClassConstructor.js"></script>
+	<script type="application/javascript"
+		src="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/js/XNS-core/BaseDiagram.js"></script>
+	<script type="application/javascript"
+		src="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/js/XNS-core/DiagramObject.js"></script>
+	<script type="application/javascript"
+		src="D:/Users/caemci/Documents/Mis proyectos/javascript/XNSDiagrams/js/XNS-core/XNSDiagram.js"></script>
+	<style>
+		.Nassi-Shneiderman {
+			display: block;
+			padding: 5px;
+			margin: 5px;
+		}
+
+		img {
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+		}
+
+		.cabecera {
+			font-weight: 100;
+			font-size: 12pt;
+			color: #2c637f;
+			text-align: center;
+			font-family: "Consolas", monospace;
+		}
+
+		h1 {
+			text-align: center;
+			color: #2c637f;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+
+		#enunciado {
+			padding: 2% 5%;
+		}
+	</style>
+</head>
+
+<body>
+	<h1 class="cabecera" id="cabecera"></h1>
+	<h1>Diagrama de clases</h1>
+	<img src="" alt="" id="diagramaClases" />
+	<h1>Explotación de métodos</h1>
+
+	<div id="metodos"></div>
+</body>
+<script type="application/javascript" src="ORT-ProgI-p1-modelo-restaurante.js"></script>
+<script>
+	window.onload = function () {
+		var hoy = new Date().toLocaleDateString();
+		document.title = titulo + "-RESUELTO"; // titulo declarado en el .js
+		document.getElementById("cabecera").innerHTML = document.title + " | Ult modif: " + hoy; // titulo declarado en el .js
+		document.getElementById("diagramaClases").src = titulo + ".png"; // titulo declarado en el .js
+		diagramBuilder = new XNSDiagram();
+		metodosNS.forEach(metodo => {
+			var divNS = document.createElement("div");
+			document.getElementById("metodos").appendChild(divNS);
+			diagramBuilder.render(divNS, metodo);
+		});
+	};
+</script>
+
+</html>

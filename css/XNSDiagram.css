@@ -4,13 +4,13 @@
 	box-sizing: border-box;
 }
 
-#diagram {
+.Nassi-Shneiderman {
 	font-family: "Consolas", monospace;
 	font-size: 11pt;
 	color: #071c26;
 }
 
-#diagram .switch-button {
+.Nassi-Shneiderman .switch-button {
 	font-family: initial;
 }
 

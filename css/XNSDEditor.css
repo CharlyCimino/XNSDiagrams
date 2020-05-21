@@ -34,12 +34,12 @@ html {
 	display: none !important;
 }
 
-#diagram {
+.Nassi-Shneiderman {
 	overflow-y: auto;
 	padding: 8px;
 }
 
-#diagram>.statements {
+.Nassi-Shneiderman>.statements {
 	height: 85%;	
 }
 
