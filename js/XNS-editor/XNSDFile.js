@@ -1,9 +1,9 @@
-var importDiagramProjectBtn = document.getElementById("importDiagramProject");
-var exportDiagramProjectBtn = document.getElementById("exportDiagramProject");
-var exportDiagramImageBtn = document.getElementById("exportDiagramImage");
-setEvent(importDiagramProjectBtn, "click", importDiagramProject);
-setEvent(exportDiagramProjectBtn, "click", exportDiagramProject);
-setEvent(exportDiagramImageBtn, "click", exportDiagramImage);
+var importProjectBtn = document.getElementById("importProjectBtn");
+var exportProjectBtn = document.getElementById("exportProjectBtn");
+var exportPDFBtn = document.getElementById("exportPDFBtn");
+setEvent(importProjectBtn, "click", importProject);
+setEvent(exportProjectBtn, "click", exportProject);
+setEvent(exportPDFBtn, "click", exportPDF);
 
 function importDiagramProject() {
 	var input = document.getElementById('fileInput');
@@ -28,7 +28,7 @@ function filename() {
 	return fileName;
 }
 
-function exportDiagramProject() {
+function exportProject() {
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(diagramCont.innerHTML));
 	element.setAttribute('download', filename() + ".xnsd");
@@ -45,30 +45,21 @@ function hideArrows(flag) {
 	}
 }
 
-function exportDiagramImage() {
-	diagramCont.lastChild.style.height = "auto";
-	diagramCont.style.height = "auto";
-	hideArrows(true);
-	var options = {
-		quality: 0.95,
-		bgcolor: "white",
-		width: diagramCont.scrollWidth,
-		height: diagramCont.scrollHeight,
-		style: {
-			overflow: "visible"
-		}
+function exportPDF() {
+	saveActualDiagram();
+	project.appendInProjectPrint();
+	var toPrint = document.getElementById("projectPrint");
+	var opt = {
+		margin: 0.2,
+		filename: 'myfile.pdf',
+		image: { type: 'jpeg', quality: 1 },
+		jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
 	};
-	domtoimage.toJpeg(diagramCont, options)
-		.then(function (dataUrl) {
-			var link = document.createElement('a');
-			link.download = generateNameFile() + '.jpeg';
-			link.href = dataUrl;
-			link.click();
-			hideArrows(false);
-		});
+
+	html2pdf().set(opt).from(toPrint).save();
 }
 
-function importDiagram(file) {
+function importProject(file) {
 	var reader = new FileReader();
 	// Closure to capture the file information.
 	reader.onload = (function (theFile) {

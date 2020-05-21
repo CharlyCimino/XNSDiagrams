@@ -16,4 +16,13 @@ function XNSDProject(name, diagrams) {
 		}
 		return diag;
 	}
+	this.appendInProjectPrint = function () {
+		var target = document.getElementById("projectPrintDiagrams");
+		this.diagrams.forEach(diagram => {
+			var divNS = document.createElement("div");
+			divNS.innerHTML = diagram.code;
+			divNS.classList.add("Nassi-Shneiderman");
+			target.appendChild(divNS);
+		});
+	}
 }

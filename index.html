@@ -21,7 +21,7 @@
 		<img src="img/ort-logo-blanco.png" class="w3-image w3-bar-item" id="ortLogo" alt="ORTLogo" />
 		<img src="img/nsplus-logo-white.png" class="w3-image w3-bar-item" id="nsplusLogo" alt="NSPlusLogo" />
 		<div class="w3-bar-item">
-			<a type="button" class="w3-button w3-light-grey w3-hover-white" id="importDiagramProject"><i
+			<a type="button" class="w3-button w3-light-grey w3-hover-white" id="importProjectBtn"><i
 					class="fa fa-sm fa-sign-in"></i> Importar </a>
 			<input id="fileInput" type="file" accept=".xnsd" name="name" style="display: none;" />
 		</div>
@@ -29,10 +29,10 @@
 			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
 				Exportar <i class="fa fa-sm fa-caret-down"></i></button>
 			<div class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
-				<a href="#" id="exportDiagramProject" class="w3-button w3-light-grey w3-hover-indigo"><i
+				<a href="#" id="exportProjectBtn" class="w3-button w3-light-grey w3-hover-indigo"><i
 						class="fa fa-sm fa-file-code-o"></i> Como proyecto
 					(editable)</a>
-				<a href="#" id="exportDiagramImage" class="w3-button w3-light-grey w3-hover-indigo"><i
+				<a href="#" id="exportPDFBtn" class="w3-button w3-light-grey w3-hover-indigo"><i
 						class="fa fa-sm fa-file-image-o"></i> Como imagen
 					(final)</a>
 			</div>
@@ -105,6 +105,12 @@
 		</div>
 	</footer>
 
+	<div id="projectPrint">
+		<!-- <img src="" alt="" id="diagramaClases" /> -->
+		<!-- <h1>Explotación de métodos</h1> -->
+		<div id="projectPrintDiagrams"></div>
+	</div>
+
 </body>
 <script type="application/javascript" src="js/XNS-core/html2canvas.js"></script>
 <script type="application/javascript" src="js/XNS-core/Enumeration.js"></script>
@@ -113,6 +119,7 @@
 <script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
 <script type="application/javascript" src="js/XNS-core/XNSDiagramMaker.js"></script>
 <script type="application/javascript" src="js/XNS-editor/dom-to-image.min.js"></script>
+<script type="application/javascript" src="js/XNS-editor/html2pdf.bundle.min.js"></script>
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
 <script type="application/javascript" src="js/XNS-editor/utils.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDHandlers.js"></script>
