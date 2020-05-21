@@ -123,22 +123,6 @@ function insertStatementInTarget(target, statement) {
 	}
 }
 
-function applyClassInNode(flag, className, node) {
-	if (flag) {
-		node.classList.add(className);
-	} else {
-		node.classList.remove(className);
-	}
-}
-
-function toggleClass(element, theClass) {
-	if (element.className.indexOf(theClass) == -1) {
-		element.className += " " + theClass;
-	} else {
-		element.className = element.className.replace(" " + theClass, "");
-	}
-}
-
 function renderStatement(statement) {
 	var obj = xnsd[statement.type](statement.data);
 	obj.setAttribute("type", statement.type);
@@ -150,28 +134,11 @@ function newEmptyBlock() {
 	return xnsd.newBlock("empty", undefined, "true");
 }
 
-function toJSON(codeStr) {
-	var codeJson = {};
-	try {
-		codeJson = JSON.parse(codeStr);
-	} catch (e) {
-		console.log(e);
-	}
-	return codeJson;
-}
-
 function insertHeader(elem, description) {
 	var title = document.createElement("h2");
 	title.className = "external";
 	title.innerHTML = description + "<br/>&nbsp";
 	elem.appendChild(title);
-}
-
-
-function clearAllChilds(node) {
-	while (node.firstChild) {
-		node.removeChild(node.lastChild);
-	}
 }
 
 function appendDiagram(container, json) {
@@ -216,10 +183,6 @@ function makeDraggable(obj) {
 	setEvent(obj, "dragend", handleDragEnd);
 }
 
-function indexOfChild(child) {
-	return Array.from(child.parentNode.children).indexOf(child);
-}
-
 function setButtonsEvents() {
 	var diagramButtons = document.getElementById("diagramButtons").children;
 	for (let b = 0; b < diagramButtons.length; b++) {
@@ -258,12 +221,12 @@ function init() {
 
 function classOfActualDiagram() {
 	var className = document.querySelector(".class-name").innerHTML;
-	return (document.getElementById("checkObjects").checked ? "Clase " + className : "");
+	return (document.getElementById("checkObjects").checked ? className : "");
 }
 
 function nameOfActualDiagram() {
 	var methodName = document.querySelector(".method-name").innerHTML;
-	return (document.getElementById("checkObjects").checked ? "Método " : "Función ") + methodName;
+	return methodName;
 }
 
 init();

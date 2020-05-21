@@ -1,6 +1,10 @@
 var newDiagramBtn = document.getElementById("newDiagram");
 var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
+var buttonOpenDiagrams = document.getElementById("buttonOpenDiagrams");
+var buttonCloseDiagrams = document.getElementById("buttonCloseDiagrams");
 setEvent(newDiagramBtn, "click", createNewDiagram);
+setEvent(buttonOpenDiagrams, "click", openDiagramsContainer);
+setEvent(buttonCloseDiagrams, "click", closeDiagramsContainer);
 setEvent(viewAllDiagramsBtn, "click", null);
 
 function createNewDiagram() {
@@ -23,7 +27,7 @@ function appendDiagramInContainer(diagram) {
 function newDiagramItem(id, theClass, name) {
 	var btn = document.createElement("div");
 	btn.setAttribute("type", "button");
-	btn.classList.add("w3-bar-item", "w3-button", "w3-hover-light-gray", "diagram-item");
+	btn.classList.add("w3-button", "w3-padding-small", "w3-block", "w3-hover-indigo", "w3-rightbar", "w3-border-indigo", "w3-card-4", "w3-margin-top", "diagram-item");
 	btn.id = id;
 	setNameInItem(btn, theClass, name);
 	setEvent(btn, "click", handleClickInDiagramItem);
@@ -31,7 +35,7 @@ function newDiagramItem(id, theClass, name) {
 }
 
 function setNameInItem(item, theClass, name) {
-	item.innerHTML = "<p>" + theClass + "</p><p>" + name + "()</p>";
+	item.innerHTML = "<p>class " + theClass + ":</p><p>" + name + "()</p>";
 }
 
 function handleClickInDiagramItem(e) {
@@ -44,8 +48,6 @@ function handleClickInDiagramItem(e) {
 }
 
 function saveActualDiagram() {
-	console.log("El actual es " + actualDiagram.name);
-
 	actualDiagram.setData(classOfActualDiagram(), nameOfActualDiagram(), diagramCont.innerHTML);
 	var item = document.getElementById(actualDiagram.id);
 	console.log(item);
@@ -54,10 +56,12 @@ function saveActualDiagram() {
 	}
 }
 
-function w3_open() {
-	document.getElementById("diagramsContainer").style.display = "block";
+function openDiagramsContainer() {
+	applyClassInNode(false, "invisible", diagramsContainer);
+	applyClassInNode(true, "margin-left", document.getElementById("sectionDiagram"));
 }
 
-function w3_close() {
-	document.getElementById("diagramsContainer").style.display = "none";
+function closeDiagramsContainer() {
+	applyClassInNode(true, "invisible", diagramsContainer);
+	applyClassInNode(false, "margin-left", document.getElementById("sectionDiagram"));
 }
