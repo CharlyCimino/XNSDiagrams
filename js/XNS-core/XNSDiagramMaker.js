@@ -105,7 +105,7 @@ function eXtendendNassiShneiderman(params) {
 		function classDeclarationBuilder(className) {
 			var box = _self.newBlock("class-declaration");
 			appendFixedValue(box, "class");
-			box.appendChild(newInput(className, "class-name"));
+			box.appendChild(_self.newBlock("class-name", newInput(className)));
 			appendFixedValue(box, ":");
 			return box;
 		}
@@ -115,9 +115,9 @@ function eXtendendNassiShneiderman(params) {
 			methodDeclaration.appendChild(classDeclarationBuilder(methodDec["class"]));
 		}
 		var methodSignature = _self.newBlock("method-signature");
-		methodSignature.appendChild(_self.newBlock("method-modifiers", newInput(methodDec["modifiers"], "method-modifiers")));
-		methodSignature.appendChild(_self.newBlock("method-type", newInput(methodDec["type"], "method-type")));
-		methodSignature.appendChild(_self.newBlock("method-name", newInput(methodDec["name"], "method-name")));
+		methodSignature.appendChild(_self.newBlock("method-modifiers", newInput(methodDec["modifiers"])));
+		methodSignature.appendChild(_self.newBlock("method-type", newInput(methodDec["type"])));
+		methodSignature.appendChild(_self.newBlock("method-name", newInput(methodDec["name"])));
 		appendFixedValue(methodSignature, "(");
 		methodSignature.appendChild(_self.newBlock("method-parameters"));
 		appendFixedValue(methodSignature, ")");
@@ -265,7 +265,7 @@ function eXtendendNassiShneiderman(params) {
 	function _whileBuilder(obj) {
 		var box = _self.newBlock("while-statement block-container");
 		var conditionBlock = _self.newBlock("condition-block");
-		conditionBlock.appendChild(newInput(obj["condition"], "condition"));
+		conditionBlock.appendChild(_self.newBlock("condition", newInput(obj["condition"])));
 		box.appendChild(conditionBlock);
 		var container = _self.newBlock("container");
 		appendBlockOrEmpty(container, "side-while", "side-while");
@@ -279,7 +279,7 @@ function eXtendendNassiShneiderman(params) {
 		appendBlockOrEmpty(container, "statements", obj["statements"]);
 		var box = _self.newBlock("dowhile-statement block-container", container);
 		var conditionBlock = _self.newBlock("condition-block");
-		conditionBlock.appendChild(newInput(obj["condition"], "condition"));
+		conditionBlock.appendChild(_self.newBlock("condition", newInput(obj["condition"])));
 		box.appendChild(conditionBlock);
 		return box;
 	}
@@ -315,7 +315,7 @@ function eXtendendNassiShneiderman(params) {
 
 	function _callBuilder(obj) {
 		var box = _self.newBlock("call-statement", _self.newBlock("margin left", "&nbsp;"));
-		box.appendChild(newInput(obj["statement"], "call"));
+		box.appendChild(_self.newBlock("call", newInput(obj["statement"])));
 		box.appendChild(_self.newBlock("margin right", "&nbsp;"));
 		return box;
 	}
