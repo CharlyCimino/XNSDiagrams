@@ -78,11 +78,11 @@ function DiagramContainer() {
 		}
 	}
 	this.diagramClass = function () {
-		var className = document.querySelector("#actualDiagram .class-name").value;
+		var className = document.querySelector("#actualDiagram .class-name>.input-for-statement").value;
 		return (document.getElementById("checkObjects").checked ? className : "");
 	}
 	this.diagramName = function () {
-		return document.querySelector("#actualDiagram .method-name").value;
+		return document.querySelector("#actualDiagram .method-name>.input-for-statement").value;
 	}
 	this.setDiagramEvents = function () {
 		setEvent(this.container, "dragenter", handleDragOverInBlock);
