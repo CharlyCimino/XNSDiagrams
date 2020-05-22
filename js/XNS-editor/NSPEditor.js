@@ -212,11 +212,17 @@ function handleKeyDown(e) {
 	resizeInput(this);
 }
 
+function checkProjectName() {
+	if (!project.name) {
+		modalToSave.open();
+	}
+}
+
 function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
 	setTrashEvents();
-	project = new NSPProject("Proyecto sin título", []);
+	project = new NSPProject(undefined, []);
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
 	statementsMenu = new StatementsMenu();

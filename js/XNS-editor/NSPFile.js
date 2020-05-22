@@ -14,6 +14,7 @@ function filename() {
 }
 
 function exportProject() {
+	checkProjectName();
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(project)));
 	element.setAttribute('download', filename() + ".nsplus");
@@ -31,6 +32,7 @@ function hideArrows(flag) {
 }
 
 function exportPDF() {
+	checkProjectName();
 	saveActualDiagram();
 	project.appendInProjectPrint();
 	var toPrint = document.getElementById("projectPrint");

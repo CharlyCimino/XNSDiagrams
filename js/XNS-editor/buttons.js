@@ -12,7 +12,7 @@ var checkObjects = document.getElementById("checkObjects");
 setEvent(importProjectBtn, "click", importProject);
 
 setEvent(exportProjectBtn, "click", exportProject);
-setEvent(exportPDFBtn, "click", handleOpenModalToSave);
+setEvent(exportPDFBtn, "click", exportPDF);
 
 setInsertButtonsEvents();
 

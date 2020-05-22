@@ -1,4 +1,5 @@
 function ModalToSave() {
+	this.nameProject;
 	this.container = document.getElementById("modalToSave");
 	this.modalCloseSpan = document.getElementById("modalCloseSpan");
 	this.modalCloseBtn = document.getElementById("modalCloseBtn");

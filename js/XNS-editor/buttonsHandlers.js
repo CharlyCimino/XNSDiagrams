@@ -38,10 +38,6 @@ function handleCheckObjects(e) {
 	}
 }
 
-function handleOpenModalToSave(e) {
-	modalToSave.open();
-}
-
 function handleNewDiagram(e) {
 	updateDiagram();
 	diagramContainer.setInitialDiagram();
