@@ -80,7 +80,7 @@ function handleDragEnd(e) {
 }
 
 function collapseEmptys() {
-	var emptys = document.querySelectorAll("#diagram .empty");
+	var emptys = document.querySelectorAll("#actualDiagram .empty");
 	for (let e = 0; e < emptys.length; e++) {
 		applyClassInNode(false, "expand-empty", emptys[e]);
 		applyClassInNode(false, "empty-hover", emptys[e]);
@@ -88,7 +88,7 @@ function collapseEmptys() {
 }
 
 function expandEmptys(flag) {
-	var emptys = document.querySelectorAll("#diagram .empty");
+	var emptys = document.querySelectorAll("#actualDiagram .empty");
 	for (let e = 0; e < emptys.length; e++) {
 		applyClassInNode(flag, "expand-empty", emptys[e]);
 	}

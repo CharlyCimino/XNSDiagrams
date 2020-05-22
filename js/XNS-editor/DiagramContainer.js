@@ -1,5 +1,5 @@
 function DiagramContainer() {
-	this.container = document.getElementById("diagram");
+	this.container = document.getElementById("actualDiagram");
 	this.actualDiagram;
 	this.localVars;
 	this.methodParameters;
@@ -24,8 +24,8 @@ function DiagramContainer() {
 		this.reAssignDragEvents();
 	}
 	this.bindVarsAndSignature = function () {
-		this.localVars = document.querySelector("#diagram .local-variable-declaration");
-		this.methodParameters = document.querySelector("#diagram .method-parameters");
+		this.localVars = document.querySelector("#actualDiagram .local-variable-declaration");
+		this.methodParameters = document.querySelector("#actualDiagram .method-parameters");
 	}
 	this.appendButtonsInCase = function (theCase) {
 		// theCase.firstChild --> test-value
@@ -33,8 +33,8 @@ function DiagramContainer() {
 		theCase.firstChild.appendChild(this.newSwitchCaseButton("remove"));
 	}
 	this.reAssignSwitchEvents = function () {
-		var switchAddButtons = document.querySelectorAll("#diagram .switch-add-button");
-		var switchRemoveButtons = document.querySelectorAll("#diagram .switch-remove-button");
+		var switchAddButtons = document.querySelectorAll("#actualDiagram .switch-add-button");
+		var switchRemoveButtons = document.querySelectorAll("#actualDiagram .switch-remove-button");
 		for (let a = 0; a < switchAddButtons.length; a++) {
 			setEvent(switchAddButtons[a], "click", handleAddCaseSwitch);
 		}
@@ -62,7 +62,7 @@ function DiagramContainer() {
 		}
 	}
 	this.reAssignDragEvents = function () {
-		var draggables = document.querySelectorAll("#diagram [draggable=true]");
+		var draggables = document.querySelectorAll("#actualDiagram [draggable=true]");
 		for (let d = 0; d < draggables.length; d++) {
 			makeDraggable(draggables[d]);
 		}
@@ -78,11 +78,11 @@ function DiagramContainer() {
 		}
 	}
 	this.diagramClass = function () {
-		var className = document.querySelector("#diagram .class-name").value;
+		var className = document.querySelector("#actualDiagram .class-name").value;
 		return (document.getElementById("checkObjects").checked ? className : "");
 	}
 	this.diagramName = function () {
-		return document.querySelector("#diagram .method-name").value;
+		return document.querySelector("#actualDiagram .method-name").value;
 	}
 	this.setDiagramEvents = function () {
 		setEvent(this.container, "dragenter", handleDragOverInBlock);

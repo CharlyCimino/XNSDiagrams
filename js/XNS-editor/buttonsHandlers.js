@@ -56,6 +56,7 @@ function handleAddCaseSwitch(e) {
 	var newCase = diagramMaker["switch-case"](switchCaseTemplate);
 	diagramContainer.appendButtonsInCase(newCase);
 	targetCase.parentNode.insertBefore(newCase, targetCase);
+	resizeInputs();
 }
 
 function handleRemoveCaseSwitch(e) {
