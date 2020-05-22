@@ -4,6 +4,7 @@ var diagramContainer;
 var diagramsMenu;
 var statementsMenu;
 var PDF;
+var urlParams;
 var trash = document.getElementById("trash");
 
 function drag(e) {
@@ -221,7 +222,8 @@ function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
 	setTrashEvents();
-	project = new NSPProject();
+	urlParams = new URLSearchParams(window.location.search);
+	project = new NSPProject(urlParams.get('usuario'), urlParams.get('curso'));
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
 	statementsMenu = new StatementsMenu();

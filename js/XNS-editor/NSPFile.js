@@ -13,12 +13,13 @@ function exportProjectForPupil() {
 	exportProject(project.getForExport());
 }
 
-function exportSimple() {
+function exportProjectSimple() {
 	exportProject(project.getForExportSimple());
 }
 
 function exportProject(obj) {
 	updateDiagram();
+	project.end();
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
 	element.setAttribute('download', project.name + ".nsplus");
@@ -35,9 +36,18 @@ function hideArrows(flag) {
 	}
 }
 
-function exportPDF() {
+function exportPDFForPupil() {
+	exportPDF(false);
+}
+
+function exportPDFSimple() {
+	exportPDF(true);
+}
+
+function exportPDF(simpleFlag) {
 	updateDiagram();
-	PDF.setProject(project);
+	project.end();
+	PDF.setProject(project, simpleFlag);
 	toggleClass(PDF.container, "invisible");
 	printJS({
 		printable: 'projectPrint',
@@ -50,29 +60,7 @@ function exportPDF() {
 			'css/NSPPDF.css',
 			'css/NSPColors.css']
 	});
-
-	// var doc = new jsPDF({
-	// 	orientation: 'landscape',
-	// 	unit: 'in',
-	// 	format: 'a4'
-	// })
-
-	// doc.text('Hello world!', 1, 1)
-	// doc.save('two-by-four.pdf')
-
-
-
-
-	// var opt = {
-	// 	margin: 0.2,
-	// 	filename: project.name + '.pdf',
-	// 	image: { type: 'jpg', quality: 1 },
-	// 	jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-	// };
-	// html2pdf().set(opt).from(PDF.container).save();
-	// setTimeout(() => {
-	// 	toggleClass(PDF.container, "invisible");
-	// }, 1000);
+	toggleClass(PDF.container, "invisible");
 }
 
 function openFile(file) {

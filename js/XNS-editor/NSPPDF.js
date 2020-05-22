@@ -1,22 +1,26 @@
 function NSPPDF() {
 	this.container = document.getElementById("projectPrint");
 	this.title = document.getElementById("PDFTitle");
+	this.subTitle = document.getElementById("PDFSubTitle");
 	this.autor = document.getElementById("PDFAutor");
 	this.comission = document.getElementById("PDFComission");
 	this.date = document.getElementById("PDFDate");
 	this.minutes = document.getElementById("PDFMinutes");
 	this.printDiagrams = document.getElementById("projectPrintDiagrams");
-	this.setProject = function (project) {
+	this.setProject = function (project, simpleFlag) {
+		applyClassInNode(simpleFlag, "invisible", this.subTitle);
 		this.printDiagrams.innerHTML = "";
 		this.title.innerHTML = project.name;
 		this.autor.innerHTML = project.autor;
 		this.comission.innerHTML = project.comission;
-		this.date.innerHTML = project.date;
-		this.minutes.innerHTML = project.minutes;
+		this.date.innerHTML = project.date.toLocaleString();
+		this.minutes.innerHTML = project.minutes + " minutos";
 		var wmString = this.watermarkStr();
 		project.diagrams.forEach(diagram => {
 			var divNS = document.createElement("div");
-			divNS.appendChild(this.newWaterMark(wmString));
+			if (!simpleFlag) {
+				divNS.appendChild(this.newWaterMark(wmString));
+			}
 			divNS.innerHTML += diagram.code;
 			divNS.classList.add("Nassi-Shneiderman");
 			this.printDiagrams.appendChild(divNS);

@@ -15,12 +15,15 @@
 }
 
 #projectPrint {
-	width: 50%;
+	
+	display: block;
+	width: 70%;
+	margin: 0 auto;
 	clear: both;
-	background-color: white;
 }
 
 #projectPrint .Nassi-Shneiderman {
+	overflow: hidden;
 	width: 100%;
 	position: relative;
 	margin-top: 10px;

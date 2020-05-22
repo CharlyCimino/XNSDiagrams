@@ -1,9 +1,9 @@
-function NSPProject() {
+function NSPProject(autor, comission) {
 	this.DEFAULT_NAME = "Proyecto sin título";
 	this.nameContainer = document.getElementById("inputProjectName");
 	this.name = this.DEFAULT_NAME;
-	this.autor = "Fulano Sultano Gonzalez Mengano";
-	this.comission = "YA-FPRA";
+	this.autor = autor;
+	this.comission = comission;
 	this.dateStart = new Date();
 	this.date;
 	this.minutes;
@@ -33,8 +33,10 @@ function NSPProject() {
 		this.setName(name);
 		this.autor = autor;
 		this.comission = comission;
+	}
+	this.end = function () {
 		this.date = new Date();
-		this.minutes = this.calculateMinutes(actual);
+		this.minutes = this.calculateMinutes(this.date);
 	}
 	this.calculateMinutes = function (actual) {
 		var diff = actual.getTime() - this.dateStart.getTime();
@@ -48,7 +50,7 @@ function NSPProject() {
 			"autor": this.autor,
 			"comission": this.comission,
 			"diagrams": this.diagrams,
-			"date": this.date.toLocaleString(),
+			"date": this.date,
 			"minutes": this.minutes
 		}
 	}
