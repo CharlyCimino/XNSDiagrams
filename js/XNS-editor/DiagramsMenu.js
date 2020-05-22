@@ -10,11 +10,8 @@ function DiagramsMenu() {
 		clearAllChilds(this.itemsContainer);
 	}
 	this.updateDiagram = function (diagram) {
-		console.log("Va a buscar " + diagram.id);
-
 		var itemFound = this.getDiagramItemById("item-" + diagram.id);
 		if (itemFound) {
-			console.log("Se va a actualizar " + itemFound.diagram.name + " a " + diagram.name);
 			this.setNameInItem(itemFound, diagram.theClass, diagram.name)
 		}
 	}

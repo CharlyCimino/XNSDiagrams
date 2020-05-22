@@ -11,7 +11,7 @@ var checkObjects = document.getElementById("checkObjects");
 
 setEvent(importProjectBtn, "click", importProject);
 
-setEvent(exportProjectBtn, "click", exportProject);
+setEvent(exportProjectBtn, "click", exportProjectForPupil);
 setEvent(exportPDFBtn, "click", exportPDF);
 
 setInsertButtonsEvents();

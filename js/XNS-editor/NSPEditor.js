@@ -3,6 +3,7 @@ var project;
 var diagramContainer;
 var diagramsMenu;
 var statementsMenu;
+var PDF;
 var trash = document.getElementById("trash");
 
 function drag(e) {
@@ -224,6 +225,7 @@ function init() {
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
 	statementsMenu = new StatementsMenu();
+	PDF = new NSPPDF();
 	addDiagram(diagramContainer.actualDiagram);
 	resizeInputs();
 	handleInputs();

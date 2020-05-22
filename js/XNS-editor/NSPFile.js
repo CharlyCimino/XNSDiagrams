@@ -9,10 +9,18 @@ function importProject() {
 	input.click();
 }
 
-function exportProject() {
+function exportProjectForPupil() {
+	exportProject(project.getForExport());
+}
+
+function exportSimple() {
+	exportProject(project.getForExportSimple());
+}
+
+function exportProject(obj) {
 	updateDiagram();
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(project.getForExport())));
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
 	element.setAttribute('download', project.name + ".nsplus");
 	element.style.display = 'none';
 	document.body.appendChild(element);
@@ -29,16 +37,42 @@ function hideArrows(flag) {
 
 function exportPDF() {
 	updateDiagram();
-	project.appendInProjectPrint();
-	var toPrint = document.getElementById("projectPrint");
-	var opt = {
-		margin: 0.2,
-		filename: project.name + '.pdf',
-		image: { type: 'jpeg', quality: 1 },
-		jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-	};
+	PDF.setProject(project);
+	toggleClass(PDF.container, "invisible");
+	printJS({
+		printable: 'projectPrint',
+		type: 'html',
+		documentTitle: PDF.title,
+		base64: true,
+		css: ['css/w3.css',
+			'css/NSPDiagram.css',
+			'css/NSPEditor.css',
+			'css/NSPPDF.css',
+			'css/NSPColors.css']
+	});
 
-	html2pdf().set(opt).from(toPrint).save();
+	// var doc = new jsPDF({
+	// 	orientation: 'landscape',
+	// 	unit: 'in',
+	// 	format: 'a4'
+	// })
+
+	// doc.text('Hello world!', 1, 1)
+	// doc.save('two-by-four.pdf')
+
+
+
+
+	// var opt = {
+	// 	margin: 0.2,
+	// 	filename: project.name + '.pdf',
+	// 	image: { type: 'jpg', quality: 1 },
+	// 	jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+	// };
+	// html2pdf().set(opt).from(PDF.container).save();
+	// setTimeout(() => {
+	// 	toggleClass(PDF.container, "invisible");
+	// }, 1000);
 }
 
 function openFile(file) {
@@ -55,12 +89,12 @@ function openFile(file) {
 }
 
 function jsonToProject(projectJSON) {
-	var newD = new NSPProject();
-	newD.setName(projectJSON.name);
+	var newP = new NSPProject();
+	newP.setData(projectJSON.name, projectJSON.autor, projectJSON.comission);
 	projectJSON.diagrams.forEach(diagram => {
-		newD.addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code));
+		newP.addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code));
 	});
-	return newD;
+	return newP;
 }
 
 if (!(window.File && window.FileReader && window.FileList && window.Blob)) {

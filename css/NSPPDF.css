@@ -1,0 +1,50 @@
+#ortLogoPDF {
+	width: 100%;
+	max-width: 100px;
+	float: left;
+}
+
+#nsplusLogoPDF {
+	width: 100%;
+	max-width: 118px;
+	float: right;
+}
+
+.PDFHeader * {
+	font-family: Verdana,sans-serif !important;
+}
+
+#projectPrint {
+	width: 50%;
+	clear: both;
+	background-color: white;
+}
+
+#projectPrint .Nassi-Shneiderman {
+	width: 100%;
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#projectPrint .Nassi-Shneiderman:last-child {
+	margin-bottom: 0;
+}
+
+#projectPrint .Nassi-Shneiderman .statements,
+#projectPrint .Nassi-Shneiderman {
+	height: auto;
+}
+
+.watermark {
+	height: auto;
+	width: auto;
+	opacity: 0.15;
+	position: absolute;
+	overflow: hidden;
+	top: 1%;
+	right: 1%;
+	color: black;
+	pointer-events: none;
+	z-index: 3;
+}

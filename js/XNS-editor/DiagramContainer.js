@@ -6,14 +6,10 @@ function DiagramContainer() {
 	this.setDiagram = function (diagram) {
 		this.container.innerHTML = "";
 		this.actualDiagram = diagram;
-		console.log("Codigo: " + diagram.code);
-
 		this.container.innerHTML = diagram.code;
 		this.reAssignEvents();
 	}
 	this.refresh = function () {
-		console.log(this.container.innerHTML);
-
 		this.actualDiagram.setData(this.diagramClass(), this.diagramName(), this.container.innerHTML);
 	}
 	this.setInitialDiagram = function () {

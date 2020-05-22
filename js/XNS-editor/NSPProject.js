@@ -2,6 +2,11 @@ function NSPProject() {
 	this.DEFAULT_NAME = "Proyecto sin título";
 	this.nameContainer = document.getElementById("inputProjectName");
 	this.name = this.DEFAULT_NAME;
+	this.autor = "Fulano Sultano Gonzalez Mengano";
+	this.comission = "YA-FPRA";
+	this.dateStart = new Date();
+	this.date;
+	this.minutes;
 	this.diagrams = [];
 	this.addDiagram = function (diagram) {
 		this.diagrams.push(diagram);
@@ -17,15 +22,6 @@ function NSPProject() {
 		}
 		return diag;
 	}
-	this.appendInProjectPrint = function () {
-		var target = document.getElementById("projectPrintDiagrams");
-		this.diagrams.forEach(diagram => {
-			var divNS = document.createElement("div");
-			divNS.innerHTML = diagram.code;
-			divNS.classList.add("Nassi-Shneiderman");
-			target.appendChild(divNS);
-		});
-	}
 	this.getName = function () {
 		return this.name;
 	}
@@ -33,10 +29,33 @@ function NSPProject() {
 		this.name = name;
 		this.nameContainer.value = name;
 	}
+	this.setData = function (name, autor, comission) {
+		this.setName(name);
+		this.autor = autor;
+		this.comission = comission;
+		this.date = new Date();
+		this.minutes = this.calculateMinutes(actual);
+	}
+	this.calculateMinutes = function (actual) {
+		var diff = actual.getTime() - this.dateStart.getTime();
+		// ms --> minutes
+		return Math.trunc(diff / (1000 * 60));
+	}
 	this.getForExport = function () {
+		this.date = new Date();
 		return {
 			"name": this.name,
-			"diagrams": this.diagrams
+			"autor": this.autor,
+			"comission": this.comission,
+			"diagrams": this.diagrams,
+			"date": this.date.toLocaleString(),
+			"minutes": this.minutes
+		}
+	}
+	this.getForExportSimple = function () {
+		return {
+			"name": this.name,
+			"diagrams": this.diagrams,
 		}
 	}
 	setEvent(this.nameContainer, "change", () => { this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME); });

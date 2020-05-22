@@ -8,12 +8,13 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="css/w3.css" />
-	<link rel="stylesheet" type="text/css" href="css/XNSDiagram.css" />
-	<link rel="stylesheet" type="text/css" href="css/XNSDEditor.css" />
-	<link rel="stylesheet" type="text/css" href="css/XNSDMenu.css" />
+	<link rel="stylesheet" type="text/css" href="css/NSPDiagram.css" />
+	<link rel="stylesheet" type="text/css" href="css/NSPEditor.css" />
+	<link rel="stylesheet" type="text/css" href="css/NSPMenu.css" />
+	<link rel="stylesheet" type="text/css" href="css/NSPPDF.css" />
 	<link rel="stylesheet" type="text/css" href="css/animations.css" />
 	<link rel="stylesheet" type="text/css" href="css/switch-button.css" />
-	<link rel="stylesheet" type="text/css" href="css/XNSColors.css" id="css/XNSColors.css" />
+	<link rel="stylesheet" type="text/css" href="css/NSPColors.css" id="css/NSPColors.css" />
 </head>
 
 <body>
@@ -98,9 +99,18 @@
 		</div>
 	</footer>
 
-	<div id="projectPrint" class="w3-container">
-		<!-- <img src="" alt="" id="diagramaClases" /> -->
-		<!-- <h1>Explotación de métodos</h1> -->
+	<div id="projectPrint" class="w3-container invisible">
+		<div class="PDFHeader">
+			<img src="img/ort-logo-original.png" class="w3-image w3-bar-item" id="ortLogoPDF" alt="ORTLogo" />
+			<img src="img/nsplus-logo-indigo.png" class="w3-image w3-bar-item" id="nsplusLogoPDF" alt="NSPlusLogo" />
+			<h1 id="PDFTitle" class="w3-large w3-center">ORT-YA-ProgI-muestra-colas</h1>
+			<h2 class="PDFSubTitle w3-small w3-center">
+				<span id="PDFAutor">Fulano Sultano Gonzalez Mengano</span> |
+				<span id="PDFComission">YA-FPRA</span> |
+				<span id="PDFDate">22/5/2020 17:24:30</span> |
+				<span id="PDFMinutes">120 minutos</span>
+			</h2>
+		</div>
 		<div id="projectPrintDiagrams"></div>
 	</div>
 
@@ -111,10 +121,10 @@
 <script type="application/javascript" src="js/XNS-core/BaseDiagram.js"></script>
 <script type="application/javascript" src="js/XNS-core/DiagramObject.js"></script>
 <script type="application/javascript" src="js/XNS-core/XNSDiagramMaker.js"></script>
-<script type="application/javascript" src="js/XNS-editor/dom-to-image.min.js"></script>
-<script type="application/javascript" src="js/XNS-editor/html2pdf.bundle.min.js"></script>
+<script type="application/javascript" src="js/XNS-editor/print.min.js"></script>
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
 <script type="application/javascript" src="js/XNS-editor/utils.js"></script>
+<script type="application/javascript" src="js/XNS-editor/NSPPDF.js"></script>
 <script type="application/javascript" src="js/XNS-editor/NSPFile.js"></script>
 <script type="application/javascript" src="js/XNS-editor/DiagramContainer.js"></script>
 <script type="application/javascript" src="js/XNS-editor/DiagramsMenu.js"></script>
