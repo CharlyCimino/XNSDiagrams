@@ -61,7 +61,7 @@
 
 .local-variable-declaration>.variable-declaration,
 .local-variable-declaration>.initialized-variable-declaration,
-.local-variable-declaration>.initialized-variable-declaration>.assignment-statement {
+.local-variable-declaration>.initialized-variable-declaration>* {
 	display: inline-block;
 	margin: 1pt 5pt;
 }
@@ -76,6 +76,7 @@
 .local-variable-declaration>.variable-declaration>.type,
 .local-variable-declaration>.variable-declaration>.name,
 .local-variable-declaration>.initialized-variable-declaration>.type {
+	display: inline-block;
 	margin: 0pt 2pt;
 }
 

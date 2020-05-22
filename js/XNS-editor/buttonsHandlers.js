@@ -1,6 +1,8 @@
 function handleClickButtonDiagram(ev) {
 	var id = ev.target.id;
 	var idx = indexOfChild(ev.target);
+	console.log(buttonsDiagramTemplates[idx]);
+
 	obj = diagramMaker[id](buttonsDiagramTemplates[idx]);
 	makeDraggable(obj);
 	switch (idx) {
@@ -15,6 +17,7 @@ function handleClickButtonDiagram(ev) {
 			diagramContainer.localVars.appendChild(obj);
 			break;
 	}
+	resizeInputs();
 }
 
 function handleCheckColors(e) {

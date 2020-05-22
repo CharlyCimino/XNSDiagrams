@@ -67,6 +67,7 @@ function eXtendendNassiShneiderman(params) {
 			input.classList.add(className);
 		}
 		input.setAttribute("type", "text");
+		console.log(value);
 		input.setAttribute("value", value);
 		return input;
 	}
@@ -114,9 +115,9 @@ function eXtendendNassiShneiderman(params) {
 			methodDeclaration.appendChild(classDeclarationBuilder(methodDec["class"]));
 		}
 		var methodSignature = _self.newBlock("method-signature");
-		methodSignature.appendChild(newInput(methodDec["modifiers"], "method-modifiers"));
-		methodSignature.appendChild(newInput(methodDec["type"], "method-type"));
-		methodSignature.appendChild(newInput(methodDec["name"], "method-name"));
+		methodSignature.appendChild(_self.newBlock("method-modifiers", newInput(methodDec["modifiers"], "method-modifiers")));
+		methodSignature.appendChild(_self.newBlock("method-type", newInput(methodDec["type"], "method-type")));
+		methodSignature.appendChild(_self.newBlock("method-name", newInput(methodDec["name"], "method-name")));
 		appendFixedValue(methodSignature, "(");
 		methodSignature.appendChild(_self.newBlock("method-parameters"));
 		appendFixedValue(methodSignature, ")");
@@ -141,8 +142,8 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function typeNameBuilder(obj, containerName) {
-		var type = newInput(obj["type"]);
-		var name = newInput(obj["name"]);
+		var type = _self.newBlock("type", newInput(obj["type"]));
+		var name = _self.newBlock("name", newInput(obj["name"]));
 		var container = _self.newBlock(containerName);
 		appendFixedValue(container, getAnchorIcon());
 		container.appendChild(type);
@@ -163,10 +164,8 @@ function eXtendendNassiShneiderman(params) {
 	}
 
 	function _initializedVariableDeclarationBuilder(obj) {
-		var type = newInput(obj["type"]);
-		var name = newInput(obj["name"]);
-		var value = newInput(obj["value"]);
-		var assignment = _assignmentBuilder({ "variable": name, "value": value });
+		var type = _self.newBlock("type", newInput(obj["type"]));
+		var assignment = _assignmentBuilder({ "variable": obj["name"], "value": obj["value"] });
 		var initializedVariableDeclaration = _self.newBlock("initialized-variable-declaration");
 		appendFixedValue(initializedVariableDeclaration, getAnchorIcon());
 		initializedVariableDeclaration.appendChild(type);
@@ -188,7 +187,7 @@ function eXtendendNassiShneiderman(params) {
 
 	function _blockBuilder(obj) {
 		var box = _self.newBlock("block-statement");
-		box.appendChild(newInput(obj["content"]));
+		box.appendChild(_self.newBlock("content", newInput(obj["content"])));
 		return box;
 	}
 
