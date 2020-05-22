@@ -67,7 +67,6 @@ function eXtendendNassiShneiderman(params) {
 			input.classList.add(className);
 		}
 		input.setAttribute("type", "text");
-		console.log(value);
 		input.setAttribute("value", value);
 		return input;
 	}

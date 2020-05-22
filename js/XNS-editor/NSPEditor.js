@@ -3,6 +3,7 @@ var project;
 var diagramContainer;
 var diagramsMenu;
 var statementsMenu;
+var modalToSave;
 var trash = document.getElementById("trash");
 
 function drag(e) {
@@ -218,7 +219,8 @@ function init() {
 	project = new NSPProject("Proyecto sin título", []);
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
-	statementsMenu = new StatementsMenu()
+	statementsMenu = new StatementsMenu();
+	modalToSave = new ModalToSave();
 	addDiagram(diagramContainer.actualDiagram);
 	resizeInputs();
 	handleInputs();

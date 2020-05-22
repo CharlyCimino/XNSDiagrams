@@ -124,3 +124,7 @@ html {
 #diagramsContainer>.diagram-item>p:last-child {
 	text-indent: 10%;
 }
+
+#modalToSave {
+	display: block;
+}
