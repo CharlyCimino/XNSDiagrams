@@ -1,4 +1,4 @@
-function XNSDProject(name, diagrams) {
+function NSPProject(name, diagrams) {
 	this.name = name;
 	this.diagrams = diagrams;
 	this.addDiagram = function (diagram) {

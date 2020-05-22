@@ -1,9 +1,9 @@
+var diagramMaker = new XNSDiagramMaker();
 var project;
 var diagramContainer;
 var diagramsMenu;
+var statementsMenu;
 var trash = document.getElementById("trash");
-
-var diagramMaker = new XNSDiagramMaker();
 
 function drag(e) {
 	if (this.template) {
@@ -65,6 +65,7 @@ function handleDragOverInBlock(ev) {
 		toggleClass(ev.target, "empty-hover");
 	}
 }
+
 function handleDragLeaveInBlock(ev) {
 	if (ev.target.classList.contains("empty")) {
 		toggleClass(ev.target, "empty-hover");
@@ -90,7 +91,6 @@ function expandEmptys(flag) {
 		applyClassInNode(flag, "expand-empty", emptys[e]);
 	}
 }
-
 
 function deleteStatement(statement, deleteEmpty) {
 	if (deleteEmpty) {
@@ -156,9 +156,6 @@ function updateBeforeOpenProject() {
 	console.log(project);
 }
 
-
-
-
 function reSize() {
 	var headerHeight = parseFloat(window.getComputedStyle(document.getElementById("header")).height);
 	var footerHeight = parseFloat(window.getComputedStyle(document.getElementById("footer")).height);
@@ -175,9 +172,6 @@ function reSize() {
 	this.diagramContainer.container.style.height = newSectionDiagramHeight - paddingTopSection - paddingBottomSection;
 }
 
-function updateAndSetDiagram(diagram) {
-}
-
 function addDiagram(diagram) {
 	diagramsMenu.addDiagram(diagram);
 	project.addDiagram(diagram);
@@ -191,11 +185,11 @@ function updateDiagram() {
 function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
-	generateMenuItems();
 	setTrashEvents();
-	project = new XNSDProject("Proyecto sin título", []);
+	project = new NSPProject("Proyecto sin título", []);
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
+	statementsMenu = new StatementsMenu();
 	addDiagram(diagramContainer.actualDiagram);
 }
 
