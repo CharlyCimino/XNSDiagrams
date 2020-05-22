@@ -3,7 +3,6 @@ var project;
 var diagramContainer;
 var diagramsMenu;
 var statementsMenu;
-var modalToSave;
 var trash = document.getElementById("trash");
 
 function drag(e) {
@@ -150,13 +149,13 @@ function setTrashEvents() {
 }
 
 function updateBeforeOpenProject() {
-	clearAllChilds(diagramsContainer);
-	actualDiagram = project.diagrams[0];
-	setActualDiagram();
+	diagramsMenu.clear();
+	if (project.diagrams.length != 0) {
+		diagramContainer.setDiagram(project.diagrams[0]);
+	}
 	project.diagrams.forEach(diagram => {
-		appendDiagramInContainer(diagram);
+		diagramsMenu.addDiagram(diagram);
 	});
-	console.log(project);
 }
 
 function reSize() {
@@ -201,6 +200,7 @@ function resizeInputs() {
 
 function handleInput(inputObj) {
 	setEvent(inputObj, "input", handleKeyDown);
+	setEvent(inputObj, "change", handleChangeInput);
 }
 
 function resizeInput(inputObj) {
@@ -212,10 +212,8 @@ function handleKeyDown(e) {
 	resizeInput(this);
 }
 
-function checkProjectName() {
-	if (!project.name) {
-		modalToSave.open();
-	}
+function handleChangeInput(e) {
+	this.setAttribute("value", this.value);
 }
 
 function init() {
@@ -226,7 +224,6 @@ function init() {
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
 	statementsMenu = new StatementsMenu();
-	modalToSave = new ModalToSave();
 	addDiagram(diagramContainer.actualDiagram);
 	resizeInputs();
 	handleInputs();

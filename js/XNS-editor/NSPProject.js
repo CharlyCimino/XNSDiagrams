@@ -33,5 +33,11 @@ function NSPProject() {
 		this.name = name;
 		this.nameContainer.value = name;
 	}
+	this.getForExport = function () {
+		return {
+			"name": this.name,
+			"diagrams": this.diagrams
+		}
+	}
 	setEvent(this.nameContainer, "change", () => { this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME); });
 }

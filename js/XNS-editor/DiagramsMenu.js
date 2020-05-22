@@ -1,14 +1,20 @@
 function DiagramsMenu() {
 	this.container = document.getElementById("diagramsContainer");
+	this.itemsContainer = document.getElementById("diagramsItemsContainer");
 	this.buttonOpenDiagrams = document.getElementById("buttonOpenDiagrams");
 	this.buttonCloseDiagrams = document.getElementById("buttonCloseDiagrams");
 	this.addDiagram = function (diagram) {
-		this.container.appendChild(this.newDiagramItem(diagram));
+		this.itemsContainer.appendChild(this.newDiagramItem(diagram));
+	}
+	this.clear = function () {
+		clearAllChilds(this.itemsContainer);
 	}
 	this.updateDiagram = function (diagram) {
+		console.log("Va a buscar " + diagram.id);
+
 		var itemFound = this.getDiagramItemById("item-" + diagram.id);
-		console.log("Se va a actualizar " + itemFound.diagram.name + " a " + diagram.name);
 		if (itemFound) {
+			console.log("Se va a actualizar " + itemFound.diagram.name + " a " + diagram.name);
 			this.setNameInItem(itemFound, diagram.theClass, diagram.name)
 		}
 	}
@@ -23,9 +29,9 @@ function DiagramsMenu() {
 		return btn;
 	}
 	this.getDiagramItemById = function (id) {
-		var items = this.container.children;
+		var items = this.itemsContainer.children;
 		var diag = null;
-		var i = 1; // 0 is close button
+		var i = 0;
 		while (i < items.length && items[i].id != id) {
 			i++;
 		}

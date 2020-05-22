@@ -71,6 +71,9 @@
 				<button id="viewAllDiagrams" class="w3-block w3-button w3-indigo w3-hover-indigo">Ver diagramas <i
 						class="fa fa-desktop"></i></button>
 			</div>
+			<div id="diagramsItemsContainer">
+
+			</div>
 		</div>
 
 		<div id="menuContainer" class="w3-sidebar w3-animate-right">
@@ -95,30 +98,6 @@
 		</div>
 	</footer>
 
-	<div id="modalToSave" class="w3-modal invisible">
-		<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-			<div class="w3-center"><br>
-				<span id="modalCloseSpan" class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-					title="Close Modal">&times;</span>
-			</div>
-
-			<form class="w3-container">
-				<div class="w3-section">
-					<label><b>Título del proyecto</b></label>
-					<input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Proyecto sin título">
-				</div>
-			</form>
-
-			<div class="w3-container w3-bar w3-border-top w3-padding-16 w3-light-grey">
-				<button id="modalCloseBtn" type="button" class="w3-button w3-bar-item w3-right w3-red">Cancelar</button>
-				<button id="modalSaveBtn" type="button"
-					class="w3-button w3-bar-item w3-right w3-indigo">Guardar</button>
-			</div>
-
-		</div>
-	</div>
-
 	<div id="projectPrint" class="w3-container">
 		<!-- <img src="" alt="" id="diagramaClases" /> -->
 		<!-- <h1>Explotación de métodos</h1> -->
@@ -137,7 +116,6 @@
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
 <script type="application/javascript" src="js/XNS-editor/utils.js"></script>
 <script type="application/javascript" src="js/XNS-editor/NSPFile.js"></script>
-<script type="application/javascript" src="js/XNS-editor/ModalToSave.js"></script>
 <script type="application/javascript" src="js/XNS-editor/DiagramContainer.js"></script>
 <script type="application/javascript" src="js/XNS-editor/DiagramsMenu.js"></script>
 <script type="application/javascript" src="js/XNS-editor/buttonsHandlers.js"></script>

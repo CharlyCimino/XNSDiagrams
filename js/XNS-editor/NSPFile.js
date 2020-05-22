@@ -9,15 +9,11 @@ function importProject() {
 	input.click();
 }
 
-function filename() {
-	return "prueba";
-}
-
 function exportProject() {
-	checkProjectName();
+	updateDiagram();
 	var element = document.createElement('a');
-	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(project)));
-	element.setAttribute('download', filename() + ".nsplus");
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(project.getForExport())));
+	element.setAttribute('download', project.name + ".nsplus");
 	element.style.display = 'none';
 	document.body.appendChild(element);
 	element.click();
@@ -32,13 +28,12 @@ function hideArrows(flag) {
 }
 
 function exportPDF() {
-	checkProjectName();
-	saveActualDiagram();
+	updateDiagram();
 	project.appendInProjectPrint();
 	var toPrint = document.getElementById("projectPrint");
 	var opt = {
 		margin: 0.2,
-		filename: 'myfile.pdf',
+		filename: project.name + '.pdf',
 		image: { type: 'jpeg', quality: 1 },
 		jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
 	};
@@ -60,9 +55,10 @@ function openFile(file) {
 }
 
 function jsonToProject(projectJSON) {
-	var newD = new XNSDProject(projectJSON.name, []);
+	var newD = new NSPProject();
+	newD.setName(projectJSON.name);
 	projectJSON.diagrams.forEach(diagram => {
-		newD.addDiagram(new XNSDDiagram(diagram.theClass, diagram.name, diagram.code));
+		newD.addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code));
 	});
 	return newD;
 }

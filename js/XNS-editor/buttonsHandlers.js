@@ -17,6 +17,7 @@ function handleClickButtonDiagram(ev) {
 			diagramContainer.localVars.appendChild(obj);
 			break;
 	}
+	handleInputs()
 	resizeInputs();
 }
 
@@ -40,8 +41,14 @@ function handleCheckObjects(e) {
 
 function handleNewDiagram(e) {
 	updateDiagram();
+	console.log("** NUEVO DIAG");
+	console.log("actual: " + diagramContainer.actualDiagram.name);
 	diagramContainer.setInitialDiagram();
+	console.log("nuevo: " + diagramContainer.actualDiagram.name);
+	console.log("**********");
 	addDiagram(diagramContainer.actualDiagram);
+	handleInputs()
+	resizeInputs();
 }
 
 function handleAllViewDiagrams(e) {
@@ -50,8 +57,14 @@ function handleAllViewDiagrams(e) {
 
 function handleClickInDiagramItem(e) {
 	updateDiagram();
-	console.log("El nuevo es " + this.diagram.name);
+	console.log("** CAMBIO DIAG");
+	console.log("actual: " + diagramContainer.actualDiagram.name);
+	console.log("setea " + this.diagram.name);
 	diagramContainer.setDiagram(this.diagram);
+	console.log("nuevo: " + diagramContainer.actualDiagram.name);
+	console.log("**********");
+	handleInputs()
+	resizeInputs();
 }
 
 function handleAddCaseSwitch(e) {
