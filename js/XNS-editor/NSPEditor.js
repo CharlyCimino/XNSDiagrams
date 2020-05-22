@@ -222,7 +222,7 @@ function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
 	setTrashEvents();
-	project = new NSPProject(undefined, []);
+	project = new NSPProject();
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
 	statementsMenu = new StatementsMenu();

@@ -1,6 +1,8 @@
-function NSPProject(name, diagrams) {
-	this.name = name;
-	this.diagrams = diagrams;
+function NSPProject() {
+	this.DEFAULT_NAME = "Proyecto sin título";
+	this.nameContainer = document.getElementById("inputProjectName");
+	this.name = this.DEFAULT_NAME;
+	this.diagrams = [];
 	this.addDiagram = function (diagram) {
 		this.diagrams.push(diagram);
 	}
@@ -24,4 +26,12 @@ function NSPProject(name, diagrams) {
 			target.appendChild(divNS);
 		});
 	}
+	this.getName = function () {
+		return this.name;
+	}
+	this.setName = function (name) {
+		this.name = name;
+		this.nameContainer.value = name;
+	}
+	setEvent(this.nameContainer, "change", () => { this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME); });
 }
