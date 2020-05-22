@@ -57,6 +57,8 @@ function drop(ev) {
 				collapseEmptys();
 			}
 		}
+		resizeInputs();
+		handleInputs();
 	}
 }
 
@@ -182,6 +184,33 @@ function updateDiagram() {
 	diagramsMenu.updateDiagram(diagramContainer.actualDiagram);
 }
 
+function handleInputs() {
+	var inputs = document.getElementsByClassName("input-for-statement");
+	for (let i = 0; i < inputs.length; i++) {
+		handleInput(inputs[i]);
+	}
+}
+
+function resizeInputs() {
+	var inputs = document.getElementsByClassName("input-for-statement");
+	for (let i = 0; i < inputs.length; i++) {
+		resizeInput(inputs[i]);
+	}
+}
+
+function handleInput(inputObj) {
+	setEvent(inputObj, "input", handleKeyDown);
+}
+
+function resizeInput(inputObj) {
+	var adjust = 0.5;
+	inputObj.style.width = (inputObj.value.length + adjust) + "ch";
+}
+
+function handleKeyDown(e) {
+	resizeInput(this);
+}
+
 function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
@@ -189,8 +218,10 @@ function init() {
 	project = new NSPProject("Proyecto sin título", []);
 	diagramContainer = new DiagramContainer();
 	diagramsMenu = new DiagramsMenu();
-	statementsMenu = new StatementsMenu();
+	statementsMenu = new StatementsMenu()
 	addDiagram(diagramContainer.actualDiagram);
+	resizeInputs();
+	handleInputs();
 }
 
 init();

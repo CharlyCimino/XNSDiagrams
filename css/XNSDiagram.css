@@ -431,15 +431,16 @@
 	min-height: 20px;
 }
 
-[contenteditable=true] {
+.input-for-statement {
 	text-align: center;
 	font-family: "Consolas";
 	display: inline-block;
 	border: 0;
+	background: inherit;
 }
 
-[contenteditable=true]:focus,
-[contenteditable=true]:hover {
+.input-for-statement:focus,
+.input-for-statement:hover {
 	text-decoration-line: underline;
  	text-decoration-style: double;
 	font-weight: bolder;
