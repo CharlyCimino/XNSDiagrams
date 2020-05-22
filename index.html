@@ -21,42 +21,31 @@
 		<img src="img/ort-logo-blanco.png" class="w3-image w3-bar-item" id="ortLogo" alt="ORTLogo" />
 		<img src="img/nsplus-logo-white.png" class="w3-image w3-bar-item" id="nsplusLogo" alt="NSPlusLogo" />
 		<div class="w3-bar-item">
-			<a type="button" class="w3-button w3-light-grey w3-hover-white" id="importProjectBtn"><i
+			<a type="button" class="w3-btn w3-light-grey w3-hover-white" id="importProjectBtn"><i
 					class="fa fa-sm fa-sign-in"></i> Importar </a>
 			<input id="fileInput" type="file" accept=".nsplus" name="name" class="invisible" />
 		</div>
 		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
-			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
+			<button class="w3-btn w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
 				Exportar <i class="fa fa-sm fa-caret-down"></i></button>
 			<div class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
-				<a href="#" id="exportProjectBtn" class="w3-button w3-light-grey w3-hover-indigo"><i
+				<a href="#" id="exportProjectBtn" class="w3-btn w3-light-grey w3-hover-indigo"><i
 						class="fa fa-sm fa-file-code-o"></i> Como proyecto
 					(editable)</a>
-				<a href="#" id="exportPDFBtn" class="w3-button w3-light-grey w3-hover-indigo"><i
-						class="fa fa-sm fa-file-image-o"></i> Como PDF
+				<a href="#" id="exportPDFBtn" class="w3-btn w3-light-grey w3-hover-indigo"><i
+						class="fa fa-sm fa-file-pdf-o"></i> Como PDF
 					(final)</a>
 			</div>
 		</div>
 		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
-			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-plus"></i>
+			<button class="w3-btn w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-plus"></i>
 				Insertar <i class="fa fa-sm fa-caret-down"></i></button>
 			<div id="diagramButtons" class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
-				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newParameter">Parámetro</a>
-				<a type="button" class="w3-button w3-light-grey w3-hover-indigo"
-					id="newInitializedConstant">Constante</a>
-				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newVariable">Variable</a>
-				<a type="button" class="w3-button w3-light-grey w3-hover-indigo" id="newInitializedVariable">Variable
+				<a type="button" class="w3-btn w3-light-grey w3-hover-indigo" id="newParameter">Parámetro</a>
+				<a type="button" class="w3-btn w3-light-grey w3-hover-indigo" id="newInitializedConstant">Constante</a>
+				<a type="button" class="w3-btn w3-light-grey w3-hover-indigo" id="newVariable">Variable</a>
+				<a type="button" class="w3-btn w3-light-grey w3-hover-indigo" id="newInitializedVariable">Variable
 					inicializada</a>
-			</div>
-		</div>
-		<div class="w3-bar-item w3-indigo w3-dropdown-hover w3-mobile">
-			<button class="w3-button w3-light-grey w3-hover-white w3-text-black"><i class="fa fa-sm fa-sign-out"></i>
-				Diagramas <i class="fa fa-sm fa-caret-down"></i></button>
-			<div class="w3-dropdown-content w3-light-grey w3-card-4 w3-mobile">
-				<a href="#" id="newDiagram" class="w3-button w3-light-grey w3-hover-indigo"><i
-						class="fa fa-sm fa-file-code-o"></i> Nuevo</a>
-				<a href="#" id="viewAllDiagrams" class="w3-button w3-light-grey w3-hover-indigo"><i
-						class="fa fa-sm fa-file-image-o"></i> Ver todos</a>
 			</div>
 		</div>
 		<div class="w3-bar-item switcher-block">
@@ -75,12 +64,18 @@
 		</div>
 	</header>
 
-	<button id="buttonOpenDiagrams" class="w3-button w3-padding-small w3-indigo w3-padding-4">Diagramas</button>
+	<button id="buttonOpenDiagrams" class="w3-btn w3-padding-small w3-indigo w3-padding-4">Diagramas</button>
 
 	<div id="main">
 		<div class="w3-sidebar w3-animate-left invisible" id="diagramsContainer">
-			<button id="buttonCloseDiagrams" class="w3-button w3-block w3-bar-item w3-red w3-large">Cerrar
-				&times;</button>
+			<div>
+				<button id="buttonCloseDiagrams" class="w3-block w3-button w3-red w3-hover-red">Cerrar <i
+						class="fa fa-times"></i></button>
+				<button id="newDiagram" class="w3-block w3-button w3-teal w3-hover-teal">Nuevo diagrama <i
+						class="fa fa-file-text-o"></i></button>
+				<button id="viewAllDiagrams" class="w3-block w3-button w3-indigo w3-hover-indigo">Ver diagramas <i
+						class="fa fa-desktop"></i></button>
+			</div>
 		</div>
 
 		<div id="menuContainer" class="w3-sidebar w3-animate-right">
@@ -122,12 +117,14 @@
 <script type="application/javascript" src="js/XNS-editor/html2pdf.bundle.min.js"></script>
 <script type="application/javascript" src="js/XNS-editor/templates.js"></script>
 <script type="application/javascript" src="js/XNS-editor/utils.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDHandlers.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDMenu.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDiagram.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDProject.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDiagramsContainer.js"></script>
-<script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
 <script type="application/javascript" src="js/XNS-editor/XNSDFile.js"></script>
+<script type="application/javascript" src="js/XNS-editor/DiagramContainer.js"></script>
+<script type="application/javascript" src="js/XNS-editor/DiagramsMenu.js"></script>
+<script type="application/javascript" src="js/XNS-editor/buttonsHandlers.js"></script>
+<script type="application/javascript" src="js/XNS-editor/buttons.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDMenu.js"></script>
+<script type="application/javascript" src="js/XNS-editor/NSPDiagram.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDProject.js"></script>
+<script type="application/javascript" src="js/XNS-editor/XNSDEditor.js"></script>
 
 </html>

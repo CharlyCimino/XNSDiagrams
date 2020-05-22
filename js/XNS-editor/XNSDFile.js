@@ -1,10 +1,3 @@
-var importProjectBtn = document.getElementById("importProjectBtn");
-var exportProjectBtn = document.getElementById("exportProjectBtn");
-var exportPDFBtn = document.getElementById("exportPDFBtn");
-setEvent(importProjectBtn, "click", importProject);
-setEvent(exportProjectBtn, "click", exportProject);
-setEvent(exportPDFBtn, "click", exportPDF);
-
 function importProject() {
 	var input = document.getElementById('fileInput');
 	input.onchange = e => {
@@ -58,10 +51,6 @@ function openFile(file) {
 		return function (e) {
 			project = jsonToProject(toJSON(e.target.result));
 			updateBeforeOpenProject();
-			// diagramCont.innerHTML = e.target.result;
-			// bindVarsAndSignature();
-			// reAssignDragEvents();
-			// reAssignSwitchEvents();
 		};
 	})(file);
 	// Read in the image file as a data URL.

@@ -1,3 +1,11 @@
+function setEvent(domElement, eventName, handler) {
+	if (document.body.addEventListener) {
+		domElement.addEventListener(eventName, handler);
+	} else {
+		domElement.attachEvent("on" + eventName, handler);
+	}
+}
+
 function applyClassInNode(flag, className, node) {
 	if (flag) {
 		node.classList.add(className);

@@ -1,12 +1,9 @@
-var diagramCont = document.getElementById("diagram");
-var trash = document.getElementById("trash");
-var checkColors = document.getElementById("checkColors");
-var diagramsContainer = document.getElementById("diagramsContainer");
-var localVars;
-var methodParameters;
-var xnsd = new XNSDiagramMaker();
 var project;
-var actualDiagram;
+var diagramContainer;
+var diagramsMenu;
+var trash = document.getElementById("trash");
+
+var diagramMaker = new XNSDiagramMaker();
 
 function drag(e) {
 	if (this.template) {
@@ -37,14 +34,14 @@ function drop(ev) {
 			empty = newEmptyBlock();
 			deleteEmpty = false;
 			if (statement.getAttribute("type") == "switch") {
-				makeButtonAddInSwitch(statement);
+				diagramContainer.makeButtonAddInSwitch(statement);
 			}
 		} else {
 			statement = document.getElementById(id);
 			if (statement.className.includes("declaration")) {
 				deleteEmpty = false;
-				if (statement.className == "parameter-declaration" && !statement.innerHTML.includes(" , ") && methodParameters.children.length > 1) {
-					methodParameters.children[1].innerHTML = methodParameters.children[1].innerHTML.substring(" , ".length);
+				if (statement.className == "parameter-declaration" && !statement.innerHTML.includes(" , ") && diagramContainer.methodParameters.children.length > 1) {
+					diagramContainer.methodParameters.children[1].innerHTML = diagramContainer.methodParameters.children[1].innerHTML.substring(" , ".length);
 				}
 			}
 			empty = statement.nextSibling;
@@ -54,13 +51,29 @@ function drop(ev) {
 			handleDragLeaveInTrash(ev);
 		} else {
 			if (!statement.className.includes("declaration")) {
-				insertStatementInTarget(ev.target, statement);
+				diagramContainer.insertStatementInTarget(ev.target, statement);
 				handleDragLeaveInBlock(ev);
 			} else {
 				collapseEmptys();
 			}
 		}
 	}
+}
+
+function handleDragOverInBlock(ev) {
+	if (ev.target.classList.contains("empty")) {
+		toggleClass(ev.target, "empty-hover");
+	}
+}
+function handleDragLeaveInBlock(ev) {
+	if (ev.target.classList.contains("empty")) {
+		toggleClass(ev.target, "empty-hover");
+	}
+}
+
+function handleDragEnd(e) {
+	applyClassInNode(true, "invisible", trash);
+	expandEmptys(false);
 }
 
 function collapseEmptys() {
@@ -78,32 +91,6 @@ function expandEmptys(flag) {
 	}
 }
 
-function makeButtonAddInSwitch(switchBlock) {
-	var cases = switchBlock.lastChild.children;
-	for (let c = 0; c < cases.length; c++) {
-		appendButtonsInCase(cases[c]);
-	}
-}
-
-function appendButtonsInCase(theCase) {
-	// theCase.firstChild --> test-value
-	theCase.firstChild.appendChild(newSwitchCaseButton("add"));
-	theCase.firstChild.appendChild(newSwitchCaseButton("remove"));
-}
-
-function newSwitchCaseButton(type) {
-	var btn = document.createElement("a");
-	btn.setAttribute("type", "button");
-	btn.classList.add("switch-button", "switch-" + type + "-button");
-	if (type == "add") {
-		btn.innerHTML = '<i class="fa fa-sm fa-plus"></i>';
-		setEvent(btn, "click", handleAddCaseSwitch);
-	} else {
-		btn.innerHTML = '<i class="fa fa-sm fa-minus"></i>';
-		setEvent(btn, "click", handleRemoveCaseSwitch);
-	}
-	return btn;
-}
 
 function deleteStatement(statement, deleteEmpty) {
 	if (deleteEmpty) {
@@ -112,37 +99,19 @@ function deleteStatement(statement, deleteEmpty) {
 	statement.remove();
 }
 
-function insertStatementInTarget(target, statement) {
-	var parent = target.parentNode == diagramCont ? target : target.parentNode;
-	if (parent.lastChild == target || target.parentNode == diagramCont) {
-		parent.appendChild(statement);
-		parent.appendChild(empty);
-	} else {
-		parent.insertBefore(statement, target);
-		parent.insertBefore(empty, statement);
-	}
-}
-
 function renderStatement(statement) {
-	var obj = xnsd[statement.type](statement.data);
+	var obj = diagramMaker[statement.type](statement.data);
 	obj.setAttribute("type", statement.type);
 	makeDraggable(obj);
 	return obj;
 }
 
 function newEmptyBlock() {
-	return xnsd.newBlock("empty", undefined, "true");
-}
-
-function insertHeader(elem, description) {
-	var title = document.createElement("h2");
-	title.className = "external";
-	title.innerHTML = description + "<br/>&nbsp";
-	elem.appendChild(title);
+	return diagramMaker.newBlock("empty", undefined, "true");
 }
 
 function appendDiagram(container, json) {
-	diagram = xnsd.render(
+	diagram = diagramMaker.render(
 		container,
 		json.statements ?
 			json : {
@@ -154,40 +123,19 @@ function appendDiagram(container, json) {
 	return diagram;
 }
 
-function reAssignSwitchEvents() {
-	var switchAddButtons = document.querySelectorAll("#diagram .switch-add-button");
-	var switchRemoveButtons = document.querySelectorAll("#diagram .switch-remove-button");
-	for (let a = 0; a < switchAddButtons.length; a++) {
-		setEvent(switchAddButtons[a], "click", handleAddCaseSwitch);
-	}
-	for (let r = 0; r < switchRemoveButtons.length; r++) {
-		setEvent(switchRemoveButtons[r], "click", handleRemoveCaseSwitch);
-	}
-}
-
-function reAssignDragEvents() {
-	var draggables = document.querySelectorAll("#diagram [draggable=true]");
-	for (let d = 0; d < draggables.length; d++) {
-		makeDraggable(draggables[d]);
-	}
-}
-
-function bindVarsAndSignature() {
-	localVars = document.getElementById("xnsd-local-variable-declaration-8");
-	methodParameters = document.getElementById("xnsd-method-parameters-7");
-}
-
 function makeDraggable(obj) {
 	obj.setAttribute("draggable", "true");
 	setEvent(obj, "dragstart", drag);
 	setEvent(obj, "dragend", handleDragEnd);
 }
 
-function setButtonsEvents() {
-	var diagramButtons = document.getElementById("diagramButtons").children;
-	for (let b = 0; b < diagramButtons.length; b++) {
-		const button = diagramButtons[b];
-		setEvent(button, "click", handleClickButtonDiagram);
+function allowDrop(ev) {
+	ev.preventDefault();
+	if (ev.target.getAttribute("droppable") == "true") {
+		ev.dataTransfer.dropEffect = "copy"; // drop it like it's hot
+	}
+	else {
+		ev.dataTransfer.dropEffect = "none"; // dropping is not allowed
 	}
 }
 
@@ -198,35 +146,57 @@ function setTrashEvents() {
 	setEvent(trash, "dragover", allowDrop);
 }
 
-function setDiagramEvents() {
-	setEvent(diagramCont, "dragenter", handleDragOverInBlock);
-	setEvent(diagramCont, "dragleave", handleDragLeaveInBlock);
-	setEvent(diagramCont, "drop", drop);
-	setEvent(diagramCont, "dragover", allowDrop);
+function updateBeforeOpenProject() {
+	clearAllChilds(diagramsContainer);
+	actualDiagram = project.diagrams[0];
+	setActualDiagram();
+	project.diagrams.forEach(diagram => {
+		appendDiagramInContainer(diagram);
+	});
+	console.log(project);
 }
 
-function setOtherEvents() {
-	setEvent(checkColors, "click", handleCheckColors);
-	setEvent(checkObjects, "click", handleCheckObjects);
+
+
+
+function reSize() {
+	var headerHeight = parseFloat(window.getComputedStyle(document.getElementById("header")).height);
+	var footerHeight = parseFloat(window.getComputedStyle(document.getElementById("footer")).height);
+	var sectionDiagram = document.getElementById("sectionDiagram");
+	var menuContainer = document.getElementById("menuContainer");
+	document.body.style.paddingTop = headerHeight;
+	document.body.style.paddingBottom = footerHeight;
+	var bodyHeight = parseFloat(window.getComputedStyle(document.body).height);
+	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight - 16;
+	sectionDiagram.style.height = newSectionDiagramHeight;
+	menuContainer.style.height = newSectionDiagramHeight;
+	var paddingTopSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingTop);
+	var paddingBottomSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingBottom);
+	this.diagramContainer.container.style.height = newSectionDiagramHeight - paddingTopSection - paddingBottomSection;
+}
+
+function updateAndSetDiagram(diagram) {
+}
+
+function addDiagram(diagram) {
+	diagramsMenu.addDiagram(diagram);
+	project.addDiagram(diagram);
+}
+
+function updateDiagram() {
+	diagramContainer.refresh();
+	diagramsMenu.updateDiagram(diagramContainer.actualDiagram);
 }
 
 function init() {
-	setEvent(window, "load", handleOpen);
-	setEvent(window, "resize", handleResize);
-	setDiagramEvents();
+	setEvent(window, "load", reSize);
+	setEvent(window, "resize", reSize);
+	generateMenuItems();
 	setTrashEvents();
-	setButtonsEvents();
-	setOtherEvents();
-}
-
-function classOfActualDiagram() {
-	var className = document.querySelector(".class-name").innerHTML;
-	return (document.getElementById("checkObjects").checked ? className : "");
-}
-
-function nameOfActualDiagram() {
-	var methodName = document.querySelector(".method-name").innerHTML;
-	return methodName;
+	project = new XNSDProject("Proyecto sin título", []);
+	diagramContainer = new DiagramContainer();
+	diagramsMenu = new DiagramsMenu();
+	addDiagram(diagramContainer.actualDiagram);
 }
 
 init();
