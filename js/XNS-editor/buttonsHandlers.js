@@ -22,7 +22,7 @@ function handleClickButtonDiagram(ev) {
 }
 
 function handleCheckColors(e) {
-	var link = document.getElementById("css/XNSColors.css");
+	var link = document.getElementById("css/NSPColors.css");
 	link.setAttribute("href", (e.target.checked ? link.id : ""));
 }
 

@@ -37,6 +37,17 @@ function exportPDFSimple() {
 	exportPDF(true);
 }
 
+function makeCssArray() {
+	var cssVector = ['css/w3.css',
+		'css/NSPDiagram.css',
+		'css/NSPEditor.css',
+		'css/NSPPDF.css'];
+	if (document.getElementById('checkColors').checked) {
+		cssVector.push('css/NSPColors.css');
+	}
+	return cssVector;
+}
+
 function exportPDF(simpleFlag) {
 	updateDiagram();
 	project.end();
@@ -47,11 +58,7 @@ function exportPDF(simpleFlag) {
 		type: 'html',
 		documentTitle: PDF.title,
 		base64: true,
-		css: ['css/w3.css',
-			'css/NSPDiagram.css',
-			'css/NSPEditor.css',
-			'css/NSPPDF.css',
-			'css/NSPColors.css']
+		css: makeCssArray()
 	});
 	toggleClass(PDF.container, "invisible");
 }
