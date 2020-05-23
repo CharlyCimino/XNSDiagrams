@@ -15,7 +15,6 @@
 }
 
 #projectPrint {
-	margin-top: 500px;
 	display: block;
 	width: 100%;
 	margin: 0 auto;
@@ -23,12 +22,22 @@
 	z-index: 100;
 }
 
+#projectPrintDiagrams {
+	display: block;
+	width: 100%;
+}
+
 #projectPrint .Nassi-Shneiderman {
 	overflow: hidden;
-	width: 50%;
+	width: 100%;
 	position: relative;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	display: block;
+}
+
+#projectPrint .Nassi-Shneiderman:first-child {
+	margin-top: 15px;
 }
 
 #projectPrint .Nassi-Shneiderman:last-child {
@@ -41,6 +50,8 @@
 }
 
 .watermark {
+	font-size: 14px !important;
+	font-family: Verdana,sans-serif !important;
 	height: auto;
 	width: auto;
 	opacity: 0.15;

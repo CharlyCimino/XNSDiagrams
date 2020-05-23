@@ -52,18 +52,29 @@ function exportPDF(simpleFlag) {
 	updateDiagram();
 	project.end();
 	PDF.setProject(project, simpleFlag);
-	document.title = project.name;
-
-	toggleClass(PDF.container, "invisible");
-	printJS({
-		printable: 'projectPrint',
-		type: 'html',
-		maxWidth: 750,
-		css: makeCssArray()
-	});
+	var printWindow = window.open();
+	printWindow.document.write('<html><head><title>' + project.name + '</title></head><body><div id="projectPrint">' + PDF.container.innerHTML + '</div></body></html>');
+	appendStyles(printWindow);
 	setTimeout(() => {
-		toggleClass(PDF.container, "invisible");
-	}, 1000);
+		printWindow.print();
+		printWindow.close();
+	}, 1);
+}
+
+function appendStyles(theWindow) {
+	var styles = window.document.styleSheets;
+	for (let index = 0; index < styles.length; index++) {
+		appendStyle(theWindow, styles[index].href);
+	}
+}
+
+function appendStyle(theWindow, theHref) {
+	var head = theWindow.document.getElementsByTagName('head')[0];
+	var link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = theHref;
+	head.appendChild(link);
 }
 
 function openFile(file) {
