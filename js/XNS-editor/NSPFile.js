@@ -54,11 +54,12 @@ function exportPDF(simpleFlag) {
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
 	printWindow.document.write(toWrite());
+
 }
 
 function toWrite() {
 	return '<html>' + headWithStyles() + '<body><div id="projectPrint">'
-		+ PDF.container.innerHTML + '</div></body><script>window.onafterprint = function(){window.close();};</script></html>';
+		+ PDF.container.innerHTML + '</div></body><script>window.onafterprint = function(){window.close();};setTimeout(() => {window.print();}, 200);</script></html>';
 }
 
 function headWithStyles() {
