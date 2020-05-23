@@ -60,7 +60,9 @@ function exportPDF(simpleFlag) {
 		base64: true,
 		css: makeCssArray()
 	});
-	toggleClass(PDF.container, "invisible");
+	setTimeout(() => {
+		toggleClass(PDF.container, "invisible");
+	}, 1000);
 }
 
 function openFile(file) {
