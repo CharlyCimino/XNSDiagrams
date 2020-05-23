@@ -58,7 +58,7 @@ function exportPDF(simpleFlag) {
 
 function toWrite() {
 	return '<html>' + headWithStyles() + '<body><div id="projectPrint">'
-		+ PDF.container.innerHTML + '</div></body><script>window.onafterprint = function(){window.close();};window.print();</script></html>';
+		+ PDF.container.innerHTML + '</div></body><script>window.onafterprint = function(){window.close();};</script></html>';
 }
 
 function headWithStyles() {
