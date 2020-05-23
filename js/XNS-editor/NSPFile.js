@@ -53,17 +53,17 @@ function exportPDF(simpleFlag) {
 	project.end();
 	PDF.setProject(project, simpleFlag);
 	document.title = project.name;
+
 	toggleClass(PDF.container, "invisible");
 	printJS({
 		printable: 'projectPrint',
 		type: 'html',
-		documentTitle: PDF.title,
-		base64: true,
+		maxWidth: 750,
 		css: makeCssArray()
 	});
-	setTimeout(() => {
-		toggleClass(PDF.container, "invisible");
-	}, 1000);
+	// setTimeout(() => {
+	// 	toggleClass(PDF.container, "invisible");
+	// }, 1000);
 }
 
 function openFile(file) {

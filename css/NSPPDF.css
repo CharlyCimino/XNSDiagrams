@@ -16,14 +16,15 @@
 
 #projectPrint {
 	display: block;
-	width: 70%;
+	width: 100%;
 	margin: 0 auto;
 	clear: both;
+	z-index: 100;
 }
 
 #projectPrint .Nassi-Shneiderman {
 	overflow: hidden;
-	width: 100%;
+	width: 50%;
 	position: relative;
 	margin-top: 10px;
 	margin-bottom: 10px;
