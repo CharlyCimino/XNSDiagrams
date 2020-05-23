@@ -52,10 +52,8 @@ function exportPDF(simpleFlag) {
 	updateDiagram();
 	project.end();
 	PDF.setProject(project, simpleFlag);
-
-	window.print();
-	// var printWindow = window.open();
-	// printWindow.document.write(toWrite());
+	var printWindow = window.open();
+	printWindow.document.write(toWrite());
 
 }
 
