@@ -29,13 +29,6 @@ function exportProject(obj) {
 	document.body.removeChild(element);
 }
 
-function hideArrows(flag) {
-	var arrows = document.querySelectorAll(".fa-arrows");
-	for (let a = 0; a < arrows.length; a++) {
-		applyClassInNode(flag, "invisible", arrows[a].parentNode);
-	}
-}
-
 function exportPDFForPupil() {
 	exportPDF(false);
 }

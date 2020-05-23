@@ -25,6 +25,17 @@ function NSPPDF() {
 			divNS.classList.add("Nassi-Shneiderman");
 			this.printDiagrams.appendChild(divNS);
 		});
+		this.hideIcons();
+	}
+	this.hideIcons = function () {
+		var arrows = document.querySelectorAll("#projectPrint .fa-arrows");
+		for (let a = 0; a < arrows.length; a++) {
+			applyClassInNode(true, "invisible", arrows[a].parentNode);
+		}
+		var switchBtns = document.querySelectorAll("#projectPrint .switch-button");
+		for (let a = 0; a < switchBtns.length; a++) {
+			applyClassInNode(true, "invisible", switchBtns[a]);
+		}
 	}
 	this.newWaterMark = function (contain) {
 		var p = document.createElement("p");
