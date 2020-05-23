@@ -2,8 +2,8 @@ function NSPProject(autor, comission) {
 	this.DEFAULT_NAME = "Proyecto sin título";
 	this.nameContainer = document.getElementById("inputProjectName");
 	this.name = this.DEFAULT_NAME;
-	this.autor = autor;
-	this.comission = comission;
+	this.autor = autor ? autor : "Sin autor";
+	this.comission = comission ? comission : "Sin comisión";
 	this.dateStart = new Date();
 	this.date;
 	this.minutes;
@@ -42,6 +42,9 @@ function NSPProject(autor, comission) {
 		var diff = actual.getTime() - this.dateStart.getTime();
 		// ms --> minutes
 		return Math.trunc(diff / (1000 * 60));
+	}
+	this.check = function (value) {
+		return (value);
 	}
 	this.getForExport = function () {
 		this.date = new Date();
