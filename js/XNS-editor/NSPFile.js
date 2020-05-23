@@ -54,31 +54,20 @@ function exportPDF(simpleFlag) {
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
 	printWindow.document.write(toWrite());
-	appendStyles(printWindow);
-	setTimeout(function () {
-		printWindow.print();
-	}, 200);
 }
 
 function toWrite() {
-	return '<html><head><title>' + project.name + '-NS+</title></head><body><div id="projectPrint">'
-		+ PDF.container.innerHTML + '</div></body><script>window.onafterprint = function(){window.close();}</script></html>';
+	return '<html>' + headWithStyles() + '<body><div id="projectPrint">'
+		+ PDF.container.innerHTML + '</div></body><script>window.onafterprint = function(){window.close();};window.print();</script></html>';
 }
 
-function appendStyles(theWindow) {
+function headWithStyles() {
+	var head = '<head><title>' + project.name + '-NS+</title>';
 	var styles = window.document.styleSheets;
 	for (let index = 0; index < styles.length; index++) {
-		appendStyle(theWindow, styles[index].href);
+		head += '<link rel="stylesheet" type="text/css" href="' + styles[index].href + '" />'
 	}
-}
-
-function appendStyle(theWindow, theHref) {
-	var head = theWindow.document.getElementsByTagName('head')[0];
-	var link = document.createElement('link');
-	link.rel = 'stylesheet';
-	link.type = 'text/css';
-	link.href = theHref;
-	head.appendChild(link);
+	return head + "</head>";
 }
 
 function openFile(file) {
