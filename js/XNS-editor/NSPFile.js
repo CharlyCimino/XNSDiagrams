@@ -55,6 +55,21 @@ function exportPDF(simpleFlag) {
 	var printWindow = window.open();
 	printWindow.document.write('<html><head><title>' + project.name + '-NS+</title></head><body><div id="projectPrint">' + PDF.container.innerHTML + '</div></body></html>');
 	appendStyles(printWindow);
+	var is_chrome = Boolean(window.chrome);
+	if (is_chrome) {
+		printWindow.onload = function () {
+			setTimeout(function () { // wait until all resources loaded 
+				printWindow.print();  // change window to winPrint
+				printWindow.close();// change window to winPrint
+			}, 200);
+		};
+	}
+	else {
+		winPrint.print();
+		winPrint.close();
+	}
+
+
 	setTimeout(() => {
 		printWindow.print();
 		printWindow.close();
