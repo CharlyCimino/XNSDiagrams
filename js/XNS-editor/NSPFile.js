@@ -58,7 +58,7 @@ function exportPDF(simpleFlag) {
 	setTimeout(() => {
 		printWindow.print();
 		printWindow.close();
-	}, 1);
+	}, 100);
 }
 
 function appendStyles(theWindow) {
