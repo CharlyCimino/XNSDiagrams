@@ -57,12 +57,10 @@ function exportPDF(simpleFlag) {
 	appendStyles(printWindow);
 	var is_chrome = Boolean(window.chrome);
 	if (is_chrome) {
-		printWindow.onload = function () {
-			setTimeout(function () { // wait until all resources loaded 
-				printWindow.print();  // change window to winPrint
-				printWindow.close();// change window to winPrint
-			}, 200);
-		};
+		setTimeout(function () { // wait until all resources loaded 
+			document.execCommand('print');
+			window.close();
+		}, 200);
 	}
 	else {
 		winPrint.print();
