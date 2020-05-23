@@ -61,9 +61,9 @@ function exportPDF(simpleFlag) {
 		maxWidth: 750,
 		css: makeCssArray()
 	});
-	// setTimeout(() => {
-	// 	toggleClass(PDF.container, "invisible");
-	// }, 1000);
+	setTimeout(() => {
+		toggleClass(PDF.container, "invisible");
+	}, 1000);
 }
 
 function openFile(file) {
