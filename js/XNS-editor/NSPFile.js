@@ -53,7 +53,7 @@ function exportPDF(simpleFlag) {
 	project.end();
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
-	printWindow.document.write('<html><head><title>' + project.name + '</title></head><body><div id="projectPrint">' + PDF.container.innerHTML + '</div></body></html>');
+	printWindow.document.write('<html><head><title>' + project.name + '-NS+</title></head><body><div id="projectPrint">' + PDF.container.innerHTML + '</div></body></html>');
 	appendStyles(printWindow);
 	setTimeout(() => {
 		printWindow.print();
