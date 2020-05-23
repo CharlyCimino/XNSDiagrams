@@ -151,6 +151,7 @@ function setTrashEvents() {
 }
 
 function updateBeforeOpenProject() {
+	document.title = project.name;
 	diagramsMenu.clear();
 	if (project.diagrams.length != 0) {
 		diagramContainer.setDiagram(project.diagrams[0]);

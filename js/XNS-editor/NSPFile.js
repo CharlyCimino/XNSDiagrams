@@ -52,6 +52,7 @@ function exportPDF(simpleFlag) {
 	updateDiagram();
 	project.end();
 	PDF.setProject(project, simpleFlag);
+	document.title = project.name;
 	toggleClass(PDF.container, "invisible");
 	printJS({
 		printable: 'projectPrint',

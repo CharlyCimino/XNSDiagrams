@@ -60,5 +60,8 @@ function NSPProject(autor, comission) {
 			"diagrams": this.diagrams,
 		}
 	}
-	setEvent(this.nameContainer, "change", () => { this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME); });
+	setEvent(this.nameContainer, "change", () => {
+		this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME);
+		document.title = this.name;
+	});
 }
