@@ -23,6 +23,7 @@ function DiagramContainer() {
 		this.bindVarsAndSignature();
 		this.reAssignSwitchEvents();
 		this.reAssignDragEvents();
+		this.reAssignChangeDiagramEvents();
 	}
 	this.bindVarsAndSignature = function () {
 		this.localVars = document.querySelector("#actualDiagram .local-variable-declaration");
@@ -68,6 +69,10 @@ function DiagramContainer() {
 			makeDraggable(draggables[d]);
 		}
 	}
+	this.reAssignChangeDiagramEvents = function () {
+		setEvent(this.classNameContainer(), "change", handleChangeDiagramClassName);
+		setEvent(this.methodNameContainer(), "change", handleChangeDiagramMethodName);
+	}
 	this.insertStatementInTarget = function (target, statement) {
 		var parent = target.parentNode == this.container ? target : target.parentNode;
 		if (parent.lastChild == target || target.parentNode == this.container) {
@@ -79,12 +84,17 @@ function DiagramContainer() {
 		}
 	}
 	this.diagramClass = function () {
-		var className = document.querySelector("#actualDiagram .class-name>.input-for-statement").value;
 		// return (document.getElementById("checkObjects").checked ? className : "");
-		return className;
+		return this.classNameContainer().value;
 	}
 	this.diagramName = function () {
-		return document.querySelector("#actualDiagram .method-name>.input-for-statement").value;
+		return this.methodNameContainer().value;
+	}
+	this.classNameContainer = function () {
+		return document.querySelector("#actualDiagram .class-name>.input-for-statement");
+	}
+	this.methodNameContainer = function () {
+		return document.querySelector("#actualDiagram .method-name>.input-for-statement");
 	}
 	this.setDiagramEvents = function () {
 		setEvent(this.container, "dragenter", handleDragOverInBlock);

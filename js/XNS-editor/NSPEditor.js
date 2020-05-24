@@ -220,6 +220,14 @@ function handleChangeInput(e) {
 	this.setAttribute("value", this.value);
 }
 
+function handleChangeDiagramClassName(e) {
+	updateDiagram();
+}
+
+function handleChangeDiagramMethodName(e) {
+	updateDiagram();
+}
+
 function drawCorners() {
 	var corners = document.querySelectorAll(".corner")
 	for (let index = 0; index < corners.length; index++) {
