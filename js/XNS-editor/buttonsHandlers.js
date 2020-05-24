@@ -45,6 +45,7 @@ function handleNewDiagram(e) {
 	addDiagram(diagramContainer.actualDiagram);
 	handleInputs()
 	resizeInputs();
+	drawCorners();
 }
 
 function handleAllViewDiagrams(e) {
@@ -56,6 +57,7 @@ function handleClickInDiagramItem(e) {
 	diagramContainer.setDiagram(this.diagram);
 	handleInputs()
 	resizeInputs();
+	drawCorners();
 }
 
 function handleAddCaseSwitch(e) {

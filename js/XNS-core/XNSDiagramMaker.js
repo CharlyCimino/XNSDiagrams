@@ -10,19 +10,20 @@ function eXtendendNassiShneiderman(params) {
 
 	function makeCorner(side, caption) {
 		var canvas = document.createElement("canvas");
-		canvas.className = "corner";
-		var ctx = canvas.getContext("2d");
-		ctx.beginPath();
-		if (side == "true") {
-			ctx.moveTo(-1, -1);
-			ctx.lineTo(canvas.width + 1, canvas.height + 1);
-		} else {
-			ctx.moveTo(canvas.width + 1, -1);
-			ctx.lineTo(-1, canvas.height + 1);
-		}
-		ctx.lineWidth = 3;
-		ctx.strokeStyle = '#000000';
-		ctx.stroke();
+		// canvas.className = "corner";
+		// var ctx = canvas.getContext("2d");
+		// ctx.beginPath();
+		// if (side == "true") {
+		// 	ctx.moveTo(-1, -1);
+		// 	ctx.lineTo(canvas.width + 1, canvas.height + 1);
+		// } else {
+		// 	ctx.moveTo(canvas.width + 1, -1);
+		// 	ctx.lineTo(-1, canvas.height + 1);
+		// }
+		// ctx.lineWidth = 3;
+		// ctx.strokeStyle = '#000000';
+		// ctx.stroke();
+		canvas.className = "corner corner-" + side;
 		//var optblock = _self.newBlock("option-block", _self.newBlock("option-background"));
 		var optblock = _self.newBlock("option-block", canvas);
 		optblock.appendChild(_self.newBlock("caption", caption));

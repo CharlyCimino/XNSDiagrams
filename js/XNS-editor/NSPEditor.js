@@ -61,6 +61,7 @@ function drop(ev) {
 		}
 		resizeInputs();
 		handleInputs();
+		drawCorners();
 	}
 }
 
@@ -219,6 +220,25 @@ function handleChangeInput(e) {
 	this.setAttribute("value", this.value);
 }
 
+function drawCorners() {
+	var corners = document.querySelectorAll(".corner")
+	for (let index = 0; index < corners.length; index++) {
+		const corner = corners[index];
+		var ctx = corner.getContext("2d");
+		ctx.beginPath();
+		if (corner.className.includes("true")) {
+			ctx.moveTo(-1, -1);
+			ctx.lineTo(corner.width + 1, corner.height + 1);
+		} else {
+			ctx.moveTo(corner.width + 1, -1);
+			ctx.lineTo(-1, corner.height + 1);
+		}
+		ctx.lineWidth = 3;
+		ctx.strokeStyle = '#000000';
+		ctx.stroke();
+	}
+}
+
 function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
@@ -232,6 +252,7 @@ function init() {
 	addDiagram(diagramContainer.actualDiagram);
 	resizeInputs();
 	handleInputs();
+	drawCorners();
 }
 
 init();
