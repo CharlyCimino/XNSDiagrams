@@ -189,7 +189,7 @@
     display: table-cell;
     position: relative;
     vertical-align: top;
-	min-width: 5px;
+	min-width: 15px;
 	/* width: 50%; */
 }
 
