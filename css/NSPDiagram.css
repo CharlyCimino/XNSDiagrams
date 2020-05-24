@@ -189,8 +189,8 @@
     display: table-cell;
     position: relative;
     vertical-align: top;
-	min-width: 30px;
-	width: 50%;
+	min-width: 5px;
+	/* width: 50%; */
 }
 
 .switch>.body .case {
