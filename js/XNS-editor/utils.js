@@ -41,3 +41,9 @@ function clearAllChilds(node) {
 function indexOfChild(child) {
 	return Array.from(child.parentNode.children).indexOf(child);
 }
+
+function newElement(type, classList) {
+	var element = document.createElement(type);
+	element.className = classList;
+	return element;
+} 

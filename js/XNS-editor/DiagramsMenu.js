@@ -1,4 +1,5 @@
 function DiagramsMenu() {
+	var _thisDiagramMenu = this;
 	this.container = document.getElementById("diagramsContainer");
 	this.itemsContainer = document.getElementById("diagramsItemsContainer");
 	this.buttonOpenDiagrams = document.getElementById("buttonOpenDiagrams");
@@ -16,13 +17,42 @@ function DiagramsMenu() {
 		}
 	}
 	this.newDiagramItem = function (diagram) {
-		var btn = document.createElement("div");
+		var btn = newElement("div", "w3-button w3-padding-small w3-block w3-hover-indigo w3-margin-top w3-border-bottom diagram-item");
 		btn.setAttribute("type", "button");
-		btn.classList.add("w3-button", "w3-padding-small", "w3-block", "w3-hover-indigo", "w3-rightbar", "w3-border-indigo", "w3-card-4", "w3-margin-top", "diagram-item");
 		btn.id = "item-" + diagram.id;
 		btn.diagram = diagram;
 		this.setNameInItem(btn, diagram.theClass, diagram.name);
 		setEvent(btn, "click", handleClickInDiagramItem);
+		var cont = this.newDiagramItemContainer();
+		cont.appendChild(btn);
+		cont.appendChild(this.newButtonsBar());
+		return cont;
+	}
+	this.newDiagramItemContainer = function () {
+		var cont = newElement("div", "w3-card-4 w3-border-indigo w3-rightbar");
+		cont.setAttribute("type", "button");
+		return cont;
+	}
+	this.newButtonsBar = function () {
+		var center = newElement("div", "w3-center");
+		var bar = newElement("div", "w3-bar");
+		center.appendChild(bar);
+		this.appendButtons(bar);
+		return center;
+	}
+	this.appendButtons = function (bar) {
+		bar.appendChild(this.newControlButton("indigo", "arrow-down", this.downDiagramHandler));
+		bar.appendChild(this.newControlButton("indigo", "arrow-up", this.upDiagramHandler));
+		bar.appendChild(this.newControlButton("teal", "clone", this.cloneDiagramHandler));
+		bar.appendChild(this.newControlButton("red", "trash", this.deleteDiagramHandler));
+	}
+	this.newControlButton = function (color, iconType, handler) {
+		var textColorClass = "w3-text-" + color;
+		var hoverColorClass = "w3-hover-" + color;
+		var btn = newElement("div", "w3-bar-item w3-button w3-white w3-padding-small " + textColorClass + " " + hoverColorClass);
+		btn.setAttribute("type", "button");
+		btn.appendChild(newElement("i", "fa fa-" + iconType));
+		setEvent(btn, "click", handler);
 		return btn;
 	}
 	this.getDiagramItemById = function (id) {
@@ -47,6 +77,25 @@ function DiagramsMenu() {
 	this.closeDiagramsContainer = function () {
 		applyClassInNode(true, "invisible", diagramsContainer);
 		applyClassInNode(false, "margin-left", document.getElementById("sectionDiagram"));
+	}
+	this.downDiagramHandler = function (e) {
+		console.log(_thisDiagramMenu.getIDFromControlButton(this));
+		alert("Falta implementar");
+	}
+	this.upDiagramHandler = function (e) {
+		console.log(_thisDiagramMenu.getIDFromControlButton(this));
+		alert("Falta implementar");
+	}
+	this.cloneDiagramHandler = function (e) {
+		console.log(_thisDiagramMenu.getIDFromControlButton(this));
+		alert("Falta implementar");
+	}
+	this.deleteDiagramHandler = function (e) {
+		console.log(_thisDiagramMenu.getIDFromControlButton(this));
+		alert("Falta implementar");
+	}
+	this.getIDFromControlButton = function (btn) {
+		return btn.parentNode.parentNode.parentNode.firstChild;
 	}
 	setEvent(this.buttonOpenDiagrams, "click", this.openDiagramsContainer);
 	setEvent(this.buttonCloseDiagrams, "click", this.closeDiagramsContainer);

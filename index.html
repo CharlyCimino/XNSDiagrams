@@ -64,17 +64,19 @@
 
 	<div id="main">
 		<div class="w3-sidebar w3-animate-left invisible" id="diagramsContainer">
-			<div>
-				<button id="buttonCloseDiagrams" class="w3-block w3-button w3-red w3-hover-red">Cerrar <i
-						class="fa fa-times"></i></button>
-				<button id="newDiagram" class="w3-block w3-button w3-teal w3-hover-teal">Nuevo diagrama <i
-						class="fa fa-file-text-o"></i></button>
-				<!-- <button id="viewAllDiagrams" class="w3-block w3-button w3-indigo w3-hover-indigo">Ver diagramas <i
-						class="fa fa-desktop"></i></button> -->
+			<div class="w3-center">
+				<div class="w3-bar">
+					<button id="newDiagram" class="w3-bar-item w3-button w3-large w3-text-teal w3-hover-teal">
+						<i class="fa fa-plus-circle"></i>
+					</button>
+					<!-- <button id="viewAllDiagrams" class="w3-bar-item w3-button w3-large w3-text-indigo w3-hover-indigo">
+						<i class="fa fa-eye"></i></button> -->
+					<button id="buttonCloseDiagrams" class="w3-bar-item w3-button w3-large w3-text-red w3-hover-red">
+						<i class="fa fa-window-close"></i>
+					</button>
+				</div>
 			</div>
-			<div id="diagramsItemsContainer">
-
-			</div>
+			<div id="diagramsItemsContainer"></div>
 		</div>
 
 		<div id="menuContainer" class="w3-sidebar w3-animate-right">

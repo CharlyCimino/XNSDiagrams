@@ -116,14 +116,14 @@ html {
 	margin-left: 15%;
 }
 
-#diagramsContainer>.diagram-item {
+/* #diagramsContainer>.diagram-item {
 	font-size: 14px;
 	text-align: left;
 }
 
 #diagramsContainer>.diagram-item>p:last-child {
 	text-indent: 10%;
-}
+} */
 
 #modalToSave {
 	display: block;
