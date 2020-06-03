@@ -11,14 +11,25 @@ function NSPProject(autor, comission) {
 	this.addDiagram = function (diagram) {
 		this.diagrams.push(diagram);
 	}
+	this.deleteDiagram = function (id) {
+		var index = -1;
+		var diagramFound = this.getDiagramById(id);
+		if (diagramFound) {
+			index = this.diagrams.indexOf(diagramFound);
+			if (index > -1) {
+				this.diagrams.splice(index, 1);
+			}
+		}
+		return index;
+	}
 	this.getDiagramById = function (id) {
 		var diag = null;
 		var i = 0;
-		while (i < diagrams.length && diagrams[i].id != id) {
+		while (i < this.diagrams.length && this.diagrams[i].id != id) {
 			i++
 		}
-		if (i < diagrams.length) {
-			diag = diagrams[i];
+		if (i < this.diagrams.length) {
+			diag = this.diagrams[i];
 		}
 		return diag;
 	}

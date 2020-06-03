@@ -39,17 +39,8 @@ function handleCheckObjects(e) {
 	}
 }
 
-function handleNewDiagram(e) {
-	updateDiagram();
-	diagramContainer.setInitialDiagram();
-	addDiagram(diagramContainer.actualDiagram);
-	handleInputs()
-	resizeInputs();
-	drawCorners();
-}
-
 function handleAllViewDiagrams(e) {
-	alert("PENDIENTE");
+	alert("Falta implementar");
 }
 
 function handleClickInDiagramItem(e) {
@@ -79,4 +70,29 @@ function handleDragOverInTrash(ev) {
 
 function handleDragLeaveInTrash(ev) {
 	ev.target.classList.remove("trash-over");
+}
+
+function handleNewDiagram(e) {
+	updateDiagram();
+	diagramContainer.setInitialDiagram();
+	addDiagram(diagramContainer.actualDiagram);
+	handleInputs()
+	resizeInputs();
+	drawCorners();
+}
+
+function downDiagramHandler(e) {
+	console.log(diagramsMenu.getContainerFromControlButton(this));
+	alert("Falta implementar");
+}
+function upDiagramHandler(e) {
+	console.log(diagramsMenu.getContainerFromControlButton(this));
+	alert("Falta implementar");
+}
+function cloneDiagramHandler(e) {
+	console.log(diagramsMenu.getContainerFromControlButton(this));
+	alert("Falta implementar");
+}
+function deleteDiagramHandler(e) {
+	deleteDiagram(diagramsMenu.getContainerFromControlButton(this));
 }

@@ -1,5 +1,4 @@
 function DiagramsMenu() {
-	var _thisDiagramMenu = this;
 	this.container = document.getElementById("diagramsContainer");
 	this.itemsContainer = document.getElementById("diagramsItemsContainer");
 	this.buttonOpenDiagrams = document.getElementById("buttonOpenDiagrams");
@@ -11,10 +10,15 @@ function DiagramsMenu() {
 		clearAllChilds(this.itemsContainer);
 	}
 	this.updateDiagram = function (diagram) {
-		var itemFound = this.getDiagramItemById("item-" + diagram.id);
-		if (itemFound) {
-			this.setNameInItem(itemFound, diagram.theClass, diagram.name)
+		if (diagram) {
+			var itemFound = this.getDiagramItemById("item-" + diagram.id);
+			if (itemFound) {
+				this.setNameInItem(itemFound, diagram.theClass, diagram.name)
+			}
 		}
+	}
+	this.deleteDiagram = function (diagramItemContainer) {
+		diagramItemContainer.parentNode.removeChild(diagramItemContainer);
 	}
 	this.newDiagramItem = function (diagram) {
 		var btn = newElement("div", "w3-button w3-padding-small w3-block w3-hover-indigo w3-margin-top w3-border-bottom diagram-item");
@@ -41,10 +45,10 @@ function DiagramsMenu() {
 		return center;
 	}
 	this.appendButtons = function (bar) {
-		bar.appendChild(this.newControlButton("indigo", "arrow-down", this.downDiagramHandler));
-		bar.appendChild(this.newControlButton("indigo", "arrow-up", this.upDiagramHandler));
-		bar.appendChild(this.newControlButton("teal", "clone", this.cloneDiagramHandler));
-		bar.appendChild(this.newControlButton("red", "trash", this.deleteDiagramHandler));
+		bar.appendChild(this.newControlButton("indigo", "arrow-down", downDiagramHandler));
+		bar.appendChild(this.newControlButton("indigo", "arrow-up", upDiagramHandler));
+		bar.appendChild(this.newControlButton("teal", "clone", cloneDiagramHandler));
+		bar.appendChild(this.newControlButton("red", "trash", deleteDiagramHandler));
 	}
 	this.newControlButton = function (color, iconType, handler) {
 		var textColorClass = "w3-text-" + color;
@@ -59,11 +63,11 @@ function DiagramsMenu() {
 		var items = this.itemsContainer.children;
 		var diag = null;
 		var i = 0;
-		while (i < items.length && items[i].id != id) {
+		while (i < items.length && items[i].firstChild.id != id) {
 			i++;
 		}
 		if (i < items.length) {
-			diag = items[i];
+			diag = items[i].firstChild;
 		}
 		return diag;
 	}
@@ -78,24 +82,8 @@ function DiagramsMenu() {
 		applyClassInNode(true, "invisible", diagramsContainer);
 		applyClassInNode(false, "margin-left", document.getElementById("sectionDiagram"));
 	}
-	this.downDiagramHandler = function (e) {
-		console.log(_thisDiagramMenu.getIDFromControlButton(this));
-		alert("Falta implementar");
-	}
-	this.upDiagramHandler = function (e) {
-		console.log(_thisDiagramMenu.getIDFromControlButton(this));
-		alert("Falta implementar");
-	}
-	this.cloneDiagramHandler = function (e) {
-		console.log(_thisDiagramMenu.getIDFromControlButton(this));
-		alert("Falta implementar");
-	}
-	this.deleteDiagramHandler = function (e) {
-		console.log(_thisDiagramMenu.getIDFromControlButton(this));
-		alert("Falta implementar");
-	}
-	this.getIDFromControlButton = function (btn) {
-		return btn.parentNode.parentNode.parentNode.firstChild;
+	this.getContainerFromControlButton = function (btn) {
+		return btn.parentNode.parentNode.parentNode;
 	}
 	setEvent(this.buttonOpenDiagrams, "click", this.openDiagramsContainer);
 	setEvent(this.buttonCloseDiagrams, "click", this.closeDiagramsContainer);

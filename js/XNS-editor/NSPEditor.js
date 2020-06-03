@@ -183,6 +183,16 @@ function addDiagram(diagram) {
 	project.addDiagram(diagram);
 }
 
+function deleteDiagram(diagramItemContainer) {
+	diagramsMenu.deleteDiagram(diagramItemContainer);
+	var id = diagramItemContainer.firstChild.id;
+	var indexOfRemovedDiagram = project.deleteDiagram(id.substring(id.indexOf("NSP")));
+	if ("item-" + diagramContainer.actualDiagram.id == id) {
+		var idx = (indexOfRemovedDiagram == project.diagrams.length ? indexOfRemovedDiagram - 1 : indexOfRemovedDiagram);
+		diagramContainer.setDiagram(project.diagrams[idx]);
+	}
+}
+
 function updateDiagram() {
 	diagramContainer.refresh();
 	diagramsMenu.updateDiagram(diagramContainer.actualDiagram);
@@ -220,11 +230,7 @@ function handleChangeInput(e) {
 	this.setAttribute("value", this.value);
 }
 
-function handleChangeDiagramClassName(e) {
-	updateDiagram();
-}
-
-function handleChangeDiagramMethodName(e) {
+function handleChangeDiagramName(e) {
 	updateDiagram();
 }
 

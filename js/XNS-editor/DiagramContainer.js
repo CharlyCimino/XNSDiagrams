@@ -4,13 +4,20 @@ function DiagramContainer() {
 	this.localVars;
 	this.methodParameters;
 	this.setDiagram = function (diagram) {
-		this.container.innerHTML = "";
 		this.actualDiagram = diagram;
-		this.container.innerHTML = diagram.code;
-		this.reAssignEvents();
+		if (diagram) {
+			this.container.innerHTML = "";
+			this.container.innerHTML = diagram.code;
+			this.reAssignEvents();
+		} else {
+			this.actualDiagram = diagram;
+			this.container.innerHTML = "No hay diagramas";
+		}
 	}
 	this.refresh = function () {
-		this.actualDiagram.setData(this.diagramClass(), this.diagramName(), this.container.innerHTML);
+		if (this.actualDiagram) {
+			this.actualDiagram.setData(this.diagramClass(), this.diagramName(), this.container.innerHTML);
+		}
 	}
 	this.setInitialDiagram = function () {
 		this.container.innerHTML = "";
@@ -70,8 +77,8 @@ function DiagramContainer() {
 		}
 	}
 	this.reAssignChangeDiagramEvents = function () {
-		setEvent(this.classNameContainer(), "change", handleChangeDiagramClassName);
-		setEvent(this.methodNameContainer(), "change", handleChangeDiagramMethodName);
+		setEvent(this.classNameContainer(), "change", handleChangeDiagramName);
+		setEvent(this.methodNameContainer(), "change", handleChangeDiagramName);
 	}
 	this.insertStatementInTarget = function (target, statement) {
 		var parent = target.parentNode == this.container ? target : target.parentNode;
