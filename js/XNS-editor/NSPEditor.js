@@ -173,6 +173,7 @@ function reSize() {
 	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight - 16;
 	sectionDiagram.style.height = newSectionDiagramHeight;
 	menuContainer.style.height = newSectionDiagramHeight;
+	diagramsMenu.container.style.height = newSectionDiagramHeight;
 	var paddingTopSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingTop);
 	var paddingBottomSection = parseFloat(window.getComputedStyle(sectionDiagram).paddingBottom);
 	this.diagramContainer.container.style.height = newSectionDiagramHeight - paddingTopSection - paddingBottomSection;
