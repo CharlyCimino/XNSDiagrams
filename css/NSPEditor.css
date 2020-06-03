@@ -12,11 +12,6 @@ html {
 	max-width: 118px;
 }
 
-#sectionDiagram {
-	margin-right: 22%;
-	z-index: -1;
-}
-
 #trash {
 	font-size: 50px;
 	display: block;
@@ -107,13 +102,52 @@ html {
 	left: 0;
 }
 
+#buttonOpenBlocks {
+	transform-origin: 0 100%;
+	transform: rotate(90deg) translate(-50%, -200%);
+	position: fixed;
+	top: 50%;
+	right: 0;
+}
+
+#buttonOpenDiagrams i {
+	margin-left: 10px;
+}
+
+#buttonOpenBlocks i {
+	margin-right: 10px;
+}
+
 #diagramsContainer {
 	width: 15%;
 	z-index: 3;
 }
 
+#menuContainer {
+	width: 22%;
+	right: 0;
+	overflow-y: auto;
+	/* display: none; */
+}
+
+#sectionDiagram {
+	z-index: -1;
+}
+
+.initial-margin-left {
+	margin-left: 2%;
+}
+
+.initial-margin-right {
+	margin-right: 2%;
+}
+
 .margin-left {
 	margin-left: 15%;
+}
+
+.margin-right {
+	margin-right: 22%;
 }
 
 

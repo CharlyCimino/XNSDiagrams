@@ -76,10 +76,12 @@ function DiagramsMenu() {
 	}
 	this.openDiagramsContainer = function () {
 		applyClassInNode(false, "invisible", diagramsContainer);
+		toggleClass(document.getElementById("sectionDiagram"), "initial-margin-left");
 		applyClassInNode(true, "margin-left", document.getElementById("sectionDiagram"));
 	}
 	this.closeDiagramsContainer = function () {
 		applyClassInNode(true, "invisible", diagramsContainer);
+		toggleClass(document.getElementById("sectionDiagram"), "initial-margin-left");
 		applyClassInNode(false, "margin-left", document.getElementById("sectionDiagram"));
 	}
 	this.getContainerFromControlButton = function (btn) {

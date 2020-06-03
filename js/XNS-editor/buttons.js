@@ -9,6 +9,9 @@ var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
 var checkColors = document.getElementById("checkColors");
 // var checkObjects = document.getElementById("checkObjects");
 
+buttonOpenBlocks = document.getElementById("buttonOpenBlocks");
+buttonCloseBlocks = document.getElementById("buttonCloseBlocks");
+
 setEvent(importProjectBtn, "click", importProject);
 
 setEvent(exportProjectBtn, "click", exportProjectForPupil);
@@ -21,6 +24,9 @@ setEvent(viewAllDiagramsBtn, "click", handleAllViewDiagrams);
 
 setEvent(checkColors, "click", handleCheckColors);
 // setEvent(checkObjects, "click", handleCheckObjects);
+
+setEvent(buttonOpenBlocks, "click", openBlocksContainerHandler);
+setEvent(buttonCloseBlocks, "click", closeBlocksContainerHandler);
 
 function setInsertButtonsEvents() {
 	var diagramButtons = document.getElementById("diagramButtons").children;

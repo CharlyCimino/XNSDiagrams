@@ -4,13 +4,6 @@
 	color: #071c26;
 }
 
-#menuContainer {
-	width: 22%;
-	right: 0;
-	overflow-y: auto;
-	/* display: none; */
-}
-
 #menuContainer .w3-bar-block .w3-button {
 	cursor: copy;
 }

@@ -96,3 +96,14 @@ function cloneDiagramHandler(e) {
 function deleteDiagramHandler(e) {
 	deleteDiagram(diagramsMenu.getContainerFromControlButton(this));
 }
+
+function openBlocksContainerHandler(e) {
+	applyClassInNode(false, "invisible", document.getElementById("menuContainer"));
+	toggleClass(document.getElementById("sectionDiagram"), "initial-margin-right");
+	applyClassInNode(true, "margin-right", document.getElementById("sectionDiagram"));
+}
+function closeBlocksContainerHandler(e) {
+	applyClassInNode(true, "invisible", document.getElementById("menuContainer"));
+	toggleClass(document.getElementById("sectionDiagram"), "initial-margin-right");
+	applyClassInNode(false, "margin-right", document.getElementById("sectionDiagram"));
+}
