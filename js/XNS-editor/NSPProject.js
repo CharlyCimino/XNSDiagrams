@@ -11,6 +11,12 @@ function NSPProject(autor, comission) {
 	this.addDiagram = function (diagram) {
 		this.diagrams.push(diagram);
 	}
+	this.upDiagram = function (index) {
+		swapInArray(this.diagrams, index, index - 1);
+	}
+	this.downDiagram = function (index) {
+		swapInArray(this.diagrams, index, index + 1);
+	}
 	this.deleteDiagram = function (id) {
 		var index = -1;
 		var diagramFound = this.getDiagramById(id);

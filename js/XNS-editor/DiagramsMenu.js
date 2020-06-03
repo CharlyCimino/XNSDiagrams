@@ -20,6 +20,12 @@ function DiagramsMenu() {
 	this.deleteDiagram = function (diagramItemContainer) {
 		diagramItemContainer.parentNode.removeChild(diagramItemContainer);
 	}
+	this.upDiagram = function (index) {
+		swapInNode(this.itemsContainer, index, index - 1);
+	}
+	this.downDiagram = function (index) {
+		swapInNode(this.itemsContainer, index + 1, index);
+	}
 	this.newDiagramItem = function (diagram) {
 		var btn = newElement("div", "w3-button w3-padding-small w3-block w3-hover-indigo w3-margin-top w3-border-bottom diagram-item");
 		btn.setAttribute("type", "button");

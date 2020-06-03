@@ -82,12 +82,14 @@ function handleNewDiagram(e) {
 }
 
 function downDiagramHandler(e) {
-	console.log(diagramsMenu.getContainerFromControlButton(this));
-	alert("Falta implementar");
+	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
+	project.downDiagram(idx);
+	diagramsMenu.downDiagram(idx);
 }
 function upDiagramHandler(e) {
-	console.log(diagramsMenu.getContainerFromControlButton(this));
-	alert("Falta implementar");
+	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
+	project.upDiagram(idx);
+	diagramsMenu.upDiagram(idx);
 }
 function cloneDiagramHandler(e) {
 	console.log(diagramsMenu.getContainerFromControlButton(this));
