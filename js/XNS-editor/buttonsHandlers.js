@@ -46,6 +46,7 @@ function handleAllViewDiagrams(e) {
 function handleClickInDiagramItem(e) {
 	updateDiagram();
 	diagramContainer.setDiagram(this.diagram);
+	diagramsMenu.setActiveDiagram(this.diagram);
 	handleInputs()
 	resizeInputs();
 	drawCorners();

@@ -155,11 +155,12 @@ function updateBeforeOpenProject() {
 	document.title = project.name;
 	diagramsMenu.clear();
 	if (project.diagrams.length != 0) {
+		project.diagrams.forEach(diagram => {
+			diagramsMenu.addDiagram(diagram);
+		});
 		diagramContainer.setDiagram(project.diagrams[0]);
+		diagramsMenu.setActiveDiagram(project.diagrams[0]);
 	}
-	project.diagrams.forEach(diagram => {
-		diagramsMenu.addDiagram(diagram);
-	});
 }
 
 function reSize() {
@@ -191,6 +192,7 @@ function deleteDiagram(diagramItemContainer) {
 	if ("item-" + diagramContainer.actualDiagram.id == id) {
 		var idx = (indexOfRemovedDiagram == project.diagrams.length ? indexOfRemovedDiagram - 1 : indexOfRemovedDiagram);
 		diagramContainer.setDiagram(project.diagrams[idx]);
+		diagramsMenu.setActiveDiagram(project.diagrams[idx]);
 	}
 }
 

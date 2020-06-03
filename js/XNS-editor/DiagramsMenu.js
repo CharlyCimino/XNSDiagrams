@@ -1,10 +1,13 @@
 function DiagramsMenu() {
+	this.activeItem;
 	this.container = document.getElementById("diagramsContainer");
 	this.itemsContainer = document.getElementById("diagramsItemsContainer");
 	this.buttonOpenDiagrams = document.getElementById("buttonOpenDiagrams");
 	this.buttonCloseDiagrams = document.getElementById("buttonCloseDiagrams");
 	this.addDiagram = function (diagram) {
-		this.itemsContainer.appendChild(this.newDiagramItem(diagram));
+		var item = this.newDiagramItem(diagram);
+		this.itemsContainer.appendChild(item);
+		this.setActiveDiagram(diagram);
 	}
 	this.clear = function () {
 		clearAllChilds(this.itemsContainer);
@@ -13,7 +16,23 @@ function DiagramsMenu() {
 		if (diagram) {
 			var itemFound = this.getDiagramItemById("item-" + diagram.id);
 			if (itemFound) {
-				this.setNameInItem(itemFound, diagram.theClass, diagram.name)
+				this.setNameInItem(itemFound, diagram.theClass, diagram.name);
+			}
+		}
+	}
+	this.setActiveDiagram = function (diagram) {
+		if (diagram) {
+			var itemFound = this.getDiagramItemById("item-" + diagram.id);
+			if (itemFound) {
+				if (this.activeItem) {
+					console.log(this.activeItem);
+					applyClassInNode(false, "w3-indigo", this.activeItem);
+					console.log(this.activeItem);
+				}
+				this.activeItem = itemFound;
+				console.log(this.activeItem);
+				applyClassInNode(true, "w3-indigo", this.activeItem);
+				console.log(this.activeItem);
 			}
 		}
 	}
@@ -27,7 +46,7 @@ function DiagramsMenu() {
 		swapInNode(this.itemsContainer, index + 1, index);
 	}
 	this.newDiagramItem = function (diagram) {
-		var btn = newElement("div", "w3-button w3-padding-small w3-block w3-hover-indigo w3-margin-top w3-border-bottom diagram-item");
+		var btn = newElement("div", "w3-button w3-padding-small w3-block w3-hover-indigo w3-margin-top w3-border-bottom w3-indigo diagram-item");
 		btn.setAttribute("type", "button");
 		btn.id = "item-" + diagram.id;
 		btn.diagram = diagram;
