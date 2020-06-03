@@ -100,14 +100,16 @@ html {
 	position: fixed;
 	top: 50%;
 	left: 0;
+	border-radius: 0 0 20px 20px;
 }
 
 #buttonOpenBlocks {
 	transform-origin: 0 100%;
-	transform: rotate(90deg) translate(-50%, -200%);
+	transform: rotate(90deg) translate(-50%, -240%);
 	position: fixed;
 	top: 50%;
 	right: 0;
+	border-radius: 0 0 20px 20px;
 }
 
 #buttonOpenDiagrams i {
@@ -116,6 +118,10 @@ html {
 
 #buttonOpenBlocks i {
 	margin-right: 10px;
+}
+
+.panelButton {
+	width: 130px;
 }
 
 #diagramsContainer {
