@@ -4,7 +4,7 @@ var exportProjectBtn = document.getElementById("exportProjectBtn");
 var exportPDFBtn = document.getElementById("exportPDFBtn");
 
 var newDiagramBtn = document.getElementById("newDiagram");
-// var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
+var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
 
 var checkColors = document.getElementById("checkColors");
 // var checkObjects = document.getElementById("checkObjects");
@@ -17,7 +17,7 @@ setEvent(exportPDFBtn, "click", exportPDFForPupil);
 setInsertButtonsEvents();
 
 setEvent(newDiagramBtn, "click", handleNewDiagram);
-// setEvent(viewAllDiagramsBtn, "click", handleAllViewDiagrams);
+setEvent(viewAllDiagramsBtn, "click", handleAllViewDiagrams);
 
 setEvent(checkColors, "click", handleCheckColors);
 // setEvent(checkObjects, "click", handleCheckObjects);
