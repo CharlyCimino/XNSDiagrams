@@ -40,7 +40,7 @@ function handleCheckObjects(e) {
 }
 
 function handleAllViewDiagrams(e) {
-	alert("Falta implementar");
+	alert("Falta implementar ver todos los diagramas");
 }
 
 function handleClickInDiagramItem(e) {
@@ -94,7 +94,7 @@ function upDiagramHandler(e) {
 }
 function cloneDiagramHandler(e) {
 	console.log(diagramsMenu.getContainerFromControlButton(this));
-	alert("Falta implementar");
+	alert("Falta implementar clonar diagrama");
 }
 function deleteDiagramHandler(e) {
 	deleteDiagram(diagramsMenu.getContainerFromControlButton(this));

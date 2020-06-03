@@ -25,14 +25,10 @@ function DiagramsMenu() {
 			var itemFound = this.getDiagramItemById("item-" + diagram.id);
 			if (itemFound) {
 				if (this.activeItem) {
-					console.log(this.activeItem);
 					applyClassInNode(false, "w3-indigo", this.activeItem);
-					console.log(this.activeItem);
 				}
 				this.activeItem = itemFound;
-				console.log(this.activeItem);
 				applyClassInNode(true, "w3-indigo", this.activeItem);
-				console.log(this.activeItem);
 			}
 		}
 	}
