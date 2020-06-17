@@ -80,6 +80,33 @@ function NSPProject(autor, comission) {
 			"diagrams": this.diagrams,
 		}
 	}
+	this.showHistorial = function(histPopup) {
+		function newRow(content, classStyle) {
+			var item = document.createElement("span");
+			item.className = classStyle;
+			item.innerHTML = content;
+			return item;
+		}
+		var row;
+		if (this.meta) {
+			var data = DataConversor.toJS(this.meta);
+			histPopup.innerHTML = "";
+			for (var i = 0; i < data.length; i++) {
+				row = document.createElement("DIV");
+				row.className = "row";
+				row.appendChild(newRow(data[i].i.autor, "autor"));
+				row.appendChild(newRow(new Date(data[i].i.start).toLocaleString(), "date"));
+				row.appendChild(newRow(new Date(data[i].d).toLocaleString(), "date"));
+				histPopup.appendChild(row);
+			}
+			histPopup.className = histPopup.className.replace("hidden ", "");
+			histPopup.visible = true;
+		}
+	}
+	this.hideHistorial = function(histPopup) {
+		histPopup.className = "hidden " + histPopup.className;
+		histPopup.visible = false;
+	}
 	setEvent(this.nameContainer, "change", () => {
 		this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME);
 		document.title = this.name;

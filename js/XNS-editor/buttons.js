@@ -9,6 +9,10 @@ var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
 var checkColors = document.getElementById("checkColors");
 // var checkObjects = document.getElementById("checkObjects");
 
+var historialBtn = document.getElementById("historialBtn");
+
+var histPopup = document.getElementById("hist-popup");
+
 buttonOpenBlocks = document.getElementById("buttonOpenBlocks");
 buttonCloseBlocks = document.getElementById("buttonCloseBlocks");
 
@@ -27,6 +31,8 @@ setEvent(checkColors, "click", handleCheckColors);
 
 setEvent(buttonOpenBlocks, "click", openBlocksContainerHandler);
 setEvent(buttonCloseBlocks, "click", closeBlocksContainerHandler);
+
+setEvent(historialBtn, "click", swapHistorial);
 
 function setInsertButtonsEvents() {
 	var diagramButtons = document.getElementById("diagramButtons").children;

@@ -169,3 +169,36 @@ html {
 #modalToSave {
 	display: block;
 }
+.historial {
+	cursor: pointer;
+}
+#hist-popup {
+	position: absolute;
+    display: block;
+    right: 0;
+    bottom: 2.5em;
+    padding: .5em;
+    padding-bottom: 0;
+    font-size: 10pt;
+	border: solid 1px #000;
+}
+#hist-popup.hidden {
+	display: none;
+}
+#hist-popup .row {
+	display: block;
+	white-space: nowrap;
+	margin-bottom: .5em;
+}
+#hist-popup span {
+	display: inline-block;
+	white-space: nowrap;
+}
+#hist-popup .row .autor {
+	width: 100%;
+	display: block;
+}
+#hist-popup .row .date {
+	width: 50%;
+	padding-left: 1em;
+}

@@ -81,7 +81,6 @@ function handleNewDiagram(e) {
 	resizeInputs();
 	drawCorners();
 }
-
 function downDiagramHandler(e) {
 	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
 	project.downDiagram(idx);
@@ -109,4 +108,7 @@ function closeBlocksContainerHandler(e) {
 	applyClassInNode(true, "invisible", document.getElementById("menuContainer"));
 	toggleClass(document.getElementById("sectionDiagram"), "initial-margin-right");
 	applyClassInNode(false, "margin-right", document.getElementById("sectionDiagram"));
+}
+function swapHistorial() {
+	project[(histPopup.visible)? "hideHistorial": "showHistorial"](histPopup);
 }
