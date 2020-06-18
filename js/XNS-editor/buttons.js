@@ -32,8 +32,6 @@ setEvent(checkColors, "click", handleCheckColors);
 setEvent(buttonOpenBlocks, "click", openBlocksContainerHandler);
 setEvent(buttonCloseBlocks, "click", closeBlocksContainerHandler);
 
-setEvent(historialBtn, "click", swapHistorial);
-
 function setInsertButtonsEvents() {
 	var diagramButtons = document.getElementById("diagramButtons").children;
 	for (let b = 0; b < diagramButtons.length; b++) {

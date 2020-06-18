@@ -256,6 +256,16 @@ function drawCorners() {
 	}
 }
 
+function setHPopup() {
+	new PopupHandler({
+		"popup": histPopup,
+		"button": historialBtn,
+		"open": function(elems) { project.fillHistorial(elems.popup)},
+		"close": function(elems) { if (elems.popup) elems.popup.innerHTML = "" },
+		"visible": false
+	})
+}
+
 function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
@@ -270,6 +280,7 @@ function init() {
 	resizeInputs();
 	handleInputs();
 	drawCorners();
+	setHPopup();
 }
 
 init();
