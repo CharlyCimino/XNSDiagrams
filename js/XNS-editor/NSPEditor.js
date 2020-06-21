@@ -260,8 +260,8 @@ function setHPopup() {
 	new PopupHandler({
 		"popup": histPopup,
 		"button": historialBtn,
-		"open": function(elems) { project.fillHistorial(elems.popup)},
-		"close": function(elems) { if (elems.popup) elems.popup.innerHTML = "" },
+		"open": function (elems) { project.fillHistorial(elems.popup) },
+		"close": function (elems) { if (elems.popup) elems.popup.innerHTML = "" },
 		"visible": false
 	})
 }
@@ -269,6 +269,7 @@ function setHPopup() {
 function init() {
 	setEvent(window, "load", reSize);
 	setEvent(window, "resize", reSize);
+	setEvent(window, "beforeunload", handleClose);
 	setTrashEvents();
 	urlParams = new URLSearchParams(window.location.search);
 	project = new NSPProject(urlParams.get('usuario'), urlParams.get('curso'));
