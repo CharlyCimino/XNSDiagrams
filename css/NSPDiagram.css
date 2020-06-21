@@ -262,7 +262,6 @@
     position: relative;
 	vertical-align: middle;
 	min-width: 20px;
-	max-width: 100px;
 	height: 25pt;
 	border-right: solid 1px;
 }
@@ -299,7 +298,7 @@
 .for-statement .statements {
 	vertical-align: middle;
     display: table-cell;
-	min-width: 150pt;
+	min-width: 200pt;
 }
 
 .for-statement>.container>.controller>.content-block>.content>* {

@@ -9,6 +9,10 @@ var viewAllDiagramsBtn = document.getElementById("viewAllDiagrams");
 var checkColors = document.getElementById("checkColors");
 // var checkObjects = document.getElementById("checkObjects");
 
+var historialBtn = document.getElementById("historialBtn");
+
+var histPopup = document.getElementById("hist-popup");
+
 buttonOpenBlocks = document.getElementById("buttonOpenBlocks");
 buttonCloseBlocks = document.getElementById("buttonCloseBlocks");
 
