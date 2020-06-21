@@ -92,8 +92,9 @@ function upDiagramHandler(e) {
 	diagramsMenu.upDiagram(idx);
 }
 function cloneDiagramHandler(e) {
-	console.log(diagramsMenu.getContainerFromControlButton(this));
-	alert("Falta implementar clonar diagrama");
+	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
+	var clon = project.cloneDiagram(idx);
+	diagramsMenu.addDiagram(clon);
 }
 function deleteDiagramHandler(e) {
 	if (confirm('¿Borrar diagrama?')) {

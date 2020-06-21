@@ -80,6 +80,7 @@ function handleDragLeaveInBlock(ev) {
 function handleDragEnd(e) {
 	applyClassInNode(true, "invisible", trash);
 	expandEmptys(false);
+	updateDiagram();
 }
 
 function collapseEmptys() {

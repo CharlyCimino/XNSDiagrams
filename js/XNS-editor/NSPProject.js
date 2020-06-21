@@ -17,6 +17,12 @@ function NSPProject(autor, comission) {
 	this.downDiagram = function (index) {
 		swapInArray(this.diagrams, index, index + 1);
 	}
+	this.cloneDiagram = function (index) {
+		var d = this.diagrams[index];
+		var clon = new NSPDiagram(d.theClass, d.name, d.code);
+		this.diagrams.splice(index + 1, 0, clon);
+		return clon;
+	}
 	this.deleteDiagram = function (id) {
 		var index = -1;
 		var diagramFound = this.getDiagramById(id);
@@ -80,7 +86,7 @@ function NSPProject(autor, comission) {
 			"diagrams": this.diagrams,
 		}
 	}
-	this.fillHistorial = function(popup) {
+	this.fillHistorial = function (popup) {
 		if (!popup) return;
 		function newRow(content, classStyle) {
 			var item = document.createElement("span");
