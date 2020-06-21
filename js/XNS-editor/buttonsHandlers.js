@@ -96,7 +96,9 @@ function cloneDiagramHandler(e) {
 	alert("Falta implementar clonar diagrama");
 }
 function deleteDiagramHandler(e) {
-	deleteDiagram(diagramsMenu.getContainerFromControlButton(this));
+	if (confirm('¿Borrar diagrama?')) {
+		deleteDiagram(diagramsMenu.getContainerFromControlButton(this));
+	};
 }
 
 function openBlocksContainerHandler(e) {
@@ -110,5 +112,5 @@ function closeBlocksContainerHandler(e) {
 	applyClassInNode(false, "margin-right", document.getElementById("sectionDiagram"));
 }
 function swapHistorial() {
-	project[(histPopup.visible)? "hideHistorial": "showHistorial"](histPopup);
+	project[(histPopup.visible) ? "hideHistorial" : "showHistorial"](histPopup);
 }
