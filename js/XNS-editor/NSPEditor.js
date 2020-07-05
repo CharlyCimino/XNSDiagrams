@@ -154,6 +154,8 @@ function setTrashEvents() {
 
 function updateBeforeOpenProject() {
 	document.title = project.name;
+	project.autor = urlParams.get('usuario') || "Anonimo";
+	project.comission = urlParams.get('curso') || "Sin Curso";
 	diagramsMenu.clear();
 	if (project.diagrams.length != 0) {
 		project.diagrams.forEach(diagram => {
