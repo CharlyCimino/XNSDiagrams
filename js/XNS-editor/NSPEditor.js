@@ -269,22 +269,34 @@ function setHPopup() {
 	})
 }
 
+function checkParams(urlParams) {
+	if (!urlParams.get('usuario') || !urlParams.get('curso')) {
+		throw "Este editor es solo accesible desde el Aula Virtual del Instituto ORT";
+	}
+}
+
 function init() {
-	setEvent(window, "load", reSize);
-	setEvent(window, "resize", reSize);
-	setEvent(window, "beforeunload", handleClose);
-	setTrashEvents();
 	urlParams = new URLSearchParams(window.location.search);
-	project = new NSPProject(urlParams.get('usuario'), urlParams.get('curso'));
-	diagramContainer = new DiagramContainer();
-	diagramsMenu = new DiagramsMenu();
-	statementsMenu = new StatementsMenu();
-	PDF = new NSPPDF();
-	addDiagram(diagramContainer.actualDiagram);
-	resizeInputs();
-	handleInputs();
-	drawCorners();
-	setHPopup();
+	try {
+		checkParams(urlParams);
+		setEvent(window, "load", reSize);
+		setEvent(window, "resize", reSize);
+		setEvent(window, "beforeunload", handleClose);
+		setTrashEvents();
+		project = new NSPProject(urlParams.get('usuario'), urlParams.get('curso'));
+		diagramContainer = new DiagramContainer();
+		diagramsMenu = new DiagramsMenu();
+		statementsMenu = new StatementsMenu();
+		PDF = new NSPPDF();
+		addDiagram(diagramContainer.actualDiagram);
+		resizeInputs();
+		handleInputs();
+		drawCorners();
+		setHPopup();
+	} catch (e) {
+		clearAllChilds(document.body);
+		alert(e);
+	}
 }
 
 init();
