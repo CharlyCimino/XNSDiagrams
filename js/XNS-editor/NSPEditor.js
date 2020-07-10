@@ -269,18 +269,22 @@ function setHPopup() {
 	})
 }
 
-function checkOrigin() {
+function check() {
 	urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get('f') != new Date().getDay()) {
+		checkOrigin(urlParams);
+	}
+}
+
+function checkOrigin(urlParams) {
 	if (!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0) {
 		throw "Este editor es solo accesible desde el Aula Virtual del Instituto ORT";
 	}
 }
 
 function init() {
-	console.log(document.referrer);
-
 	try {
-		checkOrigin();
+		check();
 		setEvent(window, "load", reSize);
 		setEvent(window, "resize", reSize);
 		setEvent(window, "beforeunload", handleClose);
