@@ -57,7 +57,6 @@ function exportPDF(simpleFlag) {
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
 	printWindow.document.write(toWrite());
-
 }
 
 function toWrite() {

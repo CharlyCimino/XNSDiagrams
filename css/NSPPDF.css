@@ -63,3 +63,8 @@
 	pointer-events: none;
 	z-index: 3;
 }
+
+.metaAutor {
+	text-decoration: none;
+	cursor: none;
+}

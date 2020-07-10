@@ -11,7 +11,7 @@ function NSPPDF() {
 		applyClassInNode(simpleFlag, "invisible", this.subTitle);
 		this.printDiagrams.innerHTML = "";
 		this.title.innerHTML = project.name;
-		this.autor.innerHTML = project.autor;
+		this.autor.innerHTML = '<a class="metaAutor" href=file:///' + this.generateReducedMeta() + ' target="_blank">' + project.autor + '</a>';
 		this.comission.innerHTML = project.comission;
 		this.date.innerHTML = project.date.toLocaleString();
 		this.minutes.innerHTML = project.minutes + " minutos";
@@ -26,6 +26,17 @@ function NSPPDF() {
 			this.printDiagrams.appendChild(divNS);
 		});
 		this.hideIcons();
+	}
+	this.generateReducedMeta = function () {
+		var metaInLine = "ÚNICO_AUTOR";
+		if (project.meta) {
+			var metaInLine = "";
+			var data = DataConversor.toJS(project.meta);
+			for (var i = 0; i < data.length; i++) {
+				metaInLine += data[i]["i"].autor + "/"
+			}
+		}
+		return metaInLine.split(" ").join("_");
 	}
 	this.hideIcons = function () {
 		var arrows = document.querySelectorAll("#projectPrint .fa-arrows");
