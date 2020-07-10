@@ -271,7 +271,7 @@ function setHPopup() {
 
 function check() {
 	urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.get('f') != new Date().getDay()) {
+	if (urlParams.get('f') != new Date().getDate()) {
 		checkOrigin(urlParams);
 	}
 }
