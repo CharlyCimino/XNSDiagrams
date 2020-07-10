@@ -277,8 +277,10 @@ function check() {
 }
 
 function checkOrigin(urlParams) {
-	if (!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0) {
-		throw "Este editor es solo accesible desde el Aula Virtual del Instituto ORT";
+	if (document.URL.indexOf("file:///") < 0) {
+		if ((!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0)) {
+			throw "Este editor es solo accesible desde el Aula Virtual del Instituto ORT";
+		}
 	}
 }
 
