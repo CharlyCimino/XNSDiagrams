@@ -163,6 +163,9 @@ function updateBeforeOpenProject() {
 		});
 		diagramContainer.setDiagram(project.diagrams[0]);
 		diagramsMenu.setActiveDiagram(project.diagrams[0]);
+		handleInputs()
+		resizeInputs();
+		drawCorners();
 	}
 }
 

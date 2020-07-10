@@ -21,7 +21,7 @@ function exportProject(obj) {
 	updateDiagram();
 	project.end();
 	var meta = new XNS_META(project.meta);
-	meta.add({'autor': project.autor, 'comission': project.comission, 'start': project.dateStart.toISOString(), 'minutes': project.minutes });
+	meta.add({ 'autor': project.autor, 'comission': project.comission, 'start': project.dateStart.toISOString(), 'minutes': project.minutes });
 	obj.meta = meta.data;
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
