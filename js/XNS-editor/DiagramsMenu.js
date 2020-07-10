@@ -9,6 +9,12 @@ function DiagramsMenu() {
 		this.itemsContainer.appendChild(item);
 		this.setActiveDiagram(diagram);
 	}
+	this.addDiagramAt = function (idx, diagram) {
+		var item = this.newDiagramItem(diagram);
+		var node = this.itemsContainer.children[idx];
+		insertAfter(item, node);
+		this.setActiveDiagram(diagram);
+	}
 	this.clear = function () {
 		clearAllChilds(this.itemsContainer);
 	}

@@ -61,3 +61,7 @@ function swapInNode(node, idx1, idx2) {
 		node.insertBefore(node.children[idx1], node.children[idx2]);
 	}
 }
+
+function insertAfter(newNode, referenceNode) {
+	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}

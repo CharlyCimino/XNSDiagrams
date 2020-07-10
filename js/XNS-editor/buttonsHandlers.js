@@ -94,7 +94,7 @@ function upDiagramHandler(e) {
 function cloneDiagramHandler(e) {
 	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
 	var clon = project.cloneDiagram(idx);
-	diagramsMenu.addDiagram(clon);
+	diagramsMenu.addDiagramAt(idx, clon);
 }
 function deleteDiagramHandler(e) {
 	if (confirm('¿Borrar diagrama?')) {
