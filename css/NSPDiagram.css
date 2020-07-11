@@ -433,7 +433,7 @@
 
 .input-for-statement {
 	text-align: center;
-	font-family: "Consolas";
+	font-family: "Consolas", monospace;
 	display: inline-block;
 	border: 0;
 	background: inherit;
