@@ -1,7 +1,6 @@
 function handleClickButtonDiagram(ev) {
 	var id = ev.target.id;
 	var idx = indexOfChild(ev.target);
-	console.log(buttonsDiagramTemplates[idx]);
 
 	obj = diagramMaker[id](buttonsDiagramTemplates[idx]);
 	makeDraggable(obj);
@@ -94,8 +93,10 @@ function upDiagramHandler(e) {
 function cloneDiagramHandler(e) {
 	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
 	var clon = project.cloneDiagram(idx);
+	diagramContainer.setDiagram(clon);
 	diagramsMenu.addDiagramAt(idx, clon);
 }
+
 function deleteDiagramHandler(e) {
 	if (confirm('¿Borrar diagrama?')) {
 		deleteDiagram(diagramsMenu.getContainerFromControlButton(this));

@@ -237,10 +237,15 @@ function handleKeyDown(e) {
 
 function handleChangeInput(e) {
 	this.setAttribute("value", this.value);
+	updateDiagram();
 }
 
 function handleChangeDiagramName(e) {
 	updateDiagram();
+}
+
+function ver() {
+
 }
 
 function drawCorners() {

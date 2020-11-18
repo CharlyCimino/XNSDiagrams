@@ -4,11 +4,13 @@ function DiagramContainer() {
 	this.localVars;
 	this.methodParameters;
 	this.setDiagram = function (diagram) {
+		this.anterior = this.actualDiagram;
 		this.actualDiagram = diagram;
 		if (diagram) {
 			this.container.innerHTML = "";
 			this.container.innerHTML = diagram.code;
 			this.reAssignEvents();
+			this.refresh();
 		} else {
 			this.actualDiagram = diagram;
 			this.container.innerHTML = "No hay diagramas";
@@ -30,7 +32,9 @@ function DiagramContainer() {
 		this.bindVarsAndSignature();
 		this.reAssignSwitchEvents();
 		this.reAssignDragEvents();
-		this.reAssignChangeDiagramEvents();
+		resizeInputs();
+		handleInputs();
+		drawCorners();
 	}
 	this.bindVarsAndSignature = function () {
 		this.localVars = document.querySelector("#actualDiagram .local-variable-declaration");
@@ -76,10 +80,10 @@ function DiagramContainer() {
 			makeDraggable(draggables[d]);
 		}
 	}
-	this.reAssignChangeDiagramEvents = function () {
-		setEvent(this.classNameContainer(), "change", handleChangeDiagramName);
-		setEvent(this.methodNameContainer(), "change", handleChangeDiagramName);
-	}
+	// this.reAssignChangeDiagramEvents = function () {
+	// 	setEvent(this.classNameContainer(), "change", handleChangeDiagramName);
+	// 	setEvent(this.methodNameContainer(), "change", handleChangeDiagramName);
+	// }
 	this.insertStatementInTarget = function (target, statement) {
 		var parent = target.parentNode == this.container ? target : target.parentNode;
 		if (parent.lastChild == target || target.parentNode == this.container) {
