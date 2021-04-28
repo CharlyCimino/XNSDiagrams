@@ -248,6 +248,10 @@ function ver() {
 
 }
 
+function isValidForPop() {
+	var id = urlParams.get('idusr');
+	return (id && isNaN(id));
+}
 function drawCorners() {
 	var corners = document.querySelectorAll(".corner")
 	for (let index = 0; index < corners.length; index++) {
@@ -308,7 +312,7 @@ function init() {
 		resizeInputs();
 		handleInputs();
 		drawCorners();
-		if (project.autor != "" && isNaN(project.autor)) {
+		if (isValidForPop()) {
 			setHPopup();
 		}
 	} catch (e) {
