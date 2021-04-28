@@ -308,7 +308,9 @@ function init() {
 		resizeInputs();
 		handleInputs();
 		drawCorners();
-		setHPopup();
+		if (project.autor != "" && isNaN(project.autor)) {
+			setHPopup();
+		}
 	} catch (e) {
 		clearAllChilds(document.body);
 		alert(e);
