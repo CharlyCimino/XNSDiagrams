@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+.hidden {
+    display: none;
+}
+
 .Nassi-Shneiderman {
 	font-family: "Consolas", monospace;
 	font-size: 11pt;
