@@ -9,7 +9,6 @@ function NSPPDF() {
 	this.printDiagrams = document.getElementById("projectPrintDiagrams");
 	this.setProject = function (aProject, simpleFlag) {
 		applyClassInNode(simpleFlag, "invisible", this.subTitle);
-		debugger;
 		this.printDiagrams.innerHTML = "";
 		this.title.innerHTML = aProject.name;
 		this.autor.innerHTML = '<a class="metaAutor" href=file:///' + this.generateReducedMeta(aProject) + ' target="_blank">' + aProject.getInfo("usr") + '</a>';
@@ -32,9 +31,9 @@ function NSPPDF() {
 		var metaInLine = "ÚNICO_AUTOR";
 		if (project.meta) {
 			var metaInLine = "";
-			var data = DataConversor.toJS(project.meta);
+			var data = project.getLog();
 			for (var i = 0; i < data.length; i++) {
-				metaInLine += data[i]["i"].autor + "/"
+				metaInLine += ((data[i]["i"]) ? data[i]["i"].autor : "ANONIMO") + "/"
 			}
 		}
 		return metaInLine.split(" ").join("_");

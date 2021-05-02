@@ -4,20 +4,29 @@ function NSPProject(data) {
 	var _DEFAULT_AUTHOR = "Sin autor";
 	var _DEFAULT_GROUP = "Sin comisión";
 
+	var _data = {
+		"usr": _DEFAULT_AUTHOR,
+		"com": _DEFAULT_GROUP,
+		"uid": null,
+		"mev": false,
+		"tea": false,
+		"ref": document.referrer,
+		"url": document.location.href
+	}
+
 	var _name = _DEFAULT_NAME;
-	var _autor = _DEFAULT_AUTHOR;
-	var _comission = _DEFAULT_GROUP;
 	var _dateStart = new Date();
-	var _date;
+	var _date =  new Date();
 	var _minutes = 0;
 
 	var _diagrams = [];
 
 	var _meta = null;
+	var _log = null;
 
-	function init() {
-		_autor = data["usr"];
-		_comission = data["com"];
+	function init() { setData(data); }
+	function setData(obj) {
+		for (x in _data) if (obj[x]) _data[x] = obj[x];
 	}
 
 	function addDiagram(diagram) {
@@ -54,12 +63,7 @@ function NSPProject(data) {
 	}
 	function getName() { return _name; }
 	function setName(value) { _name = value || _DEFAULT_NAME; }
-	function setData (name, autor, comission) {
-		_setName(name);
-		_autor = autor;
-		_comission = comission;
-	}
-	function fillInfo() {
+	function updateTime() {
 		_date = new Date();
 		_minutes = calculateMinutes(_date);
 	}
@@ -68,11 +72,17 @@ function NSPProject(data) {
 		// ms --> minutes
 		return Math.trunc(diff / (1000 * 60));
 	}
-	function check(value) { return (value); }
-	function getForExport(complete) {
+	function getForExport(complete, callback) {
 		_date = new Date();
-		return { ...{ "name": _name, "diagrams": _diagrams },
-				 ...((complete) ? { "autor": _autor, "comission": _comission, "date": _date, "minutes": _minutes } : {}) };
+		var obj = {
+			...{ "name": _name, "diagrams": _diagrams },
+			...((complete) ? { "autor": _data["usr"], "comission": _data["com"], "date": _date, "minutes": _minutes } : {}) };
+		if (callback) callback();
+		updateTime();
+		var meta = new XNS_META(_meta);
+		meta.add(getMetaInfo());
+		obj.meta = meta.data;
+		return obj;
 	}
 	function fillHistorial(popup) {
 		if (!popup) return;
@@ -84,37 +94,35 @@ function NSPProject(data) {
 		}
 		var row;
 		if (_meta) {
-			var data = DataConversor.toJS(_meta);
 			popup.innerHTML = "";
-			for (var i = 0; i < data.length; i++) {
+			for (var i = 0; i < _log.length; i++) {
 				row = document.createElement("DIV");
 				row.className = "row";
-				row.appendChild(newRow(data[i].i.autor, "autor"));
-				row.appendChild(newRow(new Date(data[i].i.start).toLocaleString(), "date"));
-				row.appendChild(newRow(new Date(data[i].d).toLocaleString(), "date"));
+				row.appendChild(newRow(_log[i].i.autor, "autor"));
+				row.appendChild(newRow(new Date(_log[i].i.start).toLocaleString(), "date"));
+				row.appendChild(newRow(new Date(_log[i].d).toLocaleString(), "date"));
 				popup.appendChild(row);
 			}
 		}
 	}
 	function importFromJSON(jObject) {
 		_name = jObject.name;
-		_autor = jObject.autor;
-		_comission = jObject.comission;
-		_meta = jObject.meta;
+		setMeta(jObject.meta);
 		jObject.diagrams.forEach(diagram => { addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code)); });
 	}
-	function setMeta(value) { _meta = value }
+	function setMeta(value) { _meta = value; _log = DataConversor.toJS(_meta) }
 	function getMeta() { return _meta }
 	function getDiagramLength() { return _diagrams.length }
 	function hasDiagrams() { return getDiagramLength() > 0 }
-	function getResolutionTime() { return _minutes }
+	function getResolutionTime() { if (!_minutes) updateTime(); return _minutes }
 	
 	function getFirst() { return (hasDiagrams) ? _diagrams[0] : null }
 	function getDiagram(idx) { return (_diagrams.length > idx) ? _diagrams[idx] : null }
 	function publish(callback) { if (callback) _diagrams.forEach(d => { callback(d) }); }
 
-	function getMetaInfo() { return { 'autor': _autor, 'comission': _comission, 'start': _dateStart.toISOString(), 'minutes': _minutes, 'mev': data["mev"] }; }
-	function getInfo(key) { return data["key"] };
+	function getMetaInfo() { return { 'autor': _data["usr"], 'comission': _data["com"], 'start': _dateStart.toISOString(), 'minutes': _minutes, 'mev': _data["mev"] }; }
+	function getLog() { return _log }
+	function getInfo(key) { return _data[key] };
 	function getDateStr() { return _date.toLocaleString() }
 
 	init();
@@ -124,7 +132,7 @@ function NSPProject(data) {
 	Object.defineProperty(_self, "hasDiagrams", {  "enumerable": true, "configurable": false, "get" : hasDiagrams });
 	Object.defineProperty(_self, "resolutionTime", {  "enumerable": true, "configurable": false, "get" : getResolutionTime });
 	
-	Object.defineProperty(_self, "fillInfo", { "enumerable": false, "writable": false, "configurable": false, "value": fillInfo })
+	Object.defineProperty(_self, "updateTime", { "enumerable": false, "writable": false, "configurable": false, "value": updateTime })
 	Object.defineProperty(_self, "moveDiagramUp", { "enumerable": false, "writable": false, "configurable": false, "value": moveDiagramUp })
 	Object.defineProperty(_self, "moveDiagramDown", { "enumerable": false, "writable": false, "configurable": false, "value": moveDiagramDown })
 	Object.defineProperty(_self, "diagramsCount", { "enumerable": false, "writable": false, "configurable": false, "value": getDiagramLength })
@@ -136,10 +144,11 @@ function NSPProject(data) {
 	Object.defineProperty(_self, "cloneDiagram", { "enumerable": false, "writable": false, "configurable": false, "value": cloneDiagram });
 	Object.defineProperty(_self, "fillHistorial", { "enumerable": false, "writable": false, "configurable": false, "value": fillHistorial });
 	Object.defineProperty(_self, "getForExport", { "enumerable": false, "writable": false, "configurable": false, "value": getForExport });
-	Object.defineProperty(_self, "getMetaInfo", { "enumerable": false, "writable": false, "configurable": false, "value": getMetaInfo });
+	Object.defineProperty(_self, "getLog", { "enumerable": false, "writable": false, "configurable": false, "value": getLog });
 	Object.defineProperty(_self, "getInfo", { "enumerable": false, "writable": false, "configurable": false, "value": getInfo });
 	Object.defineProperty(_self, "getDateStr", { "enumerable": false, "writable": false, "configurable": false, "value": getDateStr });
 	Object.defineProperty(_self, "import", { "enumerable": false, "writable": false, "configurable": false, "value": importFromJSON });
+	Object.defineProperty(_self, "set", { "enumerable": false, "writable": false, "configurable": false, "value": setData });
 
 	return _self;
 }

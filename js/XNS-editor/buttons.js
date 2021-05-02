@@ -18,7 +18,7 @@ buttonCloseBlocks = document.getElementById("buttonCloseBlocks");
 
 setEvent(importProjectBtn, "click", importProject);
 
-setEvent(exportProjectBtn, "click", exportProjectForStudent);
+setEvent(exportProjectBtn, "click", exportProject);
 setEvent(exportPDFBtn, "click", exportPDFForStudent);
 
 setInsertButtonsEvents();

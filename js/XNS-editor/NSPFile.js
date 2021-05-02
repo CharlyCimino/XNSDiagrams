@@ -9,20 +9,8 @@ function importProject() {
 	input.click();
 }
 
-function exportProjectForStudent() {
-	exportProject(project.getForExport(true));
-}
-
-function exportProjectSimple() {
-	exportProject(project.getForExport(false));
-}
-
-function exportProject(obj) {
-	updateDiagram();
-	project.fillInfo();
-	var meta = new XNS_META(project.meta);
-	meta.add(project.metaInfo);
-	obj.meta = meta.data;
+function exportProject() {
+	var obj = project.getForExport(true, updateDiagram);
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
 	element.setAttribute('download', project.name + ".nsplus");
@@ -53,7 +41,7 @@ function makeCssArray() {
 
 function exportPDF(simpleFlag) {
 	updateDiagram();
-	project.fillInfo();
+	project.updateTime();
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
 	printWindow.document.write(toWrite());

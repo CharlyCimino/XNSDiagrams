@@ -154,8 +154,7 @@ function setTrashEvents() {
 
 function updateBeforeOpenProject() {
 	document.title = document.getElementById("inputProjectName").value = project.name;
-	project.autor = urlParams.get('usuario') || "Anonimo";
-	project.comission = urlParams.get('curso') || "Sin Curso";
+	project.set({ "usr": urlParams.get('usuario') || "Anonimo", "com": urlParams.get('curso') || "Sin Curso" });
 	diagramsMenu.clear();
 	if (project.hasDiagrams) {
 		project.publishTo(diagramsMenu.addDiagram);
@@ -246,10 +245,7 @@ function handleChangeDiagramName(e) {
 
 function ver() {
 	var x = { "usr": "usuario", "com": "curso", "uid": "idusr", "mev": "eval", "tea": "f" };
-	x = (function(z) { for (y in x) z[y] = urlParams.get(x[y]); return z })({});
-	x["ref"] = document.referrer;
-	x["url"] = document.location.href;
-	return x;
+	return (function(z) { for (y in x) z[y] = urlParams.get(x[y]); return z })({});
 }
 
 function isValidForPop() {
