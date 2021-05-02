@@ -82,12 +82,12 @@ function handleNewDiagram(e) {
 }
 function downDiagramHandler(e) {
 	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
-	project.downDiagram(idx);
+	project.moveDiagramDown(idx);
 	diagramsMenu.downDiagram(idx);
 }
 function upDiagramHandler(e) {
 	var idx = indexOfChild(diagramsMenu.getContainerFromControlButton(this));
-	project.upDiagram(idx);
+	project.moveDiagramUp(idx);
 	diagramsMenu.upDiagram(idx);
 }
 function cloneDiagramHandler(e) {

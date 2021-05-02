@@ -153,16 +153,15 @@ function setTrashEvents() {
 }
 
 function updateBeforeOpenProject() {
-	document.title = project.name;
+	document.title = document.getElementById("inputProjectName").value = project.name;
 	project.autor = urlParams.get('usuario') || "Anonimo";
 	project.comission = urlParams.get('curso') || "Sin Curso";
 	diagramsMenu.clear();
-	if (project.diagrams.length != 0) {
-		project.diagrams.forEach(diagram => {
-			diagramsMenu.addDiagram(diagram);
-		});
-		diagramContainer.setDiagram(project.diagrams[0]);
-		diagramsMenu.setActiveDiagram(project.diagrams[0]);
+	if (project.hasDiagrams) {
+		project.publishTo(diagramsMenu.addDiagram);
+		first = project.getFirst();
+		diagramContainer.setDiagram(first);
+		diagramsMenu.setActiveDiagram(first);
 		handleInputs()
 		resizeInputs();
 		drawCorners();
@@ -196,9 +195,10 @@ function deleteDiagram(diagramItemContainer) {
 	var id = diagramItemContainer.firstChild.id;
 	var indexOfRemovedDiagram = project.deleteDiagram(id.substring(id.indexOf("NSP")));
 	if ("item-" + diagramContainer.actualDiagram.id == id) {
-		var idx = (indexOfRemovedDiagram == project.diagrams.length ? indexOfRemovedDiagram - 1 : indexOfRemovedDiagram);
-		diagramContainer.setDiagram(project.diagrams[idx]);
-		diagramsMenu.setActiveDiagram(project.diagrams[idx]);
+		var idx = (indexOfRemovedDiagram == project.hasDiagrams ? indexOfRemovedDiagram - 1 : indexOfRemovedDiagram);
+		var diagram = project.getDiagram(idx);
+		diagramContainer.setDiagram(diagram);
+		diagramsMenu.setActiveDiagram(diagram);
 	}
 }
 
@@ -245,13 +245,23 @@ function handleChangeDiagramName(e) {
 }
 
 function ver() {
-
+	var x = { "usr": "usuario", "com": "curso", "uid": "idusr", "mev": "eval", "tea": "f" };
+	x = (function(z) { for (y in x) z[y] = urlParams.get(x[y]); return z })({});
+	x["ref"] = document.referrer;
+	x["url"] = document.location.href;
+	return x;
 }
 
 function isValidForPop() {
-	var id = urlParams.get('idusr');
-	return (id && isNaN(id));
+	var x = urlParams.get('idusr');
+	return (x && isNaN(x));
 }
+
+function isShortMode() {
+	var x = urlParams.get('eval');
+	return (x && !!isNaN(x));
+}
+
 function drawCorners() {
 	var corners = document.querySelectorAll(".corner")
 	for (let index = 0; index < corners.length; index++) {
@@ -297,28 +307,27 @@ function checkOrigin(urlParams) {
 }
 
 function init() {
-	try {
+	//try {
 		check();
 		setEvent(window, "load", reSize);
 		setEvent(window, "resize", reSize);
 		setEvent(window, "beforeunload", handleClose);
 		setTrashEvents();
-		project = new NSPProject(urlParams.get('usuario'), urlParams.get('curso'));
+		project = new NSPProject(ver());
 		diagramContainer = new DiagramContainer();
 		diagramsMenu = new DiagramsMenu();
 		statementsMenu = new StatementsMenu();
 		PDF = new NSPPDF();
+		setEvent(document.getElementById("inputProjectName"), "change", function() { document.title = project.name = this.value; });
 		addDiagram(diagramContainer.actualDiagram);
 		resizeInputs();
 		handleInputs();
 		drawCorners();
-		if (isValidForPop()) {
-			setHPopup();
-		}
-	} catch (e) {
-		clearAllChilds(document.body);
-		alert(e);
-	}
+		if (isValidForPop()) { setHPopup(); }
+	// } catch (e) {
+	// 	clearAllChilds(document.body);
+	// 	alert(e);
+	// }
 }
 
 init();

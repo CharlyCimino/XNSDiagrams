@@ -1,92 +1,80 @@
-function NSPProject(autor, comission) {
-	this.DEFAULT_NAME = "Proyecto sin título";
-	this.nameContainer = document.getElementById("inputProjectName");
-	this.name = this.DEFAULT_NAME;
-	this.autor = autor ? autor : "Sin autor";
-	this.comission = comission ? comission : "Sin comisión";
-	this.dateStart = new Date();
-	this.date;
-	this.minutes;
-	this.diagrams = [];
-	this.addDiagram = function (diagram) {
-		this.diagrams.push(diagram);
+function NSPProject(data) {
+	var _self = this;
+	var _DEFAULT_NAME = "Proyecto sin título";
+	var _DEFAULT_AUTHOR = "Sin autor";
+	var _DEFAULT_GROUP = "Sin comisión";
+
+	var _name = _DEFAULT_NAME;
+	var _autor = _DEFAULT_AUTHOR;
+	var _comission = _DEFAULT_GROUP;
+	var _dateStart = new Date();
+	var _date;
+	var _minutes = 0;
+
+	var _diagrams = [];
+
+	var _meta = null;
+
+	function init() {
+		_autor = data["usr"];
+		_comission = data["com"];
 	}
-	this.upDiagram = function (index) {
-		swapInArray(this.diagrams, index, index - 1);
+
+	function addDiagram(diagram) {
+		_diagrams.push(diagram);
 	}
-	this.downDiagram = function (index) {
-		swapInArray(this.diagrams, index, index + 1);
+	function moveDiagramUp(index) {
+		swapInArray(_diagrams, index, index - 1);
 	}
-	this.cloneDiagram = function (index) {
-		var d = this.diagrams[index];
-		var clon = new NSPDiagram(d.theClass, d.name, d.code);
-		this.diagrams.splice(index + 1, 0, clon);
-		return clon;
+	function moveDiagramDown(index) {
+		swapInArray(_diagrams, index, index + 1);
 	}
-	this.deleteDiagram = function (id) {
+	function cloneDiagram(index) {
+		var d = _diagrams[index];
+		var theClone = new NSPDiagram(d.theClass, d.name, d.code);
+		_diagrams.splice(index + 1, 0, theClone);
+		return theClone;
+	}
+	function deleteDiagram(id) {
 		var index = -1;
-		var diagramFound = this.getDiagramById(id);
+		var diagramFound = getDiagramById(id);
 		if (diagramFound) {
-			index = this.diagrams.indexOf(diagramFound);
+			index = _diagrams.indexOf(diagramFound);
 			if (index > -1) {
-				this.diagrams.splice(index, 1);
+				_diagrams.splice(index, 1);
 			}
 		}
 		return index;
 	}
-	this.getDiagramById = function (id) {
-		var diag = null;
-		var i = 0;
-		while (i < this.diagrams.length && this.diagrams[i].id != id) {
-			i++
-		}
-		if (i < this.diagrams.length) {
-			diag = this.diagrams[i];
-		}
+	function getDiagramById(id) {
+		var diag = null, i = 0;
+		while (i < _diagrams.length && _diagrams[i].id != id) { i++ }
+		if (i < _diagrams.length) { diag = _diagrams[i]; }
 		return diag;
 	}
-	this.getName = function () {
-		return this.name;
+	function getName() { return _name; }
+	function setName(value) { _name = value || _DEFAULT_NAME; }
+	function setData (name, autor, comission) {
+		_setName(name);
+		_autor = autor;
+		_comission = comission;
 	}
-	this.setName = function (name) {
-		this.name = name;
-		this.nameContainer.value = name;
+	function fillInfo() {
+		_date = new Date();
+		_minutes = calculateMinutes(_date);
 	}
-	this.setData = function (name, autor, comission) {
-		this.setName(name);
-		this.autor = autor;
-		this.comission = comission;
-	}
-	this.end = function () {
-		this.date = new Date();
-		this.minutes = this.calculateMinutes(this.date);
-	}
-	this.calculateMinutes = function (actual) {
-		var diff = actual.getTime() - this.dateStart.getTime();
+	function calculateMinutes(current) {
+		var diff = current.getTime() - _dateStart.getTime();
 		// ms --> minutes
 		return Math.trunc(diff / (1000 * 60));
 	}
-	this.check = function (value) {
-		return (value);
+	function check(value) { return (value); }
+	function getForExport(complete) {
+		_date = new Date();
+		return { ...{ "name": _name, "diagrams": _diagrams },
+				 ...((complete) ? { "autor": _autor, "comission": _comission, "date": _date, "minutes": _minutes } : {}) };
 	}
-	this.getForExport = function () {
-		this.date = new Date();
-		return {
-			"name": this.name,
-			"autor": this.autor,
-			"comission": this.comission,
-			"diagrams": this.diagrams,
-			"date": this.date,
-			"minutes": this.minutes
-		}
-	}
-	this.getForExportSimple = function () {
-		return {
-			"name": this.name,
-			"diagrams": this.diagrams,
-		}
-	}
-	this.fillHistorial = function (popup) {
+	function fillHistorial(popup) {
 		if (!popup) return;
 		function newRow(content, classStyle) {
 			var item = document.createElement("span");
@@ -95,8 +83,8 @@ function NSPProject(autor, comission) {
 			return item;
 		}
 		var row;
-		if (this.meta) {
-			var data = DataConversor.toJS(this.meta);
+		if (_meta) {
+			var data = DataConversor.toJS(_meta);
 			popup.innerHTML = "";
 			for (var i = 0; i < data.length; i++) {
 				row = document.createElement("DIV");
@@ -108,8 +96,50 @@ function NSPProject(autor, comission) {
 			}
 		}
 	}
-	setEvent(this.nameContainer, "change", () => {
-		this.name = (this.nameContainer.value != "" ? this.nameContainer.value : this.DEFAULT_NAME);
-		document.title = this.name;
-	});
+	function importFromJSON(jObject) {
+		_name = jObject.name;
+		_autor = jObject.autor;
+		_comission = jObject.comission;
+		_meta = jObject.meta;
+		jObject.diagrams.forEach(diagram => { addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code)); });
+	}
+	function setMeta(value) { _meta = value }
+	function getMeta() { return _meta }
+	function getDiagramLength() { return _diagrams.length }
+	function hasDiagrams() { return getDiagramLength() > 0 }
+	function getResolutionTime() { return _minutes }
+	
+	function getFirst() { return (hasDiagrams) ? _diagrams[0] : null }
+	function getDiagram(idx) { return (_diagrams.length > idx) ? _diagrams[idx] : null }
+	function publish(callback) { if (callback) _diagrams.forEach(d => { callback(d) }); }
+
+	function getMetaInfo() { return { 'autor': _autor, 'comission': _comission, 'start': _dateStart.toISOString(), 'minutes': _minutes, 'mev': data["mev"] }; }
+	function getInfo(key) { return data["key"] };
+	function getDateStr() { return _date.toLocaleString() }
+
+	init();
+
+	Object.defineProperty(_self, "meta", { "enumerable": true, "configurable": false, "get" : getMeta, "set": setMeta });
+	Object.defineProperty(_self, "name", {  "enumerable": true, "configurable": false, "get" : getName, "set": setName });
+	Object.defineProperty(_self, "hasDiagrams", {  "enumerable": true, "configurable": false, "get" : hasDiagrams });
+	Object.defineProperty(_self, "resolutionTime", {  "enumerable": true, "configurable": false, "get" : getResolutionTime });
+	
+	Object.defineProperty(_self, "fillInfo", { "enumerable": false, "writable": false, "configurable": false, "value": fillInfo })
+	Object.defineProperty(_self, "moveDiagramUp", { "enumerable": false, "writable": false, "configurable": false, "value": moveDiagramUp })
+	Object.defineProperty(_self, "moveDiagramDown", { "enumerable": false, "writable": false, "configurable": false, "value": moveDiagramDown })
+	Object.defineProperty(_self, "diagramsCount", { "enumerable": false, "writable": false, "configurable": false, "value": getDiagramLength })
+	Object.defineProperty(_self, "publishTo", { "enumerable": false, "writable": false, "configurable": false, "value": publish })
+	Object.defineProperty(_self, "getFirst", {  "enumerable": false, "writable": false, "configurable": false, "value" : getFirst });
+	Object.defineProperty(_self, "addDiagram", {  "enumerable": false, "writable": false, "configurable": false, "value" : addDiagram });
+	Object.defineProperty(_self, "deleteDiagram", {  "enumerable": false, "writable": false, "configurable": false, "value" : deleteDiagram });
+	Object.defineProperty(_self, "getDiagram", {  "enumerable": false, "writable": false, "configurable": false, "value" : getDiagram });
+	Object.defineProperty(_self, "cloneDiagram", { "enumerable": false, "writable": false, "configurable": false, "value": cloneDiagram });
+	Object.defineProperty(_self, "fillHistorial", { "enumerable": false, "writable": false, "configurable": false, "value": fillHistorial });
+	Object.defineProperty(_self, "getForExport", { "enumerable": false, "writable": false, "configurable": false, "value": getForExport });
+	Object.defineProperty(_self, "getMetaInfo", { "enumerable": false, "writable": false, "configurable": false, "value": getMetaInfo });
+	Object.defineProperty(_self, "getInfo", { "enumerable": false, "writable": false, "configurable": false, "value": getInfo });
+	Object.defineProperty(_self, "getDateStr", { "enumerable": false, "writable": false, "configurable": false, "value": getDateStr });
+	Object.defineProperty(_self, "import", { "enumerable": false, "writable": false, "configurable": false, "value": importFromJSON });
+
+	return _self;
 }

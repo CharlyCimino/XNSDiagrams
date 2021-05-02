@@ -9,19 +9,19 @@ function importProject() {
 	input.click();
 }
 
-function exportProjectForPupil() {
-	exportProject(project.getForExport());
+function exportProjectForStudent() {
+	exportProject(project.getForExport(true));
 }
 
 function exportProjectSimple() {
-	exportProject(project.getForExportSimple());
+	exportProject(project.getForExport(false));
 }
 
 function exportProject(obj) {
 	updateDiagram();
-	project.end();
+	project.fillInfo();
 	var meta = new XNS_META(project.meta);
-	meta.add({ 'autor': project.autor, 'comission': project.comission, 'start': project.dateStart.toISOString(), 'minutes': project.minutes });
+	meta.add(project.metaInfo);
 	obj.meta = meta.data;
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
@@ -32,7 +32,7 @@ function exportProject(obj) {
 	document.body.removeChild(element);
 }
 
-function exportPDFForPupil() {
+function exportPDFForStudent() {
 	exportPDF(false);
 }
 
@@ -53,7 +53,7 @@ function makeCssArray() {
 
 function exportPDF(simpleFlag) {
 	updateDiagram();
-	project.end();
+	project.fillInfo();
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
 	printWindow.document.write(toWrite());
@@ -88,12 +88,8 @@ function openFile(file) {
 }
 
 function jsonToProject(projectJSON) {
-	var newP = new NSPProject();
-	newP.setData(projectJSON.name, projectJSON.autor, projectJSON.comission);
-	newP.meta = projectJSON.meta;
-	projectJSON.diagrams.forEach(diagram => {
-		newP.addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code));
-	});
+	var newP = new NSPProject(ver());
+	newP.import(projectJSON);
 	return newP;
 }
 
