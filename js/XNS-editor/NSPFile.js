@@ -13,7 +13,7 @@ function exportProject() {
 	var obj = project.getForExport(true, updateDiagram);
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
-	element.setAttribute('download', project.name + ".nsplus");
+	element.setAttribute('download', project.fullname + ".nsplus");
 	element.style.display = 'none';
 	document.body.appendChild(element);
 	element.click();
@@ -67,7 +67,11 @@ function openFile(file) {
 	// Closure to capture the file information.
 	reader.onload = (function (theFile) {
 		return function (e) {
-			project = jsonToProject(toJSON(e.target.result));
+			try {
+				project = jsonToProject(toJSON(e.target.result));
+			} catch(e) {
+				alert(e);
+			}
 			updateBeforeOpenProject();
 		};
 	})(file);

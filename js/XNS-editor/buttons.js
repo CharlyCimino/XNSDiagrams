@@ -1,3 +1,4 @@
+
 var importProjectBtn = document.getElementById("importProjectBtn");
 
 var exportProjectBtn = document.getElementById("exportProjectBtn");
@@ -13,29 +14,32 @@ var historialBtn = document.getElementById("historialBtn");
 
 var histPopup = document.getElementById("hist-popup");
 
-buttonOpenBlocks = document.getElementById("buttonOpenBlocks");
-buttonCloseBlocks = document.getElementById("buttonCloseBlocks");
+var buttonOpenBlocks = document.getElementById("buttonOpenBlocks");
+var buttonCloseBlocks = document.getElementById("buttonCloseBlocks");
 
-setEvent(importProjectBtn, "click", importProject);
+function initButtons(prj) {
+	if (!prj) return;
 
-setEvent(exportProjectBtn, "click", exportProject);
-setEvent(exportPDFBtn, "click", exportPDFForStudent);
+	setEvent(exportProjectBtn, "click", exportProject);
 
-setInsertButtonsEvents();
+	setEvent(importProjectBtn, "click", importProject);
+	(!prj.et) ? setEvent(exportPDFBtn, "click", exportPDFForStudent) : exportPDFBtn.className += " disabled";
+	setInsertButtonsEvents();
 
-setEvent(newDiagramBtn, "click", handleNewDiagram);
-setEvent(viewAllDiagramsBtn, "click", handleAllViewDiagrams);
+	setEvent(newDiagramBtn, "click", handleNewDiagram);
+	setEvent(viewAllDiagramsBtn, "click", handleAllViewDiagrams);
 
-setEvent(checkColors, "click", handleCheckColors);
-// setEvent(checkObjects, "click", handleCheckObjects);
+	setEvent(checkColors, "click", handleCheckColors);
+	// setEvent(checkObjects, "click", handleCheckObjects);
 
-setEvent(buttonOpenBlocks, "click", openBlocksContainerHandler);
-setEvent(buttonCloseBlocks, "click", closeBlocksContainerHandler);
+	setEvent(buttonOpenBlocks, "click", openBlocksContainerHandler);
+	setEvent(buttonCloseBlocks, "click", closeBlocksContainerHandler);
 
-function setInsertButtonsEvents() {
-	var diagramButtons = document.getElementById("diagramButtons").children;
-	for (let b = 0; b < diagramButtons.length; b++) {
-		const button = diagramButtons[b];
-		setEvent(button, "click", handleClickButtonDiagram);
+	function setInsertButtonsEvents() {
+		var diagramButtons = document.getElementById("diagramButtons").children;
+		for (let b = 0; b < diagramButtons.length; b++) {
+			const button = diagramButtons[b];
+			setEvent(button, "click", handleClickButtonDiagram);
+		}
 	}
 }

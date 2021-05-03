@@ -8,7 +8,7 @@ function NSPProject(data) {
 		"usr": _DEFAULT_AUTHOR,
 		"com": _DEFAULT_GROUP,
 		"uid": null,
-		"mev": false,
+		"mev": null,
 		"tea": false,
 		"ref": document.referrer,
 		"url": document.location.href
@@ -18,26 +18,24 @@ function NSPProject(data) {
 	var _dateStart = new Date();
 	var _date =  new Date();
 	var _minutes = 0;
+	var _mevDate = null;
 
 	var _diagrams = [];
 
 	var _meta = null;
 	var _log = null;
 
-	function init() { setData(data); }
-	function setData(obj) {
-		for (x in _data) if (obj[x]) _data[x] = obj[x];
+	function init() { setData(data); checkMEV() }
+	function checkMEV() {
+		if (_data["mev"]) {
+			if (_data["mev"].charAt(_data["mev"].length-1) != "=") _data["mev"]+="=";
+			_mevDate = DataConversor.toDate(_data["mev"]);
+		}
 	}
-
-	function addDiagram(diagram) {
-		_diagrams.push(diagram);
-	}
-	function moveDiagramUp(index) {
-		swapInArray(_diagrams, index, index - 1);
-	}
-	function moveDiagramDown(index) {
-		swapInArray(_diagrams, index, index + 1);
-	}
+	function setData(obj) { for (x in _data) if (obj[x]) _data[x] = obj[x]; }
+	function addDiagram(diagram) { _diagrams.push(diagram); }
+	function moveDiagramUp(index) { swapInArray(_diagrams, index, index - 1); }
+	function moveDiagramDown(index) { swapInArray(_diagrams, index, index + 1); }
 	function cloneDiagram(index) {
 		var d = _diagrams[index];
 		var theClone = new NSPDiagram(d.theClass, d.name, d.code);
@@ -95,6 +93,12 @@ function NSPProject(data) {
 		var row;
 		if (_meta) {
 			popup.innerHTML = "";
+			if (_data["mev"]) {
+				row = document.createElement("DIV");
+				row.className = "evalrow";
+				row.innerHTML = _data["com"] + " - Cierre: " + DataConversor.toDate(_data["mev"]).toLocaleString();
+				popup.appendChild(row);
+			}
 			for (var i = 0; i < _log.length; i++) {
 				row = document.createElement("DIV");
 				row.className = "row";
@@ -105,11 +109,13 @@ function NSPProject(data) {
 			}
 		}
 	}
-	function importFromJSON(jObject) {
-		_name = jObject.name;
-		setMeta(jObject.meta);
-		jObject.diagrams.forEach(diagram => { addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code)); });
+	function importFromJSON(obj) {
+		_name = obj.name;
+		setMeta(obj.meta);
+		if (isEvalTime() && !(isTeacher() || isMyFile(obj.autor))) throw "Invalid";
+		obj.diagrams.forEach(diagram => { addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code)); });
 	}
+	function isMyFile(a) { return a == _data["usr"] }
 	function setMeta(value) { _meta = value; _log = DataConversor.toJS(_meta) }
 	function getMeta() { return _meta }
 	function getDiagramLength() { return _diagrams.length }
@@ -120,10 +126,16 @@ function NSPProject(data) {
 	function getDiagram(idx) { return (_diagrams.length > idx) ? _diagrams[idx] : null }
 	function publish(callback) { if (callback) _diagrams.forEach(d => { callback(d) }); }
 
-	function getMetaInfo() { return { 'autor': _data["usr"], 'comission': _data["com"], 'start': _dateStart.toISOString(), 'minutes': _minutes, 'mev': _data["mev"] }; }
+	function getMetaInfo() {
+		return { 'autor': _data["usr"], 'comission': _data["com"],
+			'start': _dateStart.toISOString(), 'minutes': _minutes, 'mev': _data["mev"] };
+	}
 	function getLog() { return _log }
 	function getInfo(key) { return _data[key] };
 	function getDateStr() { return _date.toLocaleString() }
+	function isEvalTime() { return _mevDate && _mevDate > new Date() }
+	function isTeacher() { return _data["tea"] || (_data["usr"] && isNaN(_data["uid"])) }
+	function getFullname() { return ((isEvalTime() && !isTeacher()) ? [_data["com"], _data["uid"], getName()] : [getName()]).join("_") }
 
 	init();
 
@@ -131,6 +143,8 @@ function NSPProject(data) {
 	Object.defineProperty(_self, "name", {  "enumerable": true, "configurable": false, "get" : getName, "set": setName });
 	Object.defineProperty(_self, "hasDiagrams", {  "enumerable": true, "configurable": false, "get" : hasDiagrams });
 	Object.defineProperty(_self, "resolutionTime", {  "enumerable": true, "configurable": false, "get" : getResolutionTime });
+	Object.defineProperty(_self, "et", {  "enumerable": true, "configurable": false, "get" : isEvalTime });
+	Object.defineProperty(_self, "fullname", {  "enumerable": true, "configurable": false, "get" : getFullname });
 	
 	Object.defineProperty(_self, "updateTime", { "enumerable": false, "writable": false, "configurable": false, "value": updateTime })
 	Object.defineProperty(_self, "moveDiagramUp", { "enumerable": false, "writable": false, "configurable": false, "value": moveDiagramUp })

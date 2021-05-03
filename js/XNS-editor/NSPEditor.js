@@ -244,8 +244,7 @@ function handleChangeDiagramName(e) {
 }
 
 function ver() {
-	var x = { "usr": "usuario", "com": "curso", "uid": "idusr", "mev": "eval", "tea": "f" };
-	return (function(z) { for (y in x) z[y] = urlParams.get(x[y]); return z })({});
+	return (function(x){var z={};for(y in x){w=urlParams.get(x[y]);if(w)z[y]=w};return z})({"usr":"usuario","com":"curso","uid":"idusr","mev":"k","tea":"f"});
 }
 
 function isValidForPop() {
@@ -303,7 +302,7 @@ function checkOrigin(urlParams) {
 }
 
 function init() {
-	//try {
+	try {
 		check();
 		setEvent(window, "load", reSize);
 		setEvent(window, "resize", reSize);
@@ -315,15 +314,16 @@ function init() {
 		statementsMenu = new StatementsMenu();
 		PDF = new NSPPDF();
 		setEvent(document.getElementById("inputProjectName"), "change", function() { document.title = project.name = this.value; });
+		initButtons(project);
 		addDiagram(diagramContainer.actualDiagram);
 		resizeInputs();
 		handleInputs();
 		drawCorners();
 		if (isValidForPop()) { setHPopup(); }
-	// } catch (e) {
-	// 	clearAllChilds(document.body);
-	// 	alert(e);
-	// }
+	} catch (e) {
+	 	clearAllChilds(document.body);
+	 	alert(e);
+	}
 }
 
 init();
