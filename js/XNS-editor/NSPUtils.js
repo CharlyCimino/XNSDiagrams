@@ -1,13 +1,14 @@
 var DataConversor = new function () {
 	var _ref = this;
 
-	function fromJS(data) {
-		return utf8_to_b64(JSON.stringify(data || {}));
+	function fromJS(data, reversed) {
+		var output = utf8_to_b64(JSON.stringify(data || {}));
+		return (reversed) ? output.split("").reverse().join("") : output;
 	}
-	function toJS(str) {
+	function toJS(str, reversed) {
 		var output = null;
 		try {
-			output = JSON.parse(b64_to_utf8(str));
+			output = JSON.parse(b64_to_utf8((reversed) ? str.split("").reverse().join("") : str));
 		} catch (e) {
 			console.log(e.message);
 		}

@@ -4,6 +4,10 @@ function NSPProject(data) {
 	var _DEFAULT_AUTHOR = "Sin autor";
 	var _DEFAULT_GROUP = "Sin comisión";
 
+	var _VERSION_NUMBER = 0.5;
+
+	var _version = 0;
+
 	var _data = {
 		"usr": _DEFAULT_AUTHOR,
 		"com": _DEFAULT_GROUP,
@@ -80,7 +84,7 @@ function NSPProject(data) {
 		var meta = new XNS_META(_meta);
 		meta.add(getMetaInfo());
 		obj.meta = meta.data;
-		return obj;
+		return { "ver": _VERSION_NUMBER, "data" : DataConversor.fromJS(obj, true) };
 	}
 	function fillHistorial(popup) {
 		if (!popup) return;
@@ -110,6 +114,10 @@ function NSPProject(data) {
 		}
 	}
 	function importFromJSON(obj) {
+		_version = obj["ver"] || 0.1;
+		if (_version > 0.1) {
+			obj = DataConversor.toJS(obj["data"], true);
+		}
 		_name = obj.name;
 		setMeta(obj.meta);
 		if (isEvalTime() && !(isTeacher() || isMyFile(obj.autor))) throw "Invalid";
