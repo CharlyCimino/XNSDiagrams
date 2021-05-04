@@ -7,16 +7,16 @@ function NSPPDF() {
 	this.date = document.getElementById("PDFDate");
 	this.minutes = document.getElementById("PDFMinutes");
 	this.printDiagrams = document.getElementById("projectPrintDiagrams");
-	this.setProject = function (project, simpleFlag) {
+	this.setProject = function (aProject, simpleFlag) {
 		applyClassInNode(simpleFlag, "invisible", this.subTitle);
 		this.printDiagrams.innerHTML = "";
-		this.title.innerHTML = project.name;
-		this.autor.innerHTML = '<a class="metaAutor" href=file:///' + this.generateReducedMeta() + ' target="_blank">' + project.autor + '</a>';
-		this.comission.innerHTML = project.comission;
-		this.date.innerHTML = project.date.toLocaleString();
-		this.minutes.innerHTML = project.minutes + " minutos";
+		this.title.innerHTML = aProject.name;
+		this.autor.innerHTML = '<a class="metaAutor" href=file:///' + this.generateReducedMeta(aProject) + ' target="_blank">' + aProject.getInfo("usr") + '</a>';
+		this.comission.innerHTML = aProject.getInfo("com");
+		this.date.innerHTML = aProject.getDateStr();
+		this.minutes.innerHTML = aProject.resolutionTime + " minutos";
 		var wmString = this.watermarkStr();
-		project.diagrams.forEach(diagram => {
+		aProject.publishTo(diagram => {
 			var divNS = document.createElement("div");
 			if (!simpleFlag) {
 				divNS.appendChild(this.newWaterMark(wmString));
@@ -27,13 +27,13 @@ function NSPPDF() {
 		});
 		this.hideIcons();
 	}
-	this.generateReducedMeta = function () {
+	this.generateReducedMeta = function (project) {
 		var metaInLine = "ÚNICO_AUTOR";
 		if (project.meta) {
 			var metaInLine = "";
-			var data = DataConversor.toJS(project.meta);
+			var data = project.getLog();
 			for (var i = 0; i < data.length; i++) {
-				metaInLine += data[i]["i"].autor + "/"
+				metaInLine += ((data[i]["i"]) ? (data[i]["i"].autor || data[i]["i"].usr) : "ANONIMO") + "/"
 			}
 		}
 		return metaInLine.split(" ").join("_");

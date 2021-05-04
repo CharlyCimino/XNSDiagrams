@@ -9,30 +9,18 @@ function importProject() {
 	input.click();
 }
 
-function exportProjectForPupil() {
-	exportProject(project.getForExport());
-}
-
-function exportProjectSimple() {
-	exportProject(project.getForExportSimple());
-}
-
-function exportProject(obj) {
-	updateDiagram();
-	project.end();
-	var meta = new XNS_META(project.meta);
-	meta.add({ 'autor': project.autor, 'comission': project.comission, 'start': project.dateStart.toISOString(), 'minutes': project.minutes });
-	obj.meta = meta.data;
+function exportProject() {
+	var obj = project.getForExport(true, updateDiagram);
 	var element = document.createElement('a');
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(obj)));
-	element.setAttribute('download', project.name + ".nsplus");
+	element.setAttribute('download', project.fullname + ".nsplus");
 	element.style.display = 'none';
 	document.body.appendChild(element);
 	element.click();
 	document.body.removeChild(element);
 }
 
-function exportPDFForPupil() {
+function exportPDFForStudent() {
 	exportPDF(false);
 }
 
@@ -53,7 +41,7 @@ function makeCssArray() {
 
 function exportPDF(simpleFlag) {
 	updateDiagram();
-	project.end();
+	project.updateTime();
 	PDF.setProject(project, simpleFlag);
 	var printWindow = window.open();
 	printWindow.document.write(toWrite());
@@ -79,7 +67,11 @@ function openFile(file) {
 	// Closure to capture the file information.
 	reader.onload = (function (theFile) {
 		return function (e) {
-			project = jsonToProject(toJSON(e.target.result));
+			try {
+				project = jsonToProject(toJSON(e.target.result));
+			} catch(e) {
+				alert(e);
+			}
 			updateBeforeOpenProject();
 		};
 	})(file);
@@ -88,12 +80,8 @@ function openFile(file) {
 }
 
 function jsonToProject(projectJSON) {
-	var newP = new NSPProject();
-	newP.setData(projectJSON.name, projectJSON.autor, projectJSON.comission);
-	newP.meta = projectJSON.meta;
-	projectJSON.diagrams.forEach(diagram => {
-		newP.addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code));
-	});
+	var newP = new NSPProject(ver());
+	newP.import(projectJSON);
 	return newP;
 }
 

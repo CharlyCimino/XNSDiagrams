@@ -202,3 +202,10 @@ html {
 	width: 50%;
 	padding-left: 1em;
 }
+.disabled {
+	opacity: .5;
+	cursor: auto;
+}
+.evalrow {
+	background-color: #b25050;
+}
