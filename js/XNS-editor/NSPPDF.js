@@ -33,7 +33,7 @@ function NSPPDF() {
 			var metaInLine = "";
 			var data = project.getLog();
 			for (var i = 0; i < data.length; i++) {
-				metaInLine += ((data[i]["i"]) ? data[i]["i"].autor : "ANONIMO") + "/"
+				metaInLine += ((data[i]["i"]) ? (data[i]["i"].autor || data[i]["i"].usr) : "ANONIMO") + "/"
 			}
 		}
 		return metaInLine.split(" ").join("_");

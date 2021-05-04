@@ -154,7 +154,7 @@ function setTrashEvents() {
 
 function updateBeforeOpenProject() {
 	document.title = document.getElementById("inputProjectName").value = project.name;
-	project.set({ "usr": urlParams.get('usuario') || "Anonimo", "com": urlParams.get('curso') || "Sin Curso" });
+	//project.set({ "usr": urlParams.get('usuario') || "Anonimo", "com": urlParams.get('curso') || "Sin Curso" });
 	diagramsMenu.clear();
 	if (project.hasDiagrams) {
 		project.publishTo(diagramsMenu.addDiagram);

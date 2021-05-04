@@ -8,15 +8,23 @@ function NSPProject(data) {
 
 	var _version = 0;
 
-	var _data = {
-		"usr": _DEFAULT_AUTHOR,
-		"com": _DEFAULT_GROUP,
+	var _env = {
+		"tea": false,
 		"uid": null,
 		"mev": null,
-		"tea": false,
+		"usr": _DEFAULT_AUTHOR,
+		"com": _DEFAULT_GROUP
+	}
+	var _defaults = {
+		"usr": _DEFAULT_AUTHOR,
+		"uid": null,
+		"com": _DEFAULT_GROUP,
+		"sem": null,
 		"ref": document.referrer,
 		"url": document.location.href
 	}
+
+	var _data = null;
 
 	var _name = _DEFAULT_NAME;
 	var _dateStart = new Date();
@@ -29,14 +37,16 @@ function NSPProject(data) {
 	var _meta = null;
 	var _log = null;
 
-	function init() { setData(data); checkMEV() }
+	function init() { resetData(); setData(data); setEnv(data); checkMEV() }
 	function checkMEV() {
-		if (_data["mev"]) {
-			if (_data["mev"].charAt(_data["mev"].length-1) != "=") _data["mev"]+="=";
-			_mevDate = DataConversor.toDate(_data["mev"]);
+		if (_env["mev"]) {
+			if (_env["mev"].charAt(_env["mev"].length-1) != "=") _env["mev"]+="=";
+			_mevDate = DataConversor.toDate(_env["mev"]);
 		}
 	}
+	function resetData() { _data = JSON.parse(JSON.stringify(_defaults)); }
 	function setData(obj) { for (x in _data) if (obj[x]) _data[x] = obj[x]; }
+	function setEnv(obj) { for (x in _env) if (obj[x]) _env[x] = obj[x]; }
 	function addDiagram(diagram) { _diagrams.push(diagram); }
 	function moveDiagramUp(index) { swapInArray(_diagrams, index, index - 1); }
 	function moveDiagramDown(index) { swapInArray(_diagrams, index, index + 1); }
@@ -76,11 +86,11 @@ function NSPProject(data) {
 	}
 	function getForExport(complete, callback) {
 		_date = new Date();
-		var obj = {
-			...{ "name": _name, "diagrams": _diagrams },
-			...((complete) ? { "autor": _data["usr"], "comission": _data["com"], "date": _date, "minutes": _minutes } : {}) };
 		if (callback) callback();
 		updateTime();
+		var obj = {
+			...{ "name": _name, "diagrams": _diagrams },
+			...((complete) ? { "usr": _env["usr"], "uid": _env["uid"], "com": _env["com"], "date": _date, "minutes": _minutes, "sem": (isEvalTime()) ? _env["mev"] : undefined } : {}) };
 		var meta = new XNS_META(_meta);
 		meta.add(getMetaInfo());
 		obj.meta = meta.data;
@@ -97,16 +107,16 @@ function NSPProject(data) {
 		var row;
 		if (_meta) {
 			popup.innerHTML = "";
-			if (_data["mev"]) {
+			if (_data && _data["sem"]) {
 				row = document.createElement("DIV");
 				row.className = "evalrow";
-				row.innerHTML = _data["com"] + " - Cierre: " + DataConversor.toDate(_data["mev"]).toLocaleString();
+				row.innerHTML = _data["com"] + " - Cierre: " + DataConversor.toDate(_data["sem"]).toLocaleString();
 				popup.appendChild(row);
 			}
 			for (var i = 0; i < _log.length; i++) {
 				row = document.createElement("DIV");
 				row.className = "row";
-				row.appendChild(newRow(_log[i].i.autor, "autor"));
+				row.appendChild(newRow(_log[i].i.autor || _log[i].i.usr, "autor"));
 				row.appendChild(newRow(new Date(_log[i].i.start).toLocaleString(), "date"));
 				row.appendChild(newRow(new Date(_log[i].d).toLocaleString(), "date"));
 				popup.appendChild(row);
@@ -114,16 +124,18 @@ function NSPProject(data) {
 		}
 	}
 	function importFromJSON(obj) {
+		resetData();
 		_version = obj["ver"] || 0.1;
 		if (_version > 0.1) {
 			obj = DataConversor.toJS(obj["data"], true);
 		}
 		_name = obj.name;
+		setData(obj);
 		setMeta(obj.meta);
-		if (isEvalTime() && !(isTeacher() || isMyFile(obj.autor))) throw "Invalid";
+		if (isEvalTime() && !(isTeacher() || isMyFile(obj["autor"] || obj["usr"]))) throw "Invalid";
 		obj.diagrams.forEach(diagram => { addDiagram(new NSPDiagram(diagram.theClass, diagram.name, diagram.code)); });
 	}
-	function isMyFile(a) { return a == _data["usr"] }
+	function isMyFile(a) { return a == _env["usr"] }
 	function setMeta(value) { _meta = value; _log = DataConversor.toJS(_meta) }
 	function getMeta() { return _meta }
 	function getDiagramLength() { return _diagrams.length }
@@ -135,15 +147,16 @@ function NSPProject(data) {
 	function publish(callback) { if (callback) _diagrams.forEach(d => { callback(d) }); }
 
 	function getMetaInfo() {
-		return { 'autor': _data["usr"], 'comission': _data["com"],
-			'start': _dateStart.toISOString(), 'minutes': _minutes, 'mev': _data["mev"] };
+		var mi = { "usr": _env["usr"], "com": _env["com"], "start": _dateStart.toISOString(), "minutes": _minutes };
+		if (isEvalTime()) mi["sem"] = _env["mev"];
+		return mi;
 	}
 	function getLog() { return _log }
-	function getInfo(key) { return _data[key] };
+	function getInfo(key) { return _env[key] };
 	function getDateStr() { return _date.toLocaleString() }
 	function isEvalTime() { return _mevDate && _mevDate > new Date() }
-	function isTeacher() { return _data["tea"] || (_data["usr"] && isNaN(_data["uid"])) }
-	function getFullname() { return ((isEvalTime() && !isTeacher()) ? [_data["com"], _data["uid"], getName()] : [getName()]).join("_") }
+	function isTeacher() { return _env["tea"] || (_env["uid"] && isNaN(_env["uid"])) }
+	function getFullname() { return ((isEvalTime() && !isTeacher()) ? [_env["com"], _env["uid"], getName()] : [getName()]).join("_") }
 
 	init();
 
