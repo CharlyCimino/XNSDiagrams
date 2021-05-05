@@ -419,7 +419,7 @@
 .conditional-statement>.body>.else,
 .while-statement>.container>.statements,
 .dowhile-statement>.container>.statements {
-	height: 20px;
+	min-height: 20px;
 	padding: 1px;
 }
 
