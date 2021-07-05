@@ -244,17 +244,24 @@ function handleChangeDiagramName(e) {
 }
 
 function ver() {
-	return (function(x){var z={};for(y in x){w=urlParams.get(x[y]);if(w)z[y]=w};return z})({"usr":"usuario","com":"curso","uid":"idusr","mev":"k","tea":"f"});
+	return (function(x){var z={};for(y in x){w=urlParams.get(x[y]);if(w)z[y]=w};return z})({"usr":"usuario","com":"curso","uid":"idusr","evs":"k","eve":"k2","tea":"f"});
+}
+
+function eventProc(mes) {
+	if (mes.action == "emchange") {
+		updateButtons(project);
+	}
+}
+
+function par() {
+	var v = ver();
+	v.notify = eventProc;
+	return v;
 }
 
 function isValidForPop() {
 	var x = urlParams.get('idusr');
 	return (x && isNaN(x));
-}
-
-function isShortMode() {
-	var x = urlParams.get('eval');
-	return (x && !!isNaN(x));
 }
 
 function drawCorners() {
@@ -308,7 +315,7 @@ function init() {
 		setEvent(window, "resize", reSize);
 		setEvent(window, "beforeunload", handleClose);
 		setTrashEvents();
-		project = new NSPProject(ver());
+		project = new NSPProject(par());
 		diagramContainer = new DiagramContainer();
 		diagramsMenu = new DiagramsMenu();
 		statementsMenu = new StatementsMenu();

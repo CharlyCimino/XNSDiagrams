@@ -11,9 +11,11 @@ function NSPProject(data) {
 	var _env = {
 		"tea": false,
 		"uid": null,
-		"mev": null,
+		"evs": null,
+		"eve": null,
 		"usr": _DEFAULT_AUTHOR,
-		"com": _DEFAULT_GROUP
+		"com": _DEFAULT_GROUP,
+		"notify": null
 	}
 	var _defaults = {
 		"usr": _DEFAULT_AUTHOR,
@@ -21,7 +23,8 @@ function NSPProject(data) {
 		"com": _DEFAULT_GROUP,
 		"sem": null,
 		"ref": document.referrer,
-		"url": document.location.href
+		"url": document.location.href,
+		"notify": null
 	}
 
 	var _data = null;
@@ -30,18 +33,38 @@ function NSPProject(data) {
 	var _dateStart = new Date();
 	var _date =  new Date();
 	var _minutes = 0;
-	var _mevDate = null;
+	var _evStart = null;
+	var _evEnd = null;
+
+	var _iem = false;
 
 	var _diagrams = [];
 
 	var _meta = null;
 	var _log = null;
 
-	function init() { resetData(); setData(data); setEnv(data); checkMEV() }
+	function init() { resetData(); setData(data); setEnv(data); checkMEV(); starCheckTimer() }
 	function checkMEV() {
-		if (_env["mev"]) {
-			if (_env["mev"].charAt(_env["mev"].length-1) != "=") _env["mev"]+="=";
-			_mevDate = DataConversor.toDate(_env["mev"]);
+		if (_env["evs"]) {
+			if (_env["evs"].charAt(_env["evs"].length-1) != "=") _env["evs"]+="=";
+			_evStart = DataConversor.toDate(_env["evs"]);
+		}
+		if (_env["eve"]) {
+			if (_env["eve"].charAt(_env["eve"].length-1) != "=") _env["eve"]+="=";
+			_evEnd = DataConversor.toDate(_env["eve"]);
+		}
+	}
+	function starCheckTimer() {
+		if (_evStart) {
+			var now = new Date();
+			var status = _evStart.valueOf() <= now.valueOf() && now.valueOf() <= _evEnd;
+			if (status != _iem) {
+				_iem = status;
+				if (_env.notify) {
+					_env.notify({ 'action': 'emchange' });
+				}
+			}
+			window.setTimeout(starCheckTimer, 1000);
 		}
 	}
 	function resetData() { _data = JSON.parse(JSON.stringify(_defaults)); }
@@ -90,7 +113,7 @@ function NSPProject(data) {
 		updateTime();
 		var obj = {
 			...{ "name": _name, "diagrams": _diagrams },
-			...((complete) ? { "usr": _env["usr"], "uid": _env["uid"], "com": _env["com"], "date": _date, "minutes": _minutes, "sem": (isEvalTime()) ? _env["mev"] : undefined } : {}) };
+			...((complete) ? { "usr": _env["usr"], "uid": _env["uid"], "com": _env["com"], "date": _date, "minutes": _minutes, "sem": (isEvalTime()) ? _env["evs"] : undefined } : {}) };
 		var meta = new XNS_META(_meta);
 		meta.add(getMetaInfo());
 		obj.meta = meta.data;
@@ -148,13 +171,13 @@ function NSPProject(data) {
 
 	function getMetaInfo() {
 		var mi = { "usr": _env["usr"], "com": _env["com"], "start": _dateStart.toISOString(), "minutes": _minutes };
-		if (isEvalTime()) mi["sem"] = _env["mev"];
+		if (isEvalTime()) mi["sem"] = _env["evs"];
 		return mi;
 	}
 	function getLog() { return _log }
-	function getInfo(key) { return _env[key] };
+	function getInfo(key) { return _env[key] }
 	function getDateStr() { return _date.toLocaleString() }
-	function isEvalTime() { return _mevDate && _mevDate > new Date() }
+	function isEvalTime() { return _iem }
 	function isTeacher() { return _env["tea"] || (_env["uid"] && isNaN(_env["uid"])) }
 	function getFullname() { return ((isEvalTime() && !isTeacher()) ? [_env["com"], _env["uid"], getName()] : [getName()]).join("_") }
 

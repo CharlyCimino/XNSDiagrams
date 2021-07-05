@@ -6,6 +6,14 @@ function setEvent(domElement, eventName, handler) {
 	}
 }
 
+function removeEvent(domElement, eventName, handler) {
+	if (document.body.removeEventListener) {
+		domElement.removeEventListener(eventName, handler);
+	} else {
+		domElement.detachEvent("on" + eventName, handler);
+	}
+}
+
 function applyClassInNode(flag, className, node) {
 	if (flag) {
 		node.classList.add(className);

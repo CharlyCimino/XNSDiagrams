@@ -43,3 +43,12 @@ function initButtons(prj) {
 		}
 	}
 }
+
+function updateButtons(prj) {
+	if (!prj) return;
+	if (prj.et) {
+		removeEvent(exportPDFBtn, "click", exportPDFForStudent); exportPDFBtn.className += " disabled";
+	} else {
+		setEvent(exportPDFBtn, "click", exportPDFForStudent);  exportPDFBtn.className = exportPDFBtn.className.replace(" disabled", "");
+	}
+}
