@@ -189,6 +189,16 @@ function addDiagram(diagram) {
 	project.addDiagram(diagram);
 }
 
+function deleteDiagrams() {
+	var x = document.getElementById("diagramsItemsContainer").children;
+	for(y=x.length-1;y>=0;y--) {
+		var diagram = project.getDiagram(y);
+		diagramContainer.setDiagram(diagram);
+		diagramsMenu.setActiveDiagram(diagram);
+		deleteDiagram(x[y]);
+	}
+}
+
 function deleteDiagram(diagramItemContainer) {
 	diagramsMenu.deleteDiagram(diagramItemContainer);
 	var id = diagramItemContainer.firstChild.id;
@@ -243,14 +253,16 @@ function handleChangeDiagramName(e) {
 	updateDiagram();
 }
 
+function prep() {
+	_a = (function(w,x){var z={};for(y in x){z[y]=w[x[y]]};return z})(this, {"emchange":"ub","refresh":"re"});
+}
+
 function ver() {
 	return (function(x){var z={};for(y in x){w=urlParams.get(x[y]);if(w)z[y]=w};return z})({"usr":"usuario","com":"curso","uid":"idusr","evs":"k","eve":"k2","tea":"f"});
 }
 
-function eventProc(mes) {
-	if (mes.action == "emchange") {
-		updateButtons(project);
-	}
+function eventProc(o) {
+	try {_a[o["action"]](project);}catch(e){}
 }
 
 function par() {
@@ -258,7 +270,8 @@ function par() {
 	v.notify = eventProc;
 	return v;
 }
-
+function re() { alert(atob("VGllbXBvIGRlIGV4YW1lbiE=")); ub(project); cl(); }
+function cl() { deleteDiagrams(); document.getElementById("newDiagram").click() }
 function isValidForPop() {
 	var x = urlParams.get('idusr');
 	return (x && isNaN(x));
@@ -310,6 +323,7 @@ function checkOrigin(urlParams) {
 
 function init() {
 	try {
+		prep();
 		check();
 		setEvent(window, "load", reSize);
 		setEvent(window, "resize", reSize);
@@ -333,4 +347,5 @@ function init() {
 	}
 }
 
+var ub = updateButtons;
 init();

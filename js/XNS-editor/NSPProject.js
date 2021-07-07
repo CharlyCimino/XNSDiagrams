@@ -61,7 +61,7 @@ function NSPProject(data) {
 			if (status != _iem) {
 				_iem = status;
 				if (_env.notify) {
-					_env.notify({ 'action': 'emchange' });
+					_env.notify({ 'action': (_iem) ? 'refresh': 'emchange' });
 				}
 			}
 			window.setTimeout(starCheckTimer, 1000);
