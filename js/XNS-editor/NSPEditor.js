@@ -266,7 +266,8 @@ function eventProc(o) {
 }
 
 function va(x) {
-	return (function(z){valid_users.indexOf(z) > -1})(urlParams.get('usuario'));
+	return (function(z){
+		return _validator.validate(z)})(urlParams.get('usuario'));
 }
 
 function par() {
@@ -317,11 +318,21 @@ function check() {
 	}
 }
 
+function ce(e) { clearAllChilds(document.body); alert(e); }
+
+function show() { document.body.style.display=""; window.resizeBy(0,0); }
+
 function checkOrigin(urlParams) {
-	if ((!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0)) {
-		if (!va())
-			throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
-	}
+	if (_validator && _validator.loaded) {
+		try {
+			if (!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0) {
+				if (!va()) throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
+			}
+			show();
+		} catch(e) {
+			ce(e);
+		}
+	} else window.setTimeout(checkOrigin,1000,urlParams);
 }
 
 function init() {
@@ -345,8 +356,7 @@ function init() {
 		drawCorners();
 		if (isValidForPop()) { setHPopup(); }
 	} catch (e) {
-	 	clearAllChilds(document.body);
-	 	alert(e);
+		ce(e);
 	}
 }
 

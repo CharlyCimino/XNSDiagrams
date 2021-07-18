@@ -1,15 +1,20 @@
-  var firebaseConfig = {
-    apiKey: "AIzaSyDGbBrjpS5ksVKPbjgemTRRo5cdHR70Q38",
-    authDomain: "nsplus-23b8f.firebaseapp.com",
-    projectId: "nsplus-23b8f",
-    storageBucket: "nsplus-23b8f.appspot.com",
-    messagingSenderId: "313083129617",
-    appId: "1:313083129617:web:4ebbc88af18aa69bd626b0",
-    measurementId: "G-F0PF2P50G1"
-};
-firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-var fbase = firebase.firestore();
-var valid_users = [];
-var loadValidUsers = (result) => { try { valid_users = result.data(); } catch(e) {}};
-fbase.collection("nsp-teacher").doc("gxQ27COFmtjsts8JBYq4").get().then(loadValidUsers);
+var _validator = null;
+(function() {
+    var Validator = function() {
+      var _self = this;
+      var data = "eyJhcGlLZXkiOiJBSXphU3lER2JCcmpwUzVrc1ZLUGJqZ2VtVFJSbzVjZEhSNzBRMzgiLCJhdXRoRG9tYWluIjoibnNwbHVzLTIzYjhmLmZpcmViYXNlYXBwLmNvbSIsInByb2plY3RJZCI6Im5zcGx1cy0yM2I4ZiIsInN0b3JhZ2VCdWNrZXQiOiJuc3BsdXMtMjNiOGYuYXBwc3BvdC5jb20iLCJtZXNzYWdpbmdTZW5kZXJJZCI6IjMxMzA4MzEyOTYxNyIsImFwcElkIjoiMTozMTMwODMxMjk2MTc6d2ViOjRlYmJjODhhZjE4YWE2OWJkNjI2YjAiLCJtZWFzdXJlbWVudElkIjoiRy1GMFBGMlA1MEcxIn0=";
+      var loaded = false;
+      var valid_users = [];
+      var fbc = JSON.parse(atob(data));
+      var loadValidUsers = function(result) { try {  valid_users = result.data().teachers; loaded = true } catch(e) {} };
+      var validate = function(z) { return valid_users.indexOf(z) > -1; };
+      var getLoaded = function() { return loaded; };
+      firebase.initializeApp(fbc);
+      firebase.analytics();
+      firebase.firestore().collection("nsp-teacher").doc("gxQ27COFmtjsts8JBYq4").get().then(loadValidUsers);
+      Object.defineProperty(_self, "validate", { "writable": false, "numerable": false, "value": function (a) { return validate(a) } } );
+      Object.defineProperty(_self, "loaded", { "enumerable": true, "get": getLoaded } );
+      return _self;
+    }
+    _validator = new Validator();
+  }());
