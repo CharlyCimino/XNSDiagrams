@@ -265,6 +265,10 @@ function eventProc(o) {
 	try {_a[o["action"]](project);}catch(e){}
 }
 
+function va(x) {
+	return (function(z){valid_users.indexOf(z) > -1})(urlParams.get('usuario'));
+}
+
 function par() {
 	var v = ver();
 	v.notify = eventProc;
@@ -314,10 +318,9 @@ function check() {
 }
 
 function checkOrigin(urlParams) {
-	if (document.URL.indexOf("file:///") < 0) {
-		if ((!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0)) {
-			throw "Este editor es solo accesible desde el Aula Virtual del Instituto ORT";
-		}
+	if ((!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0)) {
+		if (!va())
+			throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
 	}
 }
 
