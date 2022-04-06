@@ -176,7 +176,8 @@ function reSize() {
 	var menuContainer = document.getElementById("menuContainer");
 	document.body.style.paddingTop = headerHeight;
 	document.body.style.paddingBottom = footerHeight;
-	var bodyHeight = parseFloat(window.getComputedStyle(document.body).height);
+	//var bodyHeight = parseFloat(window.getComputedStyle(document.body).height);
+	var bodyHeight = window.innerHeight;
 	var newSectionDiagramHeight = bodyHeight - headerHeight - footerHeight - 16;
 	sectionDiagram.style.height = newSectionDiagramHeight;
 	menuContainer.style.height = newSectionDiagramHeight;
