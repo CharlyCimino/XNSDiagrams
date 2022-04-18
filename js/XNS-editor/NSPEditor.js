@@ -324,7 +324,7 @@ function ce(e) { clearAllChilds(document.body); alert(e); }
 function show() { document.body.style.display=""; window.resizeBy(0,0); }
 
 function checkOrigin(urlParams) {
-	if ((!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0)) {
+	if ((!urlParams.get('usuario') || !urlParams.get('curso') || document.referrer.indexOf("ort.edu.ar:50080") < 0 || document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0)) {
 		throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
 	}
 	show();
