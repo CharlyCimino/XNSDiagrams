@@ -116,7 +116,9 @@ function closeBlocksContainerHandler(e) {
 function swapHistorial() {
 	project[(histPopup.visible) ? "hideHistorial" : "showHistorial"](histPopup);
 }
-
+function closeWindowHandler() {
+	window.close();
+}
 function handleClose(e) {
 	e.preventDefault();
 	e.returnValue = '';
