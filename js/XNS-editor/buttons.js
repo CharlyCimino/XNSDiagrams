@@ -36,7 +36,7 @@ function initButtons(prj) {
 	setEvent(buttonOpenBlocks, "click", openBlocksContainerHandler);
 	setEvent(buttonCloseBlocks, "click", closeBlocksContainerHandler);
 
-	setEvent(exitBtn, "click", window.close);
+	setEvent(exitBtn, "click", closeWindowHandler);
 	
 	function setInsertButtonsEvents() {
 		var diagramButtons = document.getElementById("diagramButtons").children;
