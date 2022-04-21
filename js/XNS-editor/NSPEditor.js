@@ -339,7 +339,7 @@ function init() {
 		check();
 		setEvent(window, "load", reSize);
 		setEvent(window, "resize", reSize);
-		setEvent(window, "beforeunload", handleClose);
+		if (!urlParams.get("mode")) setEvent(window, "beforeunload", handleClose);
 		setTrashEvents();
 		project = new NSPProject(par());
 		diagramContainer = new DiagramContainer();
