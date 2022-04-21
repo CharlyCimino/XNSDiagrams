@@ -323,8 +323,11 @@ function ce(e) { clearAllChilds(document.body); alert(e); }
 
 function show() { document.body.style.display=""; window.resizeBy(0,0); }
 
-function checkOrigin(urlParams) {
-	if ((!urlParams.get('usuario') || !urlParams.get('curso') || (document.referrer.indexOf("ort.edu.ar:50080") < 0 && document.referrer.indexOf("aulavirtual.instituto.ort.edu.ar") < 0))) {
+function checkOrigin(up) {
+	function a(x, r) { return r.indexOf("aulavirtual.instituto.ort.edu.ar") > -1 && up.get('usuario') && up.get('curso') }
+	function b(y, r) { return r.indexOf("ort.edu.ar:50080") > -1 && y.get("mode") == 1 }
+	var ref = document.referrer;
+	if (!a(up,ref) && !b(up,ref)) {
 		throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
 	}
 	show();
