@@ -328,9 +328,7 @@ function checkOrigin(up) {
 	function c(x) { return x.get('usuario') && x.get('curso') }
 	function b(y) { return y.get("mode") == 1 }
 	if (!a(document.referrer) || !(b(up) || c(up))) {
-		throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU") +
-			" -- referrer: " + document.referrer + " --  up: " + up +
-			" -- a: " + a(document.referrer) + " - b: " + b(up) + " - c: " + c(up);
+		throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
 	}
 	show();
 }
