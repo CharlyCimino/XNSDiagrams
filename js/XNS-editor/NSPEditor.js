@@ -6,6 +6,7 @@ var statementsMenu;
 var PDF;
 var urlParams;
 var trash = document.getElementById("trash");
+var cancelAlert = document.getElementById("cancelAlert")
 
 function drag(e) {
 	if (this.template) {
@@ -16,7 +17,12 @@ function drag(e) {
 	e.dataTransfer.setData("template", this.template);
 	e.dataTransfer.setData("id", e.target.id);
 	setTimeout(() => {
-		applyClassInNode(false, "invisible", trash);
+		applyClassInNode(false, "invisible", cancelAlert);
+		//MANTENER INVISIBLE CUANDO SE ARRASTRA DESDE EL MENU
+		if(e.path){
+			var draggingFromMenu = e.path.some(x => x.id == 'menuContainer')
+		}
+		applyClassInNode(draggingFromMenu, "invisible", trash);
 		expandEmptys(true);
 	}, 100);
 }
@@ -79,6 +85,7 @@ function handleDragLeaveInBlock(ev) {
 
 function handleDragEnd(e) {
 	applyClassInNode(true, "invisible", trash);
+	applyClassInNode(true, "invisible", cancelAlert);
 	expandEmptys(false);
 	updateDiagram();
 }
@@ -319,6 +326,7 @@ function check() {
 	(function (a ,b, c, d) { ((a) ? b : c)(d)}) (urlParams.get('f') == mk(), show, checkOrigin, urlParams);
 }
 
+//NOTE mi dolor de cabeza, de aca sale el alert que me bloquea por el origen
 function ce(e) { clearAllChilds(document.body); alert(e); }
 
 function show() { document.body.style.display=""; window.resizeBy(0,0); }
@@ -328,9 +336,10 @@ function checkOrigin(up) {
 	function d(u) { try { return u.indexOf("ort.edu.ar") > -1 } catch { return false } }
 	function c(x) { return x.get('usuario') && x.get('curso') }
 	function b(y) { return y.get("mode") == 1 }
-	if (!(a(document.referrer) || d(navigator.userAgent)) || !(b(up) || c(up))) {
-		throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
-	}
+	//NOTE: MODO DESAROLLO
+	// if (!(a(document.referrer) || d(navigator.userAgent)) || !(b(up) || c(up))) {
+	// 	throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
+	// }
 	show();
 }
 
@@ -355,6 +364,7 @@ function init() {
 		drawCorners();
 		if (isValidForPop()) { setHPopup(); }
 	} catch (e) {
+		//Aca rompe
 		ce(e);
 	}
 }

@@ -209,3 +209,17 @@ html {
 .evalrow {
 	background-color: #b25050;
 }
+
+.info-card{
+	background-color: lightgoldenrodyellow;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.key-span{
+	display: inline;
+    background-color: #d7d7d7;
+    padding: 2px 10px;
+    border-radius: 5px;
+    border: 1px solid #c7c7c7;
+}
