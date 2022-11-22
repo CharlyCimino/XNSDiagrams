@@ -328,7 +328,7 @@ function checkOrigin(up) {
 	function d(u) { try { return u.indexOf("ort.edu.ar") > -1 } catch { return false } }
 	function c(x) { return x.get('usuario') && x.get('curso') }
 	function b(y) { return y.get("mode") == 1 }
-	if (false && (!(a(document.referrer) || d(navigator.userAgent)) || !(b(up) || c(up)))) {
+	if (!(a(document.referrer) || d(navigator.userAgent)) || !(b(up) || c(up))) {
 		throw atob("RXN0ZSBlZGl0b3IgZXMgc29sbyBhY2Nlc2libGUgZGVzZGUgZWwgQXVsYSBWaXJ0dWFsIGRlbCBJbnN0aXR1dG8gT1JU");
 	}
 	show();
